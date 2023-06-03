@@ -1,0 +1,217 @@
+import Head from "next/head"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import React, { useState } from "react"
+import { BiArrowBack } from "react-icons/bi"
+import { BarLoader } from "react-spinners"
+import Script from "next/script"
+
+const Book = ({
+  product: {
+    image: { url, lqip },
+    title,
+    price,
+    desc,
+  },
+}) => {
+  const [book, setBook] = useState({
+    username: "",
+    email: "",
+    mobile: "",
+    address: "",
+    title,
+    price,
+  })
+  const Change = ({ target: { value, name } }) => {
+    setBook({ ...book, [name]: value })
+  }
+
+  const [loading, setLoading] = useState(false)
+
+  const { back, push } = useRouter()
+
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  const BookProduct = async (e) => {
+    setLoading(true)
+    e.preventDefault()
+    const values = Object.entries(book).map(([key, value]) => value)
+    try {
+      await fetch("/api/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+
+      setShowSuccess(true)
+    } catch (error) {
+      alert(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const keywords = title.split(" ")
+
+  const title1 = `${title} | Arora Mud Art`
+
+  return (
+    <div className="max-w-4xl mx-auto md:mt-10 text-xs px-1">
+      <Head>
+        <title>{title1}</title>
+        <meta
+          name="keywords"
+          content={`${keywords} Arora,Mud,Art,aroramudart,mudart,aroramudart.vercel.app`}
+        />
+        <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
+      </Head>
+      <button onClick={() => back()} className="inline-block mb-2 btn">
+        <BiArrowBack stroke="#222222" color="#222222" size={18} />
+      </button>
+      {loading && <HangOn />}
+
+      <div className="flex flex-col md:flex-row gap-10 md:items-center capitalize">
+        <div className="md:flex-1">
+          <Image
+            sizes="(max-width: 540px) 40vw,
+            (max-width: 768px) 60vw,
+            (max-width: 1200px) 80vw"
+            width={400}
+            height={400}
+            className="rounded-md object-contain"
+            src={url}
+            alt={title}
+            placeholder="blur"
+            blurDataURL={lqip}
+          />
+        </div>
+        <div className="tracking-wide flex-1">
+          <h1 className="text-base text-white/80 font-semibold">{title}</h1>
+          <p className="text-white/50">{desc}</p>
+          <p className="text-white/80 font-semibold">Price: ₹{price}</p>
+          <form
+            autoComplete="off"
+            onSubmit={BookProduct}
+            className="flex flex-col gap-10 mt-5"
+          >
+            <input
+              className="input_text"
+              name="username"
+              onChange={Change}
+              value={book.username}
+              required
+              type="text"
+              placeholder="Username"
+            />
+            <input
+              className="input_text"
+              name="email"
+              onChange={Change}
+              value={book.email}
+              required
+              type="email"
+              placeholder="E-Mail"
+            />
+            <input
+              className="input_text"
+              name="mobile"
+              onChange={Change}
+              value={book.mobile}
+              required
+              type="tel"
+              minLength={10}
+              maxLength={10}
+              placeholder="Mobile"
+            />
+            <textarea
+              className="input_text"
+              name="address"
+              onChange={Change}
+              value={book.address}
+              required
+              placeholder="Address"
+            ></textarea>
+            <button className="btn">Confirm</button>
+          </form>
+        </div>
+      </div>
+
+      {showSuccess && <Success setShowSuccess={setShowSuccess} push={push} />}
+    </div>
+  )
+}
+
+export default Book
+
+import sanity from "../../../components/sanityClient"
+
+export const getStaticPaths = async () => {
+  const data = await sanity.fetch(`*[_type == "product"]{"slug":slug.current}`)
+  const paths = data.map((all) => {
+    return { params: { slug: all.slug } }
+  })
+
+  return {
+    paths,
+    fallback: "blocking",
+  }
+}
+
+export const getStaticProps = async ({ params: { slug } }) => {
+  const product = await sanity.fetch(
+    `*[slug.current==$slug][0]{
+      title,
+      "slug":slug.current,
+      desc,
+      price,
+      body,
+      "image":mainImage.asset->{url,"lqip":metadata.lqip}
+    }`,
+    { slug }
+  )
+
+  return {
+    props: { product },
+    revalidate: 10,
+  }
+}
+
+const HangOn = () => (
+  <div className="fixed z-[5] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] bg-[#222222]/90">
+    <BarLoader color="white" />
+    <h1 className="text-4xl tracking-wide mt-5 text-white">Please Wait</h1>
+  </div>
+)
+
+const Success = ({ setShowSuccess, push }) => {
+  return (
+    <div className="bg-[#222222] fixed inset-0 px-5 flex flex-col justify-center items-center z-[5]">
+      <div className="max-w-md">
+        <lottie-player
+          src="/success.json"
+          mode="bounce"
+          background="transparent"
+          speed="1"
+          loop=""
+          autoplay
+        ></lottie-player>
+      </div>
+
+      <h1 className="text-white mt-5 font-semibold text-lg text-center">
+        Your Order Has Been Booked!
+      </h1>
+      <p
+        className="btn !self-center mt-3"
+        onClick={() => {
+          push("/products")
+          setShowSuccess(false)
+        }}
+      >
+        Got It!
+      </p>
+    </div>
+  )
+}
