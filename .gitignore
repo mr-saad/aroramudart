@@ -1,7 +1,6 @@
 .next
 node_modules
 mudStudio
-public
 .env.local
 credentials.json
 package-lock.json
