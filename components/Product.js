@@ -10,6 +10,7 @@ const Product = ({
   discount,
   discountedPrice,
 }) => {
+  console.log(price)
   return (
     <Link
       scroll={true}
@@ -22,7 +23,7 @@ const Product = ({
                 (max-width: 768px) 60vw,
                 (max-width: 1200px) 80vw"
         quality={30}
-        className="w-full aspect-video object-contain select-none"
+        className="w-full aspect-video object-contain select-none pt-5"
         placeholder="blur"
         blurDataURL={lqip}
         width={200}

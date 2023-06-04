@@ -98,7 +98,9 @@ export const getServerSideProps = async () => {
     desc,
     body,
     category,
-    spanded,
+    price,
+    discount,
+    discountedPrice,
     "image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`)
   return {
