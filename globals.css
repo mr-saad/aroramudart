@@ -2,12 +2,12 @@
 @tailwind utilities;
 @tailwind components;
 
-@font-face {
+/* @font-face {
   font-family: Rubik;
   font-display: swap;
   src: url("/rubik-light.woff2") format("woff2");
   font-weight: 400;
-}
+} */
 @font-face {
   font-family: Rubik;
   font-display: swap;
@@ -29,16 +29,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-*::selection {
-  background: rgba(255, 255, 255, 0.8);
-  color: #000;
-}
-
 html {
   scroll-behavior: smooth;
 }
 body {
-  @apply bg-[#222222];
+  @apply dark:bg-[#222222] dark:text-white/60 text-black/60;
 }
 
 .over-hide {
@@ -46,15 +41,15 @@ body {
 }
 
 .heading {
-  @apply text-2xl text-white font-bold;
+  @apply text-2xl dark:text-white text-black font-bold;
 }
 
 .btn {
-  @apply bg-white text-sm font-bold text-[#222222] hover:bg-[#222222] hover:!text-white transition border border-white self-start px-3 py-2 rounded-md;
+  @apply text-sm font-bold dark:text-black dark:hover:text-[#ffbf00] dark:hover:bg-[#222222] hover:text-[#ffbf00] hover:bg-white text-[#222222]  bg-[#ffbf00]  transition border border-[#ffbf00] self-start px-3 py-2 rounded-md;
 }
 
 .input_text {
-  @apply py-1 px-2 mb-5 w-full text-white caret-white/50 outline-none font-semibold bg-transparent border-b transition duration-500 border-white/10 focus:border-white placeholder:text-white/50 placeholder:font-thin;
+  @apply py-1 px-2 mb-5 w-full dark:text-white text-black dark:caret-white/50 outline-none font-semibold bg-transparent border-b transition duration-500 dark:border-white/10 dark:focus:border-white focus:border-black dark:placeholder:text-white/50;
 }
 
 .hero {

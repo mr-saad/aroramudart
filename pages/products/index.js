@@ -126,15 +126,17 @@ const Filter = ({
 }) => {
   const [open, setOpen] = useState(false)
 
+  const { dark } = useContext(Context)
+
   return (
-    <div className="flex flex-col md:items-start fixed bg-[#222222]/[.95] rounded-md inset-y-4 w-full h-full left-0 top-16 md:flex-row gap-5 mb-5 p-5">
+    <div className="flex flex-col md:items-start fixed dark:bg-[#222222] bg-[#FFBF00]/[.95] rounded-md inset-y-4 w-full h-full left-0 top-16 md:flex-row gap-5 mb-5 p-5">
       <div className="relative md:w-96 max-w-md">
-        <p className="mb-2 text-white">Search</p>
+        <p className="mb-2 dark:text-white text-black">Search</p>
 
         <div className="relative">
           <BsSearch
             size={16}
-            color="#fff"
+            color={dark ? "#fff" : "#000"}
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <input
@@ -143,13 +145,13 @@ const Filter = ({
             onChange={(e) => setInput(e.target.value)}
             type="text"
             placeholder="What are you Searching For?"
-            className="px-10 text-sm w-full py-2 bg-transparent rounded-md text-white outline-none border border-white/20 focus:border-white/40 placeholder:text-white/50"
+            className="px-10 text-sm w-full py-2 bg-transparent rounded-md dark:text-white text-black outline-none border dark:border-white/20 dark:focus:border-white/40 dark:placeholder:text-white/50 placeholder:text-black/50 border-black/50 focus:border-black"
           />
           {(filtered.length !== 0 || input) && (
             <VscClose
               onClick={() => setInput("")}
               size={25}
-              color="#fff"
+              color={dark ? "#fff" : "#000"}
               className="absolute right-3 top-1/2 -translate-y-1/2"
             />
           )}
@@ -162,7 +164,7 @@ const Filter = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute text-sm top-full flex flex-col mt-1 w-full bg-[#222222] capitalize z-[2] max-h-40 overflow-y-auto text-white rounded-md gap-3 p-3 will-change-contents overflow-hidden"
+              className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#222222] bg-[#FFBF00] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
             >
               {filtered.map((all, i) => (
                 <AnimatePresence key={all.slug.current} exitBeforeEnter>
@@ -185,7 +187,7 @@ const Filter = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute text-sm z-[2] w-full p-3 mt-1 text-white rounded-md bg-[#222222] break-all"
+                className="absolute text-sm z-[2] w-full p-3 mt-1 dark:text-white text-black rounded-md dark:bg-[#222222] bg-[#FFBF00] break-all"
               >
                 No Results for "{input}"
               </motion.div>
@@ -195,15 +197,15 @@ const Filter = ({
       </div>
 
       <div>
-        <p className="mb-2 text-white">Sort By Category</p>
-        <div className="rounded-md md:w-96 max-w-md relative border border-white/20 text-white text-sm">
+        <p className="mb-2 dark:text-white text-black">Sort By Category</p>
+        <div className="rounded-md md:w-96 max-w-md relative border dark:border-white/20 border-black/50 text-sm">
           <div
             onClick={() => {
               setOpen(!open)
             }}
             className="flex justify-between items-center px-4 py-2"
           >
-            <h3 className="w-full">{selectedCat}</h3>
+            <h3 className="w-full text-black dark:text-white">{selectedCat}</h3>
             <FaAngleDown
               onClick={() => {
                 setOpen(!open)
@@ -220,7 +222,7 @@ const Filter = ({
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.1 }}
-                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 px-2 flex flex-col items-start overflow-hidden bg-[#222222]"
+                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 px-2 flex flex-col items-start overflow-hidden dark:bg-[#222222] bg-[#FFBF00]"
               >
                 {categories.map((all) => {
                   return (
@@ -232,7 +234,8 @@ const Filter = ({
                         setShowSearch(false)
                       }}
                       className={`select-none px-2 py-1 rounded-md ${
-                        selectedCat === all && "bg-white text-[#222222]"
+                        selectedCat === all &&
+                        "bg-white dark:text-white text-black"
                       }`}
                     >
                       {all}

@@ -8,72 +8,73 @@ const Contact = () => {
   const { push } = useRouter()
 
   return (
-    <div className="flex flex-col text-xs text-white/60 leading-6">
+    <div className="flex flex-col text-xs leading-6">
       {state.submitting && (
-        <div className="p-5 z-[5] fixed bg-[#222222] text-4xl font-semibold text-white inset-0 flex justify-center items-center">
+        <div className="p-5 z-[5] fixed dark:bg-[#222222] bg-[#FFBF00] text-4xl font-semibold dark:text-white text-black inset-0 flex justify-center items-center">
           Please Wait
         </div>
       )}
       {state.succeeded && (
-        <div className="fixed inset-0 bg-[#222222] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
-          <p className="text-white text-4xl">Your Message is Sent!</p>
+        <div className="fixed inset-0 dark:bg-[#222222] bg-[#FFBF00] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
+          <p className="dark:text-white text-black text-4xl">
+            Your Message is Sent!
+          </p>
           <p>We'll Try Respond As Soon As Possible</p>
           <button onClick={() => push("/")} className="btn !self-center">
             Got It
           </button>
         </div>
       )}
-      We would love to hear from you! Feel free to reach out to us using any of
-      the following methods: <br />
-      <br />
-      <div className="leading-6">
-        Email :{" "}
-        <a
-          className="border-b border-white/50 text-white/80"
-          href="mailto:aroramudartbhuj@gmail.com"
-        >
-          aroramudartbhuj@gmail.com
-        </a>
+      <div className="max-w-4xl mx-auto">
+        We would love to hear from you! Feel free to reach out to us using any
+        of the following methods: <br />
         <br />
-        Instagram:{" "}
-        <a
-          className="border-b border-white/50 text-white/80"
-          href="https://instagram.com/arora_mud_art"
-        >
-          @arora_mud_art
-        </a>
+        <div className="leading-6">
+          Email :{" "}
+          <a
+            className="border-b dark:border-white/50"
+            href="mailto:aroramudartbhuj@gmail.com"
+          >
+            aroramudartbhuj@gmail.com
+          </a>
+          <br />
+          Instagram:{" "}
+          <a
+            className="border-b dark:border-white/50"
+            href="https://instagram.com/arora_mud_art"
+          >
+            @arora_mud_art
+          </a>
+          <br />
+          Facebook :{" "}
+          <a
+            href="https://facebook.com"
+            className="border-b dark:border-white/50"
+          >
+            aroramudart
+          </a>
+          <br />
+          Whatsapp :{" "}
+          <a
+            className="border-b dark:border-white/50"
+            href="https://wa.me/919979692226"
+          >
+            +91 99796 62226
+          </a>
+          <br />
+          Phone :{" "}
+          <a className="border-b dark:border-white/50" href="tel:919979662226">
+            +91 99796 62226
+          </a>
+        </div>
         <br />
-        Facebook :{" "}
-        <a
-          href="https://facebook.com"
-          className="border-b border-white/50 text-white/80"
-        >
-          aroramudart
-        </a>
-        <br />
-        Whatsapp :{" "}
-        <a
-          className="border-b border-white/50 text-white/80"
-          href="https://wa.me/919979692226"
-        >
-          +91 99796 62226
-        </a>
-        <br />
-        Phone :{" "}
-        <a
-          className="border-b border-white/50 text-white/80"
-          href="tel:919979662226"
-        >
-          +91 99796 62226
-        </a>
+        <p>
+          For any inquiries, questions, or feedback regarding our mud art
+          creations, customization requests, or order information, please don't
+          hesitate to get in touch. Our dedicated team is here to assist you and
+          provide the information you need.
+        </p>
       </div>
-      <br />
-      <p>
-        For any inquiries, questions, or feedback regarding our mud art
-        creations, customization requests, or order information, please don't
-        hesitate to get in touch. Our dedicated team is here to assist you and
-        provide the information you need.
-      </p>
       <div className="flex flex-col justify-between md:flex-row my-32">
         <Image
           width={500}
@@ -130,19 +131,21 @@ const Contact = () => {
           </form>
         </div>
       </div>
-      <p>
-        We value your input and look forward to hearing from you. Whether you're
-        an art enthusiast, a potential customer, or someone with a general
-        interest in our work, we appreciate your interest in Arora Mud Art. Your
-        support means a lot to us, and we're excited to assist you in any way we
-        can.
-      </p>
-      <br />
-      <p>
-        Thank you for choosing Arora Mud Art. We are dedicated to providing you
-        with exceptional mud artworks that bring nature's beauty into your
-        surroundings.
-      </p>
+      <div className="max-w-4xl mx-auto">
+        <p>
+          We value your input and look forward to hearing from you. Whether
+          you're an art enthusiast, a potential customer, or someone with a
+          general interest in our work, we appreciate your interest in Arora Mud
+          Art. Your support means a lot to us, and we're excited to assist you
+          in any way we can.
+        </p>
+        <br />
+        <p>
+          Thank you for choosing Arora Mud Art. We are dedicated to providing
+          you with exceptional mud artworks that bring nature's beauty into your
+          surroundings.
+        </p>
+      </div>
     </div>
   )
 }

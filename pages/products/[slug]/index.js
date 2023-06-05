@@ -40,15 +40,17 @@ const Product = ({
           />
         </div>
         <div className="flex-1">
-          <h1 className="text-base font-semibold text-white/80">{title}</h1>
-          <p className="text-white/50 break-all">{desc}</p>
-          <p className="font-semibold text-white/80">Price: ₹{price}</p>
-          <p className="text-base font-semibold text-white/80 mt-5">
+          <h1 className="text-base font-semibold dark:text-white text-black">
+            {title}
+          </h1>
+          <p className="break-all">{desc}</p>
+          <p className="font-semibold">Price: ₹{price}</p>
+          <p className="text-base font-semibold mt-5 dark:text-white text-black">
             Details :
           </p>
           {body && (
             <PortableText
-              className="text-white/50 leading-6 text-xs"
+              className="leading-6 text-xs"
               content={body}
               dataset="production"
               projectId="5onybuvh"

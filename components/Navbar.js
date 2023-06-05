@@ -2,15 +2,20 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
-import { BsSearch } from "react-icons/bs"
+import { BsMoonFill, BsSearch } from "react-icons/bs"
 import { VscClose } from "react-icons/vsc"
 import { Context } from "../pages/_app"
+import { LuSun } from "react-icons/lu"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { route } = useRouter()
 
-  const { showSearch, setShowSearch } = useContext(Context)
+  useEffect(() => {
+    document.documentElement.classList.toggle("over-hide", open)
+  }, [open])
+
+  const { showSearch, setShowSearch, dark, setDark } = useContext(Context)
 
   useEffect(() => {
     ;[...document.querySelectorAll(".nav-link")].forEach((link) => {
@@ -22,19 +27,35 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className="px-3 font-semibold z-[3] md:px-20 py-4 flex justify-between items-center border-b border-white/20 ">
+    <nav className="px-3 font-semibold z-[3] md:px-20 py-4 flex justify-between dark:bg-[#222222] bg-[#ffbf00] items-center border-b border-white/20 ">
       <Link href="/">
-        <Image
-          priority={true}
-          sizes="(max-width: 540px) 40vw,
+        {dark ? (
+          <Image
+            quality={100}
+            priority={true}
+            sizes="(max-width: 540px) 40vw,
                  (max-width: 768px) 60vw,
                  (max-width: 1200px) 80vw
                  "
-          alt="Arora Mud Art"
-          src={"/AroraMudArtWhite200.png"}
-          width={200}
-          height={32}
-        />
+            alt="Arora Mud Art"
+            src={"/AroraMudArtWhite200.png"}
+            width={200}
+            height={32}
+          />
+        ) : (
+          <Image
+            quality={100}
+            priority={true}
+            sizes="(max-width: 540px) 40vw,
+                 (max-width: 768px) 60vw,
+                 (max-width: 1200px) 80vw
+                 "
+            alt="Arora Mud Art"
+            src={"/AroraMudArtBlack200.png"}
+            width={200}
+            height={32}
+          />
+        )}
       </Link>
       {route.includes("/products") ? (
         showSearch === true ? (
@@ -44,13 +65,13 @@ const Navbar = () => {
               document.documentElement.classList.remove("over-hide")
             }}
             size={25}
-            color="#fff"
+            color={dark ? "#fff" : "#000"}
             className="ml-auto mr-5 cursor-pointer"
           />
         ) : (
           <BsSearch
             size={22}
-            color="#fff"
+            color={dark ? "#fff" : "#000"}
             onClick={() => {
               setShowSearch(true)
               document.documentElement.classList.add("over-hide")
@@ -61,38 +82,37 @@ const Navbar = () => {
       ) : null}
 
       <div
-        className="md:hidden flex flex-col justify-between overflow-hidden gap-2 z-20"
+        className="md:hidden flex flex-col justify-between gap-2 z-20"
         onClick={() => {
           setOpen((prev) => !prev)
-          document.documentElement.classList.toggle("over-hide")
         }}
       >
         <span
-          className={`bg-white rounded-md h-[2px] w-8 transition-all duration-100 ease-[cubic-bezier(0.85,0,0.15,1)] origin-left ${
+          className={`dark:bg-white bg-black rounded-md h-[2px] w-8 transition-all duration-100 ease-[cubic-bezier(0.85,0,0.15,1)] origin-left ${
             open && "!w-[28px] rotate-45"
           }`}
         ></span>
         <span
-          className={`bg-white rounded-md h-[2px] w-6 transition-all duration-100 ease-[cubic-bezier(0.85,0,0.15,1)] ${
-            open && "translate-x-12 opacity-0"
+          className={`dark:bg-white bg-black rounded-md h-[2px] w-6 transition-all duration-100 ease-[cubic-bezier(0.85,0,0.15,1)] ${
+            open && "opacity-0"
           }`}
         ></span>
         <span
-          className={`bg-white rounded-md h-[2px] w-4 transition-all duration-100 ease-[cubic-bezier(0.85,0,0.15,1)] origin-left ${
+          className={`dark:bg-white bg-black rounded-md h-[2px] w-4 transition-all duration-100 ease-[cubic-bezier(0.85,0,0.15,1)] origin-left ${
             open && "!w-[28px] -rotate-45"
           }`}
         ></span>
       </div>
 
       <ul
-        className={`z-[19] flex flex-col gap-10 p-5 pt-20 fixed transition-all duration-100 w-full h-full top-0 right-0 bg-[#222222] text-white/60 overflow-hidden md:p-0 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent ${
+        className={`z-[19] flex flex-col gap-10 p-5 pt-20 fixed transition-all duration-100 w-full h-full top-0 right-0 dark:bg-[#222222] bg-[#FFBF00] overflow-hidden md:items-center md:p-0 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent ${
           open ? "ulOpen" : "ulClose"
         }`}
       >
         <Link
           href="/"
           className={`nav-link transition-all duration-200 ${
-            route === "/" && "text-white"
+            route === "/" && "dark:text-white text-black font-bold"
           }`}
         >
           Home
@@ -100,7 +120,8 @@ const Navbar = () => {
         <Link
           href="/products"
           className={`nav-link transition-all duration-200 ${
-            route.includes("/products") && "text-white"
+            route.includes("/products") &&
+            "dark:text-white text-black font-bold"
           }`}
         >
           Products
@@ -108,7 +129,7 @@ const Navbar = () => {
         <Link
           href="/contact"
           className={`nav-link transition-all duration-200 ${
-            route === "/contact" && "text-white"
+            route === "/contact" && "dark:text-white text-black font-bold"
           }`}
         >
           Contact
@@ -116,11 +137,34 @@ const Navbar = () => {
         <Link
           href="/about"
           className={`nav-link transition-all duration-200 ${
-            route === "/about" && "text-white"
+            route === "/about" && "dark:text-white text-black font-bold"
           }`}
         >
           About
         </Link>
+        <p>
+          {dark ? (
+            <LuSun
+              size={20}
+              className="cursor-pointer"
+              onClick={() => {
+                setDark(false)
+                localStorage.setItem("dark", null)
+                document.documentElement.classList.remove("dark")
+              }}
+            />
+          ) : (
+            <BsMoonFill
+              size={20}
+              className="cursor-pointer"
+              onClick={() => {
+                setDark(true)
+                localStorage.setItem("dark", true)
+                document.documentElement.classList.add("dark")
+              }}
+            />
+          )}
+        </p>
       </ul>
     </nav>
   )

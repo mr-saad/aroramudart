@@ -13,6 +13,18 @@ const Footer = dynamic(() => import("../components/Footer"))
 const App = ({ Component, pageProps, router }) => {
   const [minHeight, setMinHeight] = useState(0)
   const [showSearch, setShowSearch] = useState(false)
+  const [dark, setDark] = useState(false)
+
+  useEffect(() => {
+    const isDark = localStorage.getItem("dark")
+    if (isDark === "true") {
+      setDark(true)
+      document.documentElement.classList.add("dark")
+    } else {
+      setDark(false)
+      document.documentElement.classList.remove("dark")
+    }
+  }, [])
 
   useEffect(() => {
     setMinHeight(innerHeight - document.querySelector("nav").offsetHeight)
@@ -118,7 +130,7 @@ const App = ({ Component, pageProps, router }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
-      <Context.Provider value={{ showSearch, setShowSearch }}>
+      <Context.Provider value={{ showSearch, setShowSearch, dark, setDark }}>
         <Navbar />
         <div
           style={{ minHeight }}
@@ -133,7 +145,7 @@ const App = ({ Component, pageProps, router }) => {
             >
               <PropagateLoader
                 size={20}
-                color="#fff"
+                color={dark ? "#fff" : "#000"}
                 style={{ transform: "translate(-.5rem)" }}
               />
             </div>
@@ -141,8 +153,8 @@ const App = ({ Component, pageProps, router }) => {
             <Component {...pageProps} key={router.route} />
           )}
         </div>
+        <Footer />
       </Context.Provider>
-      <Footer />
     </>
   )
 }

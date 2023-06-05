@@ -69,7 +69,7 @@ const Book = ({
         <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
       </Head>
       <button onClick={() => back()} className="inline-block mb-2 btn">
-        <BiArrowBack stroke="#222222" color="#222222" size={18} />
+        <BiArrowBack color="#f00" size={18} />
       </button>
       {loading && <HangOn />}
 
@@ -89,9 +89,11 @@ const Book = ({
           />
         </div>
         <div className="tracking-wide flex-1">
-          <h1 className="text-base text-white/80 font-semibold">{title}</h1>
-          <p className="text-white/50">{desc}</p>
-          <p className="text-white/80 font-semibold">Price: ₹{price}</p>
+          <h1 className="text-base dark:text-white text-black font-semibold">
+            {title}
+          </h1>
+          <p>{desc}</p>
+          <p className="font-semibold">Price: ₹{price}</p>
           <form
             autoComplete="off"
             onSubmit={BookProduct}
@@ -180,15 +182,17 @@ export const getStaticProps = async ({ params: { slug } }) => {
 }
 
 const HangOn = () => (
-  <div className="fixed z-[5] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] bg-[#222222]/90">
+  <div className="fixed z-[5] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#222222] bg-[#FFBF00]/90">
     <BarLoader color="white" />
-    <h1 className="text-4xl tracking-wide mt-5 text-white">Please Wait</h1>
+    <h1 className="text-4xl tracking-wide mt-5 dark:text-white text-black">
+      Please Wait
+    </h1>
   </div>
 )
 
 const Success = ({ setShowSuccess, push }) => {
   return (
-    <div className="bg-[#222222] fixed inset-0 px-5 flex flex-col justify-center items-center z-[5]">
+    <div className="dark:bg-[#222222] bg-white border fixed inset-72 rounded-md px-5 flex flex-col justify-center items-center z-[5]">
       <div className="max-w-md">
         <lottie-player
           src="/success.json"
@@ -200,11 +204,11 @@ const Success = ({ setShowSuccess, push }) => {
         ></lottie-player>
       </div>
 
-      <h1 className="text-white mt-5 font-semibold text-lg text-center">
+      <h1 className="dark:text-white text-black mt-5 font-semibold text-lg text-center">
         Your Order Has Been Booked!
       </h1>
       <p
-        className="btn !self-center mt-3"
+        className="btn !self-center mt-3 cursor-pointer"
         onClick={() => {
           push("/products")
           setShowSuccess(false)
