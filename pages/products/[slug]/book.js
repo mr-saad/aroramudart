@@ -69,7 +69,7 @@ const Book = ({
         <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
       </Head>
       <button onClick={() => back()} className="inline-block mb-2 btn">
-        <BiArrowBack color="#f00" size={18} />
+        <BiArrowBack size={18} />
       </button>
       {loading && <HangOn />}
 

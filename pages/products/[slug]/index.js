@@ -22,7 +22,7 @@ const Product = ({
         <title>{title1}</title>
       </Head>
       <button onClick={() => back()} className="inline-block mb-2 btn">
-        <BiArrowBack className="text-[#f00]" size={18} />
+        <BiArrowBack size={18} />
       </button>
       <div className="flex gap-10 flex-col md:items-center md:flex-row capitalize">
         <div className="md:flex-1">

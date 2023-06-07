@@ -45,7 +45,7 @@ body {
 }
 
 .btn {
-  @apply text-sm font-bold dark:text-black dark:hover:text-[#ffbf00] dark:hover:bg-[#222222] hover:text-[#ffbf00] hover:bg-white text-[#222222]  bg-[#ffbf00]  transition border border-[#ffbf00] self-start px-3 py-2 rounded-md;
+  @apply text-sm font-bold dark:text-black dark:hover:text-[#f28c28] dark:hover:bg-[#222222] hover:text-[#f28c28] hover:bg-white text-[#222222]  bg-[#f28c28]  transition border border-[#f28c28] self-start px-3 py-2 rounded-md;
 }
 
 .input_text {

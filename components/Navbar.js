@@ -27,7 +27,7 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className="px-3 font-semibold z-[3] md:px-20 py-4 flex justify-between dark:bg-[#222222] bg-[#ffbf00] items-center border-b border-white/20 ">
+    <nav className="px-3 font-semibold z-[3] md:px-20 py-4 flex justify-between dark:bg-[#222222] bg-[#f28c28] items-center border-b border-white/20 ">
       <Link href="/">
         {dark ? (
           <Image
@@ -57,7 +57,7 @@ const Navbar = () => {
           />
         )}
       </Link>
-      {route.includes("/products") ? (
+      {route === "/products" ? (
         showSearch === true ? (
           <VscClose
             onClick={() => {

@@ -7,7 +7,7 @@ import { Context } from "../pages/_app"
 const Footer = () => {
   const { dark } = useContext(Context)
   return (
-    <footer className="text-xs mt-20 px-3 md:px-20 py-10 border-t dark:border-white/10">
+    <footer className="text-xs mt-20 px-3 md:px-20 py-10 border-t bg-gray-100 dark:bg-transparent dark:border-white/10">
       {dark ? (
         <Image
           sizes="(max-width: 540px) 30vw,(max-width: 768px) 100vw,(max-width: 1200px) 50vw"
