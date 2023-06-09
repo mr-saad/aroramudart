@@ -1,6 +1,5 @@
 import Head from "next/head"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { BiArrowBack } from "react-icons/bi"
@@ -12,16 +11,18 @@ const Book = ({
     image: { url, lqip },
     title,
     price,
-    desc,
+    discount,
   },
 }) => {
+  const discountedPrice = price - discount
+
   const [book, setBook] = useState({
     username: "",
     email: "",
     mobile: "",
     address: "",
     title,
-    price,
+    discountedPrice,
   })
   const Change = ({ target: { value, name } }) => {
     setBook({ ...book, [name]: value })
@@ -92,8 +93,11 @@ const Book = ({
           <h1 className="text-base dark:text-white text-black font-semibold">
             {title}
           </h1>
-          <p>{desc}</p>
-          <p className="font-semibold">Price: ₹{price}</p>
+          <p className="text-sm">₹{discountedPrice}</p>
+          <s>₹{price}</s>{" "}
+          <span className="bg-green-600 text-white py-1 px-2 rounded-md">
+            SAVE ₹{discount}
+          </span>
           <form
             autoComplete="off"
             onSubmit={BookProduct}
@@ -167,9 +171,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
     `*[slug.current==$slug][0]{
       title,
       "slug":slug.current,
-      desc,
       price,
-      body,
+      discount,
       "image":mainImage.asset->{url,"lqip":metadata.lqip}
     }`,
     { slug }

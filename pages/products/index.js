@@ -11,13 +11,10 @@ import { Context } from "../_app"
 const Product = dynamic(() => import("../../components/Product"))
 
 const Products = ({ products }) => {
-  const [input, setInput] = useState("")
   const { showSearch, setShowSearch } = useContext(Context)
-
+  const [input, setInput] = useState("")
   const [filtered, setFiltered] = useState([])
-
   const [finalProducts, setFinalProducts] = useState(products)
-
   const [selectedCat, setSelectedCat] = useState("All")
 
   useEffect(() => {
@@ -57,6 +54,8 @@ const Products = ({ products }) => {
           products.filter((all) => all.category === "Kutchi Work Designs")
         )
         break
+      default:
+        setFinalProducts(products)
     }
   }, [selectedCat])
 
@@ -68,8 +67,8 @@ const Products = ({ products }) => {
 
       {showSearch && (
         <Filter
-          setInput={setInput}
           input={input}
+          setInput={setInput}
           filtered={filtered}
           selectedCat={selectedCat}
           setSelectedCat={setSelectedCat}
@@ -77,7 +76,7 @@ const Products = ({ products }) => {
         />
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
+      <div className="grid grid-cols-2 lg:grid-cols-4 items-center gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
         {finalProducts.map((all) => {
           return <Product key={all.slug} {...all} />
         })}
@@ -88,26 +87,6 @@ const Products = ({ products }) => {
 
 export default Products
 
-export const getServerSideProps = async () => {
-  const { default: sanity } = await import("../../components/sanityClient")
-
-  const data = await sanity.fetch(`
-  *[_type == "product"] | order(_createdAt asc){
-    title,
-    "slug":slug.current,
-    desc,
-    body,
-    category,
-    price,
-    discount,
-    discountedPrice,
-    "image":mainImage.asset->{url,"lqip":metadata.lqip}
-  }`)
-  return {
-    props: { products: data },
-  }
-}
-
 const categories = [
   "All Designs",
   "Traditional Designs",
@@ -116,7 +95,7 @@ const categories = [
   "Islamic Designs",
   "Kutchi Work Designs",
 ]
-const Filter = ({
+export const Filter = ({
   filtered,
   selectedCat,
   input,
@@ -249,4 +228,23 @@ const Filter = ({
       </div>
     </div>
   )
+}
+
+export const getServerSideProps = async () => {
+  const { default: sanity } = await import("../../components/sanityClient")
+
+  const data = await sanity.fetch(`
+  *[_type == "product"] | order(_createdAt desc){
+    "slug":slug.current,
+    title,
+    price,
+    discount,
+    "image":mainImage.asset->{url,"lqip":metadata.lqip}
+  }`)
+
+  return {
+    props: {
+      products: data,
+    },
+  }
 }

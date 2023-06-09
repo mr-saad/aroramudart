@@ -7,13 +7,13 @@ import "swiper/css/pagination"
 import SwiperCore, { EffectCards, Pagination, Autoplay } from "swiper"
 SwiperCore.use([Autoplay])
 import { Context } from "./_app"
-
 import dynamic from "next/dynamic"
 import { useContext } from "react"
 const Product = dynamic(() => import("../components/Product"))
 
 const Home = ({ data, images }) => {
   const { dark } = useContext(Context)
+
   return (
     <>
       <div className="flex flex-col justify-center md:gap-20 gap-10 md:flex-row min-h-[calc(100vh-96px-52px)] mb-20">
@@ -84,7 +84,7 @@ const Home = ({ data, images }) => {
       <div className="mx-auto items-center">
         <h1 className="heading mb-5">Products</h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mx-[-6px] md:mx-0 md:gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mx-[-6px] md:mx-0 md:gap-10 items-start">
           {data.map((all) => {
             return <Product key={all.slug} {...all} />
           })}
@@ -107,10 +107,8 @@ export const getServerSideProps = async () => {
   *[_type == "product"] | order(_createdAt desc)[0..7]{
     "slug":slug.current,
     title,
-    desc,
     price,
     discount,
-    discountedPrice,
     "image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`)
 

@@ -2,12 +2,6 @@
 @tailwind utilities;
 @tailwind components;
 
-/* @font-face {
-  font-family: Rubik;
-  font-display: swap;
-  src: url("/rubik-light.woff2") format("woff2");
-  font-weight: 400;
-} */
 @font-face {
   font-family: Rubik;
   font-display: swap;

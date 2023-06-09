@@ -8,12 +8,14 @@ const Product = ({
   product: {
     title,
     price,
+    discount,
     image: { url, lqip },
     body,
-    desc,
     slug,
   },
 }) => {
+  const discountedPrice = price - discount
+
   const { back } = useRouter()
   const title1 = `${title} | Arora Mud Art`
   return (
@@ -43,8 +45,11 @@ const Product = ({
           <h1 className="text-base font-semibold dark:text-white text-black">
             {title}
           </h1>
-          <p className="break-all">{desc}</p>
-          <p className="font-semibold">Price: ₹{price}</p>
+          <p className="text-base">₹{discountedPrice}</p>
+          <s>₹{price}</s>{" "}
+          <span className="bg-green-600 text-white py-1 px-2 rounded-md">
+            SAVE ₹{discount}
+          </span>
           <p className="text-base font-semibold mt-5 dark:text-white text-black">
             Details :
           </p>
@@ -89,8 +94,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
     `*[slug.current==$slug][0]{
       title,
       "slug":slug.current,
-      desc,
       price,
+      discount,
       body,
       "image":mainImage.asset->{url,"lqip":metadata.lqip}
     }`,
