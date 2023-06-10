@@ -37,7 +37,7 @@ const Footer = () => {
             <input
               type="text"
               placeholder="Your E-Mail"
-              className="p-2 border w-44 focus-within:border-black text-black dark:placeholder:text-white/30 dark:border-white/50 border-black/30 bg-transparent outline-none rounded"
+              className="p-2 border w-44 focus-within:border-black dark:text-white text-black dark:placeholder:text-white/30 dark:border-white/50 border-black/30 bg-transparent outline-none rounded"
             />
             <button type="button" className="btn">
               Submit

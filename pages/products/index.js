@@ -15,7 +15,7 @@ const Products = ({ products }) => {
   const [input, setInput] = useState("")
   const [filtered, setFiltered] = useState([])
   const [finalProducts, setFinalProducts] = useState(products)
-  const [selectedCat, setSelectedCat] = useState("All")
+  const [selectedCat, setSelectedCat] = useState("All Designs")
 
   useEffect(() => {
     const filter = products.filter((product) => {
@@ -54,8 +54,6 @@ const Products = ({ products }) => {
           products.filter((all) => all.category === "Kutchi Work Designs")
         )
         break
-      default:
-        setFinalProducts(products)
     }
   }, [selectedCat])
 
@@ -76,10 +74,15 @@ const Products = ({ products }) => {
         />
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 items-center gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
-        {finalProducts.map((all) => {
-          return <Product key={all.slug} {...all} />
-        })}
+      <div className="grid grid-cols-2 lg:grid-cols-4 items-start gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
+        {finalProducts.length !== 0 ? (
+          finalProducts.map((all) => {
+            console.log(all)
+            return <Product key={all.slug} {...all} />
+          })
+        ) : (
+          <span>No Products</span>
+        )}
       </div>
     </div>
   )
@@ -108,7 +111,7 @@ export const Filter = ({
   const { dark } = useContext(Context)
 
   return (
-    <div className="flex flex-col md:items-start fixed dark:bg-[#222222] bg-[#FFBF00]/[.95] rounded-md inset-y-4 w-full h-full left-0 top-16 md:flex-row gap-5 mb-5 p-5">
+    <div className="flex flex-col md:items-start fixed dark:bg-[#222222] bg-[#f28c28]/[.95] rounded-md inset-y-4 w-full h-full left-0 top-16 md:flex-row gap-5 mb-5 p-5">
       <div className="relative md:w-96 max-w-md">
         <p className="mb-2 dark:text-white text-black">Search</p>
 
@@ -201,7 +204,7 @@ export const Filter = ({
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.1 }}
-                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 px-2 flex flex-col items-start overflow-hidden dark:bg-[#222222] bg-[#FFBF00]"
+                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 px-2 flex flex-col items-start overflow-hidden dark:bg-[#222222] bg-[#f28c28] border border-black dark:border-white/10"
               >
                 {categories.map((all) => {
                   return (
@@ -213,8 +216,7 @@ export const Filter = ({
                         setShowSearch(false)
                       }}
                       className={`select-none px-2 py-1 rounded-md ${
-                        selectedCat === all &&
-                        "bg-white dark:text-white text-black"
+                        selectedCat === all && "dark:text-white text-black"
                       }`}
                     >
                       {all}
@@ -237,6 +239,7 @@ export const getServerSideProps = async () => {
   *[_type == "product"] | order(_createdAt desc){
     "slug":slug.current,
     title,
+    category,
     price,
     discount,
     "image":mainImage.asset->{url,"lqip":metadata.lqip}
