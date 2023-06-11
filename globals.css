@@ -23,9 +23,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html {
-  scroll-behavior: smooth;
-}
 body {
   @apply dark:bg-[#222222] dark:text-white/60 text-black/60;
 }
@@ -45,11 +42,8 @@ body {
 .input_text {
   @apply py-1 px-2 mb-5 w-full dark:text-white text-black dark:caret-white/50 outline-none font-semibold bg-transparent border-b transition duration-500 dark:border-white/10 dark:focus:border-white focus:border-black dark:placeholder:text-white/50;
 }
-
-.hero {
-  width: max(35vw, 300px);
-  animation: fill 0.5s ease forwards 3s;
-  -webkit-animation: fill 0.5s ease forwards 3s;
+:root {
+  --swiper-pagination-color: #f28c28;
 }
 
 @media (max-width: 768px) {

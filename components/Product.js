@@ -5,7 +5,7 @@ const Product = ({ slug, image: { url, lqip }, title, price, discount }) => {
   // const discountedPrice = price - discount
   return (
     <Link
-      scroll={true}
+      // scroll={false}
       className="cursor-pointer overflow-hidden dark:bg-white/10 bg-gray-200 capitalize rounded-md"
       href={`/products/${slug}`}
     >

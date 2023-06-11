@@ -35,7 +35,7 @@ const steps = [
 
 const About = () => {
   return (
-    <div className="text-xs leading-6">
+    <div className="text-xs leading-6 mt-5">
       <div className="max-w-4xl mx-auto">
         <h2
           className="heading mb-2

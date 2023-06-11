@@ -77,7 +77,6 @@ const Products = ({ products }) => {
       <div className="grid grid-cols-2 lg:grid-cols-4 items-start gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
         {finalProducts.length !== 0 ? (
           finalProducts.map((all) => {
-            console.log(all)
             return <Product key={all.slug} {...all} />
           })
         ) : (
@@ -149,8 +148,8 @@ export const Filter = ({
               className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#222222] bg-[#FFBF00] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
             >
               {filtered.map((all, i) => (
-                <AnimatePresence key={all.slug.current} exitBeforeEnter>
-                  <Link href={`/products/${all.slug.current}`} key={i}>
+                <AnimatePresence key={all.slug} exitBeforeEnter>
+                  <Link href={`/products/${all.slug}`}>
                     <motion.span
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -180,12 +179,12 @@ export const Filter = ({
 
       <div>
         <p className="mb-2 dark:text-white text-black">Sort By Category</p>
-        <div className="rounded-md md:w-96 max-w-md relative border dark:border-white/20 border-black/50 text-sm">
+        <div className="rounded-md md:w-96 max-w-md relative border dark:border-white/20 border-black/50 text-sm select-none">
           <div
             onClick={() => {
               setOpen(!open)
             }}
-            className="flex justify-between items-center px-4 py-2"
+            className="flex justify-between items-center px-4 py-2 cursor-pointer"
           >
             <h3 className="w-full text-black dark:text-white">{selectedCat}</h3>
             <FaAngleDown
@@ -204,7 +203,7 @@ export const Filter = ({
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.1 }}
-                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 px-2 flex flex-col items-start overflow-hidden dark:bg-[#222222] bg-[#f28c28] border border-black dark:border-white/10"
+                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden dark:bg-[#222222] bg-[#f28c28] border border-black dark:border-white/10"
               >
                 {categories.map((all) => {
                   return (
@@ -215,9 +214,7 @@ export const Filter = ({
                         document.documentElement.classList.remove("over-hide")
                         setShowSearch(false)
                       }}
-                      className={`select-none px-2 py-1 rounded-md ${
-                        selectedCat === all && "dark:text-white text-black"
-                      }`}
+                      className={"dark:text-white text-black cursor-pointer"}
                     >
                       {all}
                     </h3>

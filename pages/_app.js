@@ -10,7 +10,7 @@ export const Context = createContext()
 
 const Footer = dynamic(() => import("../components/Footer"))
 
-const App = ({ Component, pageProps, router }) => {
+const App = ({ Component, pageProps }) => {
   const [minHeight, setMinHeight] = useState(0)
   const [showSearch, setShowSearch] = useState(false)
   const [dark, setDark] = useState(false)
@@ -36,6 +36,7 @@ const App = ({ Component, pageProps, router }) => {
     setLoading(true)
     setShowSearch(false)
     document.documentElement.classList.remove("over-hide")
+    scrollTo(0, 0)
   })
   Router.events.on("routeChangeComplete", () => setLoading(false))
   Router.events.on("routeChangeError", () => setLoading(false))
@@ -47,13 +48,6 @@ const App = ({ Component, pageProps, router }) => {
           Arora Mud Art | Unleashing the Timeless Beauty of Elegance
         </title>
         <link rel="canonical" href="https://aroramudart.vercel.app/" />
-        <link
-          rel="preload"
-          href="/rubik-light.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <link
           rel="preload"
           href="/rubik-regular.woff2"
@@ -137,20 +131,15 @@ const App = ({ Component, pageProps, router }) => {
           className="main-container md:px-20 px-4 py-3 overflow-hidden"
         >
           {loading ? (
-            <div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex h-[calc(100vh-100px)] mx-auto justify-center items-center"
-            >
+            <div className="flex h-[calc(100vh-100px)] mx-auto justify-center items-center">
               <PropagateLoader
                 size={20}
-                color={dark ? "#fff" : "#000"}
+                color={"#f28c28"}
                 style={{ transform: "translate(-.5rem)" }}
               />
             </div>
           ) : (
-            <Component {...pageProps} key={router.route} />
+            <Component {...pageProps} />
           )}
         </div>
         <Footer />
