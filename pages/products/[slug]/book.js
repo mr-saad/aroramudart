@@ -185,7 +185,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 }
 
 const HangOn = () => (
-  <div className="fixed z-[5] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#222222] bg-[#FFBF00]/90">
+  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#222222] bg-[#f28c28]/90">
     <BarLoader color="white" />
     <h1 className="text-4xl tracking-wide mt-5 dark:text-white text-black">
       Please Wait

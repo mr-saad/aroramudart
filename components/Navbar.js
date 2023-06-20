@@ -96,7 +96,7 @@ const Navbar = () => {
       </div>
 
       <ul
-        className={`z-[19] flex flex-col gap-10 p-5 pt-20 fixed transition-all duration-100 w-full h-full top-0 right-0 dark:bg-[#222] md:dark:bg-[#f28c28] bg-[#f28c28] overflow-hidden md:items-center md:p-0 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent ${
+        className={`z-[19] flex flex-col gap-10 p-5 pt-20 fixed transition-all duration-100 w-full h-full top-0 right-0 dark:bg-[#222] md:dark:bg-transparent bg-[#f28c28] overflow-hidden md:items-center md:p-0 md:static md:flex-row md:w-auto md:h-auto ${
           open ? "ulOpen" : "ulClose"
         }`}
       >

@@ -54,6 +54,16 @@ const Products = ({ products }) => {
           products.filter((all) => all.category === "Kutchi Work Designs")
         )
         break
+      case "Clocks":
+        setFinalProducts(
+          products.filter((all) => all.category === "Printed Clocks")
+        )
+        break
+      case "Clocks":
+        setFinalProducts(
+          products.filter((all) => all.category === "Mudwork Clocks")
+        )
+        break
     }
   }, [selectedCat])
 
@@ -96,6 +106,8 @@ const categories = [
   "Mirror Designs",
   "Islamic Designs",
   "Kutchi Work Designs",
+  "Printed Clocks",
+  "Mudwork Clocks",
 ]
 export const Filter = ({
   filtered,
@@ -145,7 +157,7 @@ export const Filter = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#222222] bg-[#FFBF00] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
+              className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#222222] bg-[#f28c28] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
             >
               {filtered.map((all, i) => (
                 <AnimatePresence key={all.slug} exitBeforeEnter>
@@ -168,7 +180,7 @@ export const Filter = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute text-sm z-[2] w-full p-3 mt-1 dark:text-white text-black rounded-md dark:bg-[#222222] bg-[#FFBF00] break-all"
+                className="absolute text-sm z-[2] w-full p-3 mt-1 dark:text-white text-black rounded-md dark:bg-[#222222] bg-[#f28c28] break-all"
               >
                 No Results for "{input}"
               </motion.div>

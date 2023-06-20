@@ -14,6 +14,15 @@ const Product = dynamic(() => import("../components/Product"))
 const Home = ({ data, images }) => {
   const { dark } = useContext(Context)
 
+  // data = []
+  // images = [
+  //   { slug: "fdsfsd", image: { url: "/fgdgdf", lqip: "dfgdsh" } },
+  //   { slug: "sadas", image: { url: "/fgdgdf", lqip: "dfgdsh" } },
+  //   { slug: "sdfsdf", image: { url: "/fgdgdf", lqip: "dfgdsh" } },
+  //   { slug: "dsfdfa", image: { url: "/fgdgdf", lqip: "dfgdsh" } },
+  //   { slug: "sdafsd", image: { url: "/fgdgdf", lqip: "dfgdsh" } },
+  // ]
+
   return (
     <>
       <div className="flex flex-col justify-center md:gap-20 gap-10 md:flex-row min-h-[calc(100vh-96px-52px)] mb-20">
