@@ -45,7 +45,10 @@ body {
 :root {
   --swiper-pagination-color: #f28c28;
 }
-
+.swiper-pagination-progressbar {
+  top: unset !important;
+  bottom: 0;
+}
 @media (max-width: 768px) {
   .ulClose {
     @apply -left-full;

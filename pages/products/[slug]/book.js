@@ -75,7 +75,7 @@ const Book = ({
       {loading && <HangOn />}
 
       <div className="flex flex-col md:flex-row gap-10 md:items-center capitalize">
-        <div className="md:flex-1">
+        <div>
           <Image
             sizes="(max-width: 540px) 40vw,
             (max-width: 768px) 60vw,
@@ -89,15 +89,17 @@ const Book = ({
             blurDataURL={lqip}
           />
         </div>
-        <div className="tracking-wide flex-1">
-          <h1 className="text-base dark:text-white text-black font-semibold">
-            {title}
-          </h1>
-          <p className="text-sm">₹{discountedPrice}</p>
-          <s>₹{price}</s>{" "}
-          <span className="bg-green-600 text-white py-1 px-2 rounded-md">
-            SAVE ₹{discount}
-          </span>
+        <div className="flex-1">
+          <div className="text-base">
+            <h1 className="text-lg dark:text-white text-black font-semibold">
+              {title}
+            </h1>
+            <span>₹{discountedPrice} </span>
+            <s>₹{price}</s> <br />
+            <span className="bg-green-600 text-white py-1 px-2 rounded-md">
+              SAVE ₹{discount}
+            </span>
+          </div>
           <form
             autoComplete="off"
             onSubmit={BookProduct}
@@ -152,9 +154,8 @@ const Book = ({
 
 export default Book
 
-import sanity from "../../../components/sanityClient"
-
 export const getStaticPaths = async () => {
+  const { default: sanity } = await import("../../../components/sanityClient")
   const data = await sanity.fetch(`*[_type == "product"]{"slug":slug.current}`)
   const paths = data.map((all) => {
     return { params: { slug: all.slug } }
@@ -167,6 +168,7 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params: { slug } }) => {
+  const { default: sanity } = await import("../../../components/sanityClient")
   const product = await sanity.fetch(
     `*[slug.current==$slug][0]{
       title,
@@ -187,9 +189,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 const HangOn = () => (
   <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#222222] bg-[#f28c28]/90">
     <BarLoader color="white" />
-    <h1 className="text-4xl tracking-wide mt-5 dark:text-white text-black">
-      Please Wait
-    </h1>
+    <h1 className="text-4xl mt-5 dark:text-white text-black">Please Wait</h1>
   </div>
 )
 

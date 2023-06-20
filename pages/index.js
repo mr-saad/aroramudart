@@ -2,10 +2,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
-import "swiper/css/effect-cards"
 import "swiper/css/pagination"
-import SwiperCore, { EffectCards, Pagination, Autoplay } from "swiper"
-SwiperCore.use([Autoplay])
+import { Pagination } from "swiper"
 import { Context } from "./_app"
 import dynamic from "next/dynamic"
 import { useContext } from "react"
@@ -28,19 +26,11 @@ const Home = ({ data, images }) => {
       <div className="flex flex-col justify-center md:gap-20 gap-10 md:flex-row min-h-[calc(100vh-96px-52px)] mb-20">
         <div className="flex items-center -mt-20 md:mt-0">
           <Swiper
-            autoplay={{
-              delay: 4500,
-              disableOnInteraction: false,
+            pagination={{
+              type: "progressbar",
             }}
-            effect="cards"
-            pagination
-            modules={[EffectCards, Pagination]}
+            modules={[Pagination]}
             className="md:w-80 md:h-80 w-60 h-60"
-            cardsEffect={{
-              perSlideOffset: 4,
-              rotate: false,
-              slideShadows: false,
-            }}
           >
             {images.map(({ slug, image: { url, lqip } }) => (
               <SwiperSlide className="relative" key={slug}>
@@ -51,7 +41,7 @@ const Home = ({ data, images }) => {
                   (max-width: 768px) 60vw,
                   (max-width: 1200px) 80vw"
                   quality={30}
-                  className="rounded-md bg-white dark:bg-[#222222] cursor-grab"
+                  className="rounded-md  cursor-grab"
                   alt={slug}
                   fill
                   placeholder="blur"
@@ -92,7 +82,7 @@ const Home = ({ data, images }) => {
       <div className="mx-auto items-center">
         <h1 className="heading mb-5">Products</h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mx-[-6px] md:mx-0 md:gap-10 items-start">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mx-[-6px] md:mx-0 md:gap-10 items-start">
           {data.map((all) => {
             return <Product key={all.slug} {...all} />
           })}

@@ -1,12 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const Product = ({ slug, image: { url, lqip }, title, price, discount }) => {
-  // const discountedPrice = price - discount
+const Product = ({ slug, image: { url, lqip }, title }) => {
   return (
     <Link
-      // scroll={false}
-      className="cursor-pointer overflow-hidden dark:bg-white/10 bg-gray-200 capitalize rounded-md"
+      className="cursor-pointer overflow-hidden text-center capitalize rounded-md"
       href={`/products/${slug}`}
     >
       <Image
@@ -15,7 +13,7 @@ const Product = ({ slug, image: { url, lqip }, title, price, discount }) => {
                 (max-width: 768px) 60vw,
                 (max-width: 1200px) 80vw"
         quality={30}
-        className="w-full object-contain select-none"
+        className="w-full aspect-square object-contain select-none"
         placeholder="blur"
         blurDataURL={lqip}
         width={200}
@@ -24,7 +22,7 @@ const Product = ({ slug, image: { url, lqip }, title, price, discount }) => {
         alt={slug}
       />
       <div className="p-3 md:p-5 text-xs">
-        <h2 className="text-sm text-black dark:text-white font-semibold">
+        <h2 className="text-sm text-black dark:text-white font-semibold underline">
           {title}
         </h2>
       </div>

@@ -54,12 +54,12 @@ const Products = ({ products }) => {
           products.filter((all) => all.category === "Kutchi Work Designs")
         )
         break
-      case "Clocks":
+      case "Printed Clocks":
         setFinalProducts(
           products.filter((all) => all.category === "Printed Clocks")
         )
         break
-      case "Clocks":
+      case "Mudwork Clocks":
         setFinalProducts(
           products.filter((all) => all.category === "Mudwork Clocks")
         )
@@ -84,7 +84,7 @@ const Products = ({ products }) => {
         />
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 items-start gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
+      <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
         {finalProducts.length !== 0 ? (
           finalProducts.map((all) => {
             return <Product key={all.slug} {...all} />
