@@ -22,7 +22,7 @@ const Product = ({ slug, image: { url, lqip }, title }) => {
         alt={slug}
       />
       <div className="p-3 md:p-5 text-xs">
-        <h2 className="text-sm text-black dark:text-white font-semibold underline">
+        <h2 className="text-sm text-black dark:text-white font-semibold">
           {title}
         </h2>
       </div>
