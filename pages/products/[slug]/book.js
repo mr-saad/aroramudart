@@ -32,7 +32,7 @@ const Book = ({
 
   const { back, push } = useRouter()
 
-  const [showSuccess, setShowSuccess] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(true)
 
   const BookProduct = async (e) => {
     setLoading(true)
@@ -195,29 +195,18 @@ const HangOn = () => (
 
 const Success = ({ setShowSuccess, push }) => {
   return (
-    <div className="dark:bg-[#222222] bg-white border fixed inset-72 rounded-md px-5 flex flex-col justify-center items-center z-[5]">
-      <div className="max-w-md">
-        <lottie-player
-          src="/success.json"
-          mode="bounce"
-          background="transparent"
-          speed="1"
-          loop=""
-          autoplay
-        ></lottie-player>
-      </div>
-
-      <h1 className="dark:text-white text-black mt-5 font-semibold text-lg text-center">
+    <div className="dark:bg-[#222222] bg-white border fixed w-full max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
+      <h1 className="dark:text-white text-black font-semibold text-lg">
         Your Order Has Been Booked!
       </h1>
       <p
-        className="btn !self-center mt-3 cursor-pointer"
+        className="btn !self-center mt-2"
         onClick={() => {
           push("/products")
           setShowSuccess(false)
         }}
       >
-        Got It!
+        Got It
       </p>
     </div>
   )
