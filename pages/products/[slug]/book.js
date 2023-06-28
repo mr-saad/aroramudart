@@ -30,7 +30,7 @@ const Book = ({
 
   const [loading, setLoading] = useState(false)
 
-  const { back, push } = useRouter()
+  const { asPath, back, push } = useRouter()
 
   const [showSuccess, setShowSuccess] = useState(false)
 
@@ -60,7 +60,15 @@ const Book = ({
   const title1 = `${title} | Arora Mud Art`
 
   return (
-    <div className="max-w-4xl mx-auto md:mt-10 text-xs px-1">
+    <div className="max-w-4xl mx-auto text-sm md:text-base px-1">
+      <div className="flex items-center mb-2">
+        <button onClick={() => back()}>
+          <BiArrowBack size={18} />
+        </button>
+        <p className="capitalize inline text-xs ml-1">
+          {asPath.replace("/", "").replace(/\//g, " > ")}
+        </p>
+      </div>
       <Head>
         <title>{title1}</title>
         <meta
@@ -69,80 +77,88 @@ const Book = ({
         />
         <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
       </Head>
-      <button onClick={() => back()} className="inline-block mb-2 btn">
-        <BiArrowBack size={18} />
-      </button>
+
       {loading && <HangOn />}
 
-      <div className="flex flex-col md:flex-row gap-10 md:items-center capitalize">
-        <div>
-          <Image
-            sizes="(max-width: 540px) 40vw,
+      <div className="flex flex-col md:flex-row gap-10 capitalize">
+        <Image
+          sizes="(max-width: 540px) 40vw,
             (max-width: 768px) 60vw,
             (max-width: 1200px) 80vw"
-            width={400}
-            height={400}
-            className="rounded-md object-contain"
-            src={url}
-            alt={title}
-            placeholder="blur"
-            blurDataURL={lqip}
-          />
-        </div>
+          width={400}
+          height={400}
+          className="rounded-md object-contain h-fit mx-auto"
+          src={url}
+          alt={title}
+          placeholder="blur"
+          blurDataURL={lqip}
+        />
         <div className="flex-1">
-          <div className="text-base">
-            <h1 className="text-lg dark:text-white text-black font-semibold">
-              {title}
-            </h1>
-            <span>₹{discountedPrice} </span>
-            <s>₹{price}</s> <br />
-            <span className="bg-green-600 text-white py-1 px-2 rounded-md">
-              SAVE ₹{discount}
-            </span>
-          </div>
+          <h1 className="text-lg dark:text-white text-black font-semibold">
+            {title}
+          </h1>
+          <span>₹{discountedPrice} </span>
+          <s>₹{price}</s> <br />
+          <span className="bg-green-600 text-sm text-white py-1 px-2 rounded-md">
+            SAVE ₹{discount}
+          </span>
           <form
             autoComplete="off"
             onSubmit={BookProduct}
-            className="flex flex-col gap-10 mt-5"
+            className="flex flex-col mt-5"
           >
-            <input
-              className="input_text"
-              name="username"
-              onChange={Change}
-              value={book.username}
-              required
-              type="text"
-              placeholder="Username"
-            />
-            <input
-              className="input_text"
-              name="email"
-              onChange={Change}
-              value={book.email}
-              required
-              type="email"
-              placeholder="E-Mail"
-            />
-            <input
-              className="input_text"
-              name="mobile"
-              onChange={Change}
-              value={book.mobile}
-              required
-              type="tel"
-              minLength={10}
-              maxLength={10}
-              placeholder="Mobile"
-            />
-            <textarea
-              className="input_text"
-              name="address"
-              onChange={Change}
-              value={book.address}
-              required
-              placeholder="Address"
-            ></textarea>
-            <button className="btn">Confirm</button>
+            <div className="flex flex-col">
+              <label htmlFor="username">Username</label>
+              <input
+                id="username"
+                className="input_text"
+                name="username"
+                onChange={Change}
+                value={book.username}
+                required
+                type="text"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="email">E-Mail</label>
+              <input
+                id="email"
+                className="input_text"
+                name="email"
+                onChange={Change}
+                value={book.email}
+                required
+                type="email"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="mobile">Mobile</label>
+              <input
+                id="mobile"
+                className="input_text"
+                name="mobile"
+                onChange={Change}
+                value={book.mobile}
+                required
+                type="tel"
+                minLength={10}
+                maxLength={10}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="address">Address</label>
+              <textarea
+                id="address"
+                className="input_text"
+                name="address"
+                onChange={Change}
+                value={book.address}
+                required
+              ></textarea>
+            </div>
+            <button type="submit" className="btn">
+              Confirm
+            </button>
           </form>
         </div>
       </div>

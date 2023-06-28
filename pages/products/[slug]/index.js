@@ -24,14 +24,19 @@ const DynamicProduct = ({
 }) => {
   const discountedPrice = price - discount
 
-  const { back } = useRouter()
+  const { asPath, back } = useRouter()
   const title1 = `${title} | Arora Mud Art`
   return (
-    <div className="max-w-4xl md:mt-10 mb-20 mx-auto text-base px-1">
+    <div className="max-w-4xl mb-20 mx-auto text-sm md:text-base px-1">
+      <div className="flex items-center mb-2">
+        <button onClick={() => back()}>
+          <BiArrowBack size={16} />
+        </button>
+        <p className="capitalize text-xs ml-1">
+          {asPath.replace("/", "").replace(/\//g, " > ")}
+        </p>
+      </div>
       <Head>{<title>{title1}</title>}</Head>
-      <button onClick={() => back()} className="inline-block mb-2 btn">
-        <BiArrowBack size={18} />
-      </button>
       <div className="flex gap-10 flex-col md:items-center md:flex-row capitalize">
         <Swiper
           modules={[Pagination]}
@@ -40,7 +45,7 @@ const DynamicProduct = ({
         >
           <SwiperSlide>
             <Image
-              className="rounded-md aspect-square object-contain"
+              className="rounded-md object-contain h-fit"
               sizes="(max-width: 540px) 40vw,
             (max-width: 768px) 60vw,
             (max-width: 1200px) 80vw"
@@ -56,7 +61,7 @@ const DynamicProduct = ({
             images?.map(({ url, lqip }) => (
               <SwiperSlide key={url}>
                 <Image
-                  className="rounded-md object-contain aspect-square"
+                  className="rounded-md object-contain h-fit"
                   sizes="(max-width: 540px) 40vw,
               (max-width: 768px) 60vw,
               (max-width: 1200px) 80vw"
@@ -78,7 +83,7 @@ const DynamicProduct = ({
           <span>₹{discountedPrice} </span>
           <s>₹{price}</s>
           <br />
-          <span className="bg-green-600 text-white py-1 px-2 rounded-md">
+          <span className="bg-green-600 text-sm text-white py-1 px-2 rounded-md">
             SAVE ₹{discount}
           </span>
           {body && (
@@ -115,8 +120,8 @@ const DynamicProduct = ({
             modules={[Pagination]}
           >
             {mayLikes.map((props) => (
-              <SwiperSlide>
-                <Product key={props.slug} {...props} />
+              <SwiperSlide key={props.slug}>
+                <Product {...props} />
               </SwiperSlide>
             ))}
           </Swiper>

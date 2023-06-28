@@ -41,7 +41,7 @@ const Home = ({ data, images }) => {
                   (max-width: 768px) 60vw,
                   (max-width: 1200px) 80vw"
                   quality={30}
-                  className="rounded-md  cursor-grab"
+                  className="rounded-md cursor-grab"
                   alt={slug}
                   fill
                   placeholder="blur"
