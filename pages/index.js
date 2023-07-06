@@ -98,7 +98,7 @@ const Home = ({ data, images }) => {
 
 export default Home
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
   const data = await sanity.fetch(`
@@ -121,5 +121,6 @@ export const getServerSideProps = async () => {
       data,
       images,
     },
+    revalidate: 1,
   }
 }
