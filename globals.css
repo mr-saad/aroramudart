@@ -21,6 +21,7 @@
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
   -webkit-tap-highlight-color: transparent;
+  text-wrap: balance;
 }
 
 body {
