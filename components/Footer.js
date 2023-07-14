@@ -6,7 +6,7 @@ import { Context } from "../pages/_app"
 const Footer = () => {
   const { dark } = useContext(Context)
   return (
-    <footer className="text-xs mt-20 px-3 md:px-20 py-10 border-t bg-gray-100 dark:bg-transparent dark:border-white/10">
+    <footer className="text-xs md:text-sm mt-20 px-3 md:px-20 py-10 border-t bg-gray-100 dark:bg-transparent dark:border-white/10">
       <svg
         width={200}
         viewBox="0 0 683 112"

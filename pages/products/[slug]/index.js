@@ -32,11 +32,11 @@ export default function DynamicProduct({
 
   return (
     <div className="max-w-4xl mb-20 mx-auto text-sm md:text-base px-1">
-      <div className="flex items-center mb-2">
+      <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
           <BiArrowBack size={16} />
         </button>
-        <p className="capitalize text-xs ml-1">
+        <p className="capitalize text-xs md:text-sm ml-1">
           {asPath.replace("/", "").replace(/\//g, " > ")}
         </p>
       </div>
@@ -291,7 +291,7 @@ function BookForm({ setShowForm, title, discountedPrice }) {
           <button type="submit" className="btn mr-3">
             Confirm
           </button>
-          <button className="btn" onClick={() => setShowForm(false)}>
+          <button className="neutral-btn" onClick={() => setShowForm(false)}>
             Cancel
           </button>
         </div>

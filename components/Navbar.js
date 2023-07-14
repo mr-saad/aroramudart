@@ -27,7 +27,7 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className="px-3 font-semibold z-[3] md:px-20 py-4 flex justify-between bg-[#f28c28] text-black/60 dark:text-white/60 md:dark:text-black/60 items-center border-b border-white/20 ">
+    <nav className="px-3 font-semibold z-[3] md:px-20 py-4 flex justify-between bg-[#f28c28] text-black/60 dark:text-white/60 md:dark:text-black/60 items-center border-b border-white/20">
       <Link href="/">
         <svg
           width={200}

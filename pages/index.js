@@ -34,21 +34,22 @@ const Home = ({ data, images }) => {
           >
             {images.map(({ slug, image: { url, lqip } }) => (
               <SwiperSlide className="relative" key={slug}>
-                <Image
-                  priority={true}
-                  sizes="
-                  (max-width: 540px) 40vw,
-                  (max-width: 768px) 60vw,
-                  (max-width: 1200px) 80vw"
-                  quality={30}
-                  className="rounded-md cursor-grab"
-                  alt={slug}
-                  fill
-                  placeholder="blur"
-                  blurDataURL={lqip}
-                  src={url}
-                  style={{ objectFit: "contain", objectPosition: "center" }}
-                />
+                <Link href={slug}>
+                  <Image
+                    sizes="
+                    (max-width: 540px) 40vw,
+                    (max-width: 768px) 60vw,
+                    (max-width: 1200px) 80vw"
+                    quality={30}
+                    className="rounded-md"
+                    alt={slug}
+                    fill
+                    placeholder="blur"
+                    blurDataURL={lqip}
+                    src={url}
+                    style={{ objectFit: "contain", objectPosition: "center" }}
+                  />
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -121,6 +122,6 @@ export const getStaticProps = async () => {
       data,
       images,
     },
-    revalidate: 1,
+    revalidate: 2,
   }
 }

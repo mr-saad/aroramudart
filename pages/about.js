@@ -80,40 +80,39 @@ const About = () => {
             height={300}
           />
         </div>
-      </div>
 
-      <h1 className="heading mb-10">Steps to MudWork</h1>
+        <h1 className="heading mb-10">Steps to MudWork</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {steps.map((all) => {
-          return (
-            <div
-              key={all.title}
-              className="rounded-md dark:bg-white/10 bg-gray-200"
-            >
-              <Image
-                sizes="(max-width: 540px) 40vw,
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {steps.map((all) => {
+            return (
+              <div
+                key={all.title}
+                className="rounded-md dark:bg-white/10 bg-gray-100 border"
+              >
+                <Image
+                  sizes="(max-width: 540px) 40vw,
                 (max-width: 768px) 60vw,
                 (max-width: 1200px) 80vw
                 "
-                quality={30}
-                width={500}
-                height={500}
-                src={all.img}
-                alt={all.title}
-                className="aspect-square w-full object-cover"
-              />
-              <div className="p-5">
-                <h1 className="dark:text-white text-black text-sm mb-2 font-semibold">
-                  {all.title}
-                </h1>
-                <p>{all.text}</p>
+                  quality={30}
+                  width={500}
+                  height={500}
+                  src={all.img}
+                  alt={all.title}
+                  className="aspect-square w-full object-cover"
+                />
+                <div className="p-5">
+                  <h1 className="dark:text-white text-black text-sm mb-2 font-semibold">
+                    {all.title}
+                  </h1>
+                  <p>{all.text}</p>
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
-      <div className="max-w-4xl mx-auto">
+            )
+          })}
+        </div>
+
         <p className="mt-10">
           If you have any questions, custom order inquiries, or simply want to
           connect with us, please don't hesitate to reach out. You can contact

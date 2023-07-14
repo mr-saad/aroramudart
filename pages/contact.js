@@ -8,7 +8,7 @@ const Contact = () => {
   const { push } = useRouter()
 
   return (
-    <div className="flex flex-col text-xs leading-6">
+    <div className="flex flex-col text-xs md:text-sm leading-6">
       {state.submitting && (
         <div className="p-5 z-[5] fixed dark:bg-[#222222] bg-[#f28c28] text-4xl font-semibold dark:text-white text-black inset-0 flex justify-center items-center">
           Please Wait
@@ -28,7 +28,6 @@ const Contact = () => {
       <div className="max-w-4xl mx-auto">
         We would love to hear from you! Feel free to reach out to us using any
         of the following methods: <br />
-        <br />
         <div className="leading-6">
           Email :{" "}
           <a
@@ -74,64 +73,67 @@ const Contact = () => {
           hesitate to get in touch. Our dedicated team is here to assist you and
           provide the information you need.
         </p>
-      </div>
-      <div className="flex flex-col justify-between md:flex-row my-32">
-        <Image
-          width={500}
-          height={500}
-          src="/contactSvg.svg"
-          className="md:w-1/2 lg:w-1/3"
-          alt="Contact at Arora Mud Art"
-        />
-        <div className="w-full mt-5 md:mt-0 md:w-1/2">
-          <div className="text-red-700 my-5 capitalize">
-            <ValidationError
-              field="email"
-              prefix="Invalid E-Mail:"
-              errors={state.errors}
-            />
-            <ValidationError
-              field="mobile"
-              prefix="Mobile"
-              errors={state.errors}
-            />
+        <div className="flex flex-col gap-5 md:flex-row my-10 md:my-28">
+          <Image
+            width={500}
+            height={500}
+            src="/contactSvg.svg"
+            className="md:w-1/2 lg:w-1/3 flex-1"
+            alt="Contact at Arora Mud Art"
+          />
+          <div className="flex-1 mt-5 md:mt-0 md:w-1/2">
+            <div className="text-red-700 my-5 capitalize">
+              <ValidationError
+                field="email"
+                prefix="Invalid E-Mail:"
+                errors={state.errors}
+              />
+              <ValidationError
+                field="mobile"
+                prefix="Mobile"
+                errors={state.errors}
+              />
+            </div>
+            <form onSubmit={Submit} autoComplete="off">
+              <label className="block">Username</label>
+              <input
+                name="username"
+                type="text"
+                className="input_text"
+                required
+              />
+              <label className="block">E-Mail</label>
+              <input
+                name="email"
+                type="email"
+                className="input_text"
+                required
+              />
+              <label className="block ">Mobile</label>
+              <input
+                name="mobile"
+                type="tel"
+                maxLength={10}
+                minLength={10}
+                className="input_text"
+                required
+              />
+              <label className="block">Message</label>
+              <textarea
+                name="message"
+                required
+                className="input_text resize-none overflow-y-auto"
+              ></textarea>
+              <button
+                disabled={state.submitting}
+                type="submit"
+                className="btn disabled:opacity-50"
+              >
+                Submit
+              </button>
+            </form>
           </div>
-          <form onSubmit={Submit} autoComplete="off">
-            <label className="block">Username</label>
-            <input
-              name="username"
-              type="text"
-              className="input_text"
-              required
-            />
-            <label className="block">E-Mail</label>
-            <input name="email" type="email" className="input_text" required />
-            <label className="block ">Mobile</label>
-            <input
-              name="mobile"
-              type="tel"
-              maxLength={10}
-              minLength={10}
-              className="input_text"
-              required
-            />
-            <label className="block">Message</label>
-            <textarea
-              name="message"
-              required
-              className="input_text resize-none overflow-y-auto"
-            ></textarea>
-            <button
-              disabled={state.submitting}
-              type="submit"
-              className="btn disabled:opacity-50"
-            >
-              Submit
-            </button>
-          </form>
         </div>
-      </div>
-      <div className="max-w-4xl mx-auto">
         <p>
           We value your input and look forward to hearing from you. Whether
           you're an art enthusiast, a potential customer, or someone with a
