@@ -1,16 +1,18 @@
+import { useState } from "react"
 import PortableText from "react-portable-text"
 import { BiArrowBack } from "react-icons/bi"
+import { BarLoader } from "react-spinners"
 import Head from "next/head"
 import Image from "next/image"
-import Link from "next/link"
 import Product from "../../../components/Product"
 import { useRouter } from "next/router"
 import { Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
+import dynamic from "next/dynamic"
 
-const DynamicProduct = ({
+export default function DynamicProduct({
   product: {
     title,
     price,
@@ -18,14 +20,16 @@ const DynamicProduct = ({
     image: { url, lqip },
     images,
     body,
-    slug,
   },
   mayLikes,
-}) => {
+}) {
+  const [showForm, setShowForm] = useState(false)
+
   const discountedPrice = price - discount
 
   const { asPath, back } = useRouter()
   const title1 = `${title} | Arora Mud Art`
+
   return (
     <div className="max-w-4xl mb-20 mx-auto text-sm md:text-base px-1">
       <div className="flex items-center mb-2">
@@ -37,11 +41,11 @@ const DynamicProduct = ({
         </p>
       </div>
       <Head>{<title>{title1}</title>}</Head>
-      <div className="flex gap-10 flex-col md:items-center md:flex-row capitalize">
+      <div className="flex gap-10 flex-col md:flex-row capitalize">
         <Swiper
           modules={[Pagination]}
           pagination={{ type: "progressbar" }}
-          className="md:flex-1 w-full max-w-[400px]"
+          className="md:flex-1 w-full max-w-[400px] self-start"
         >
           <SwiperSlide>
             <Image
@@ -86,25 +90,35 @@ const DynamicProduct = ({
           <span className="bg-green-600 text-sm text-white py-1 px-2 rounded-md">
             SAVE ₹{discount}
           </span>
-          {body && (
-            <PortableText
-              className="leading-6 text-sm mt-5"
-              content={body}
-              dataset="production"
-              projectId="5onybuvh"
+          {!showForm ? (
+            body && (
+              <>
+                <PortableText
+                  className="leading-6 text-sm mt-5"
+                  content={body}
+                  dataset="production"
+                  projectId="5onybuvh"
+                />
+                <button
+                  className="btn mt-2 inline-block"
+                  onClick={() => setShowForm(true)}
+                >
+                  Book Now
+                </button>
+              </>
+            )
+          ) : (
+            <BookForm
+              setShowForm={setShowForm}
+              title={title}
+              discountedPrice={discountedPrice}
             />
           )}
-          <Link
-            className="btn mt-2 inline-block"
-            href={`/products/${slug}/book`}
-          >
-            Book Now
-          </Link>
         </div>
       </div>
 
       {mayLikes.length !== 0 && (
-        <div className="mt-20">
+        <div className="mt-28">
           <h1 className="heading mb-5">You May Also Like</h1>
           <Swiper
             slidesPerView={1}
@@ -130,8 +144,6 @@ const DynamicProduct = ({
     </div>
   )
 }
-
-export default DynamicProduct
 
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
@@ -178,6 +190,145 @@ export const getStaticProps = async ({ params: { slug } }) => {
       product,
       mayLikes,
     },
-    revalidate: 1,
+    revalidate: 2,
   }
+}
+
+function BookForm({ setShowForm, title, discountedPrice }) {
+  const { push } = useRouter()
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [book, setBook] = useState({
+    username: "",
+    email: "",
+    mobile: "",
+    address: "",
+    title,
+    discountedPrice,
+  })
+  const Change = ({ target: { value, name } }) => {
+    setBook({ ...book, [name]: value })
+  }
+
+  const BookProduct = async (e) => {
+    setLoading(true)
+    e.preventDefault()
+    const values = Object.entries(book).map(([key, value]) => value)
+    try {
+      await fetch("/api/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+
+      setShowSuccess(true)
+    } catch (error) {
+      alert(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <>
+      <form
+        autoComplete="off"
+        onSubmit={BookProduct}
+        className="flex flex-col mt-5"
+      >
+        <div className="flex flex-col">
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            className="input_text"
+            name="username"
+            onChange={Change}
+            value={book.username}
+            required
+            type="text"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="email">E-Mail</label>
+          <input
+            id="email"
+            className="input_text"
+            name="email"
+            onChange={Change}
+            value={book.email}
+            required
+            type="email"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="mobile">Mobile</label>
+          <input
+            id="mobile"
+            className="input_text"
+            name="mobile"
+            onChange={Change}
+            value={book.mobile}
+            required
+            type="tel"
+            minLength={10}
+            maxLength={10}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="address">Address</label>
+          <textarea
+            id="address"
+            className="input_text"
+            name="address"
+            onChange={Change}
+            value={book.address}
+            required
+          ></textarea>
+        </div>
+        <div className="flex">
+          <button type="submit" className="btn mr-3">
+            Confirm
+          </button>
+          <button className="btn" onClick={() => setShowForm(false)}>
+            Cancel
+          </button>
+        </div>
+      </form>
+      {loading && <HangOn />}
+      {showSuccess && <Success setShowSuccess={setShowSuccess} push={push} />}
+    </>
+  )
+}
+
+const HangOn = () => (
+  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#222222] bg-[#f28c28]/90">
+    <BarLoader color="white" />
+    <h1 className="text-4xl mt-5 dark:text-white text-black">Please Wait</h1>
+  </div>
+)
+
+import SuccessJson from "./success.json"
+const Lottie = dynamic(() => import("lottie-react"), {
+  loading: () => <p>Loading...</p>,
+})
+const Success = ({ setShowSuccess, push }) => {
+  return (
+    <div className="dark:bg-[#222222] bg-white border fixed w-full max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
+      <Lottie animationData={SuccessJson} loop={true} />
+      <h1 className="dark:text-white text-black font-semibold text-lg">
+        Your Order Has Been Booked!
+      </h1>
+      <button
+        className="btn !self-center mt-2"
+        onClick={() => {
+          push("/products")
+          setShowSuccess(false)
+        }}
+      >
+        Got It
+      </button>
+    </div>
+  )
 }
