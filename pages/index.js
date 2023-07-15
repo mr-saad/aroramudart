@@ -34,7 +34,7 @@ const Home = ({ data, images }) => {
           >
             {images.map(({ slug, image: { url, lqip } }) => (
               <SwiperSlide className="relative" key={slug}>
-                <Link href={slug}>
+                <Link href={`/products/${slug}`}>
                   <Image
                     sizes="
                     (max-width: 540px) 40vw,
