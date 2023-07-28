@@ -36,7 +36,7 @@ export default function DynamicProduct({
         <button onClick={() => back()}>
           <BiArrowBack size={16} />
         </button>
-        <p className="capitalize text-xs md:text-sm ml-1">
+        <p className="capitalize text-sm md:text-sm ml-1">
           {asPath.replace("/", "").replace(/\//g, " > ")}
         </p>
       </div>
@@ -84,9 +84,10 @@ export default function DynamicProduct({
           <h1 className="text-lg font-semibold dark:text-white text-black">
             {title}
           </h1>
-          <span>₹{discountedPrice} </span>
-          <s>₹{price}</s>
-          <br />
+          <div className="my-1">
+            <span>₹{discountedPrice} </span>
+            <s>₹{price}</s>
+          </div>
           <span className="bg-green-600 text-sm text-white py-1 px-2 rounded-md">
             SAVE ₹{discount}
           </span>

@@ -8,6 +8,7 @@ import { BsSearch } from "react-icons/bs"
 import { FaAngleDown } from "react-icons/fa"
 import dynamic from "next/dynamic"
 import { Context } from "../_app"
+import { useTheme } from "next-themes"
 const Product = dynamic(() => import("../../components/Product"))
 
 const Products = ({ products }) => {
@@ -119,7 +120,7 @@ export const Filter = ({
 }) => {
   const [open, setOpen] = useState(false)
 
-  const { dark } = useContext(Context)
+  const { theme } = useTheme()
 
   return (
     <div className="flex flex-col md:items-start fixed dark:bg-[#222222] bg-[#f28c28]/[.95] rounded-md inset-y-4 w-full h-full left-0 top-16 md:flex-row gap-5 mb-5 p-5">
@@ -129,7 +130,7 @@ export const Filter = ({
         <div className="relative">
           <BsSearch
             size={16}
-            color={dark ? "#fff" : "#000"}
+            color={theme === "dark" ? "#fff" : "#000"}
             className="absolute top-1/2 -translate-y-1/2 left-3"
           />
           <input
@@ -144,7 +145,7 @@ export const Filter = ({
             <VscClose
               onClick={() => setInput("")}
               size={25}
-              color={dark ? "#fff" : "#000"}
+              color={theme === "dark" ? "#fff" : "#000"}
               className="absolute right-3 top-1/2 -translate-y-1/2"
             />
           )}

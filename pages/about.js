@@ -35,14 +35,9 @@ const steps = [
 
 const About = () => {
   return (
-    <div className="text-xs leading-6 mt-5">
+    <div className="text-sm leading-6 mt-5">
       <div className="max-w-4xl mx-auto">
-        <h2
-          className="heading mb-2
-        "
-        >
-          Welcome to Arora Mud Art!
-        </h2>
+        <h2 className="heading mb-2">Welcome to Arora Mud Art!</h2>
         <p>
           At Arora Mud Art, we are passionate about creating unique and
           exquisite artworks using mud as our primary medium. Our aim is to
@@ -88,7 +83,7 @@ const About = () => {
             return (
               <div
                 key={all.title}
-                className="rounded-md dark:bg-white/10 bg-gray-100 border"
+                className="rounded-md dark:bg-white/5 bg-gray-100"
               >
                 <Image
                   sizes="(max-width: 540px) 40vw,

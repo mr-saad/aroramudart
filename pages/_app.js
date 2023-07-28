@@ -1,42 +1,36 @@
 import Head from "next/head"
 import Router from "next/router"
 import { createContext, useEffect, useState } from "react"
-import { PropagateLoader } from "react-spinners"
+import PropagateLoader from "react-spinners/PropagateLoader"
 import Navbar from "../components/Navbar"
 import "../globals.css"
 import dynamic from "next/dynamic"
+import { ThemeProvider, useTheme } from "next-themes"
 
 export const Context = createContext()
 
 const Footer = dynamic(() => import("../components/Footer"))
 
 const App = ({ Component, pageProps }) => {
-  const [minHeight, setMinHeight] = useState(0)
+  const { setTheme } = useTheme()
   const [showSearch, setShowSearch] = useState(false)
-  const [dark, setDark] = useState(false)
 
   useEffect(() => {
-    const isDark = localStorage.getItem("dark")
-    if (isDark === "true") {
-      setDark(true)
-      document.documentElement.classList.add("dark")
+    const isDark = localStorage.getItem("theme")
+    if (isDark === "dark") {
+      setTheme("dark")
     } else {
-      setDark(false)
-      document.documentElement.classList.remove("dark")
+      setTheme("light")
     }
-  }, [])
-
-  useEffect(() => {
-    setMinHeight(innerHeight - document.querySelector("nav").offsetHeight)
   }, [])
 
   const [loading, setLoading] = useState(false)
 
   Router.events.on("routeChangeStart", () => {
-    setLoading(true)
-    setShowSearch(false)
-    document.documentElement.classList.remove("over-hide")
     scrollTo(0, 0)
+    setLoading(true)
+    document.documentElement.classList.remove("over-hide")
+    setShowSearch(false)
   })
   Router.events.on("routeChangeComplete", () => setLoading(false))
   Router.events.on("routeChangeError", () => setLoading(false))
@@ -125,26 +119,25 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
-      <Context.Provider value={{ showSearch, setShowSearch, dark, setDark }}>
-        <Navbar />
-        <div
-          style={{ minHeight }}
-          className="main-container md:px-20 px-4 py-3 overflow-hidden"
-        >
-          {loading ? (
-            <div className="flex h-[calc(100vh-100px)] mx-auto justify-center items-center">
-              <PropagateLoader
-                size={20}
-                color={"#f28c28"}
-                style={{ transform: "translate(-.5rem)" }}
-              />
-            </div>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </div>
-        <Footer />
-      </Context.Provider>
+      <ThemeProvider defaultTheme="light" attribute="class">
+        <Context.Provider value={{ showSearch, setShowSearch, setTheme }}>
+          <Navbar />
+          <div className="md:px-20 px-4 py-3 overflow-hidden">
+            {loading ? (
+              <div className="flex h-[calc(100vh-100px)] mx-auto justify-center items-center">
+                <PropagateLoader
+                  size={20}
+                  color={"#f28c28"}
+                  style={{ transform: "translate(-.5rem)" }}
+                />
+              </div>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </div>
+          <Footer />
+        </Context.Provider>
+      </ThemeProvider>
     </>
   )
 }

@@ -1,6 +1,6 @@
 @tailwind base;
 @tailwind utilities;
-@tailwind components;
+/* @tailwind components; */
 
 @font-face {
   font-family: Rubik;
@@ -26,6 +26,8 @@
 
 body {
   @apply dark:bg-[#222222] dark:text-[#888] text-[#666];
+  word-spacing: 0.1rem;
+  letter-spacing: -0.015rem;
 }
 
 .over-hide {
@@ -40,7 +42,7 @@ body {
   @apply font-bold transition dark:text-black dark:hover:text-[#f28c28] dark:hover:bg-[#222222] hover:text-[#f28c28] hover:bg-white text-[#222222]  bg-[#f28c28] border border-[#f28c28] self-start px-3 py-2 rounded-md;
 }
 .neutral-btn {
-  @apply font-bold transition dark:text-[#f28c28] opacity-60 hover:opacity-100 border border-[#666] dark:border-[#f28c28] px-3 py-2 rounded-md;
+  @apply font-bold transition dark:text-[#f28c28] border border-[#666] dark:border-[#f28c28] px-3 py-2 rounded-md;
 }
 
 .input_text {

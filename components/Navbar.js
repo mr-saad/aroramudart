@@ -6,16 +6,19 @@ import { BsMoonFill, BsSearch } from "react-icons/bs"
 import { VscClose } from "react-icons/vsc"
 import { Context } from "../pages/_app"
 import { LuSun } from "react-icons/lu"
+import { useTheme } from "next-themes"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { route } = useRouter()
 
+  const { theme, setTheme } = useTheme()
+
   useEffect(() => {
     document.documentElement.classList.toggle("over-hide", open)
   }, [open])
 
-  const { showSearch, setShowSearch, dark, setDark } = useContext(Context)
+  const { showSearch, setShowSearch } = useContext(Context)
 
   useEffect(() => {
     ;[...document.querySelectorAll(".nav-link")].forEach((link) => {
@@ -136,15 +139,14 @@ const Navbar = () => {
         >
           About
         </Link>
-        <p>
-          {dark ? (
+        <div>
+          {theme === "dark" ? (
             <LuSun
               size={20}
               className="cursor-pointer"
               onClick={() => {
-                setDark(false)
-                localStorage.setItem("dark", null)
-                document.documentElement.classList.remove("dark")
+                setTheme("light")
+                localStorage.setItem("theme", "light")
               }}
             />
           ) : (
@@ -152,13 +154,12 @@ const Navbar = () => {
               size={20}
               className="cursor-pointer"
               onClick={() => {
-                setDark(true)
-                localStorage.setItem("dark", true)
-                document.documentElement.classList.add("dark")
+                setTheme("dark")
+                localStorage.setItem("theme", "dark")
               }}
             />
           )}
-        </p>
+        </div>
       </ul>
     </nav>
   )

@@ -8,19 +8,20 @@ const Contact = () => {
   const { push } = useRouter()
 
   return (
-    <div className="flex flex-col text-xs md:text-sm leading-6">
+    <div className="flex flex-col text-sm md:text-sm leading-6">
       {state.submitting && (
         <div className="p-5 z-[5] fixed dark:bg-[#222222] bg-[#f28c28] text-4xl font-semibold dark:text-white text-black inset-0 flex justify-center items-center">
           Please Wait
         </div>
       )}
       {state.succeeded && (
-        <div className="fixed inset-0 dark:bg-[#222222] bg-[#f28c28] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
-          <p className="dark:text-white text-black text-4xl">
-            Your Message is Sent!
-          </p>
+        <div className="fixed inset-0 text-black dark:bg-[#222222] bg-[#f28c28] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
+          <p className="dark:text-white text-4xl">Your Message is Sent!</p>
           <p>We'll Try Respond As Soon As Possible</p>
-          <button onClick={() => push("/")} className="btn !self-center">
+          <button
+            onClick={() => push("/")}
+            className="btn !self-center !border-white"
+          >
             Got It
           </button>
         </div>
