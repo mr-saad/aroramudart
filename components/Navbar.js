@@ -138,22 +138,22 @@ const Navbar = () => {
           About
         </Link>
         <div>
-          {!theme === "dark" ? (
-            <BsMoonFill
-              size={20}
-              className="cursor-pointer"
-              onClick={() => {
-                setTheme("dark")
-                localStorage.setItem("theme", "dark")
-              }}
-            />
-          ) : (
+          {theme === "dark" ? (
             <BsSunFill
               size={20}
               className="cursor-pointer"
               onClick={() => {
                 setTheme("light")
                 localStorage.setItem("theme", "light")
+              }}
+            />
+          ) : (
+            <BsMoonFill
+              size={20}
+              className="cursor-pointer"
+              onClick={() => {
+                setTheme("dark")
+                localStorage.setItem("theme", "dark")
               }}
             />
           )}
