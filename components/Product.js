@@ -4,15 +4,15 @@ import Link from "next/link"
 const Product = ({ slug, image: { url, lqip }, title }) => {
   return (
     <Link
-      className="cursor-pointer overflow-hidden text-center capitalize rounded-md"
+      className="cursor-pointer overflow-hidden text-center capitalize"
       href={`/products/${slug}`}
     >
       <Image
-        style={{ height: "auto" }}
+        // style={{ height: "auto" }}
         sizes="(max-width: 540px) 40vw,
                 (max-width: 768px) 60vw,
                 (max-width: 1200px) 80vw"
-        className="w-full object-contain select-none"
+        className="w-full object-contain select-none rounded-md"
         placeholder="blur"
         blurDataURL={lqip}
         width={400}

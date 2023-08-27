@@ -12,6 +12,55 @@ import "swiper/css"
 import "swiper/css/pagination"
 import dynamic from "next/dynamic"
 
+export const getStaticPaths = async () => {
+  const { default: sanity } = await import("../../../components/sanityClient")
+  const data = await sanity.fetch(`*[_type == "product"]{"slug":slug.current}`)
+  const paths = data.map((all) => ({
+    params: {
+      slug: all.slug,
+    },
+  }))
+  return {
+    paths,
+    fallback: "blocking",
+  }
+}
+
+export const getStaticProps = async ({ params: { slug } }) => {
+  const { default: sanity } = await import("../../../components/sanityClient")
+
+  const product = await sanity.fetch(
+    `*[slug.current==$slug][0]{
+      title,
+      "slug":slug.current,
+      price,
+      discount,
+      body,
+      category,
+      "image":mainImage.asset->{url,"lqip":metadata.lqip},
+      "images":images[].asset->{url,"lqip":metadata.lqip}
+    }`,
+    { slug }
+  )
+
+  const mayLikes = await sanity.fetch(
+    `*[category==$category&&slug.current!=$slug][0..2]{
+      title,
+      "slug":slug.current,
+      "image":mainImage.asset->{url,"lqip":metadata.lqip},
+    }`,
+    { category: product.category, slug }
+  )
+
+  return {
+    props: {
+      product,
+      mayLikes,
+    },
+    revalidate: 2,
+  }
+}
+
 export default function DynamicProduct({
   product: {
     title,
@@ -31,10 +80,10 @@ export default function DynamicProduct({
   const title1 = `${title} | Arora Mud Art`
 
   return (
-    <div className="max-w-4xl mb-20 mx-auto text-sm md:text-base px-1">
+    <div className="mb-20 mx-auto text-sm md:text-base px-1">
       <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
-          <BiArrowBack size={16} />
+          <BiArrowBack size={18} />
         </button>
         <p className="capitalize text-sm md:text-sm ml-1">
           {asPath.replace("/", "").replace(/\//g, " > ")}
@@ -45,11 +94,11 @@ export default function DynamicProduct({
         <Swiper
           modules={[Pagination]}
           pagination={{ type: "progressbar" }}
-          className="md:flex-1 w-full max-w-[400px] self-start"
+          className="md:flex-1 w-full max-w-[400px] self-start rounded-md"
         >
           <SwiperSlide>
             <Image
-              className="rounded-md object-contain h-fit"
+              className="object-contain h-fit cursor-move"
               sizes="(max-width: 540px) 40vw,
             (max-width: 768px) 60vw,
             (max-width: 1200px) 80vw"
@@ -65,7 +114,7 @@ export default function DynamicProduct({
             images?.map(({ url, lqip }) => (
               <SwiperSlide key={url}>
                 <Image
-                  className="rounded-md object-contain h-fit"
+                  className="cursor-move object-contain h-fit"
                   sizes="(max-width: 540px) 40vw,
               (max-width: 768px) 60vw,
               (max-width: 1200px) 80vw"
@@ -144,55 +193,6 @@ export default function DynamicProduct({
       )}
     </div>
   )
-}
-
-export const getStaticPaths = async () => {
-  const { default: sanity } = await import("../../../components/sanityClient")
-  const data = await sanity.fetch(`*[_type == "product"]{"slug":slug.current}`)
-  const paths = data.map((all) => ({
-    params: {
-      slug: all.slug,
-    },
-  }))
-  return {
-    paths,
-    fallback: "blocking",
-  }
-}
-
-export const getStaticProps = async ({ params: { slug } }) => {
-  const { default: sanity } = await import("../../../components/sanityClient")
-
-  const product = await sanity.fetch(
-    `*[slug.current==$slug][0]{
-      title,
-      "slug":slug.current,
-      price,
-      discount,
-      body,
-      category,
-      "image":mainImage.asset->{url,"lqip":metadata.lqip},
-      "images":images[].asset->{url,"lqip":metadata.lqip}
-    }`,
-    { slug }
-  )
-
-  const mayLikes = await sanity.fetch(
-    `*[category==$category&&slug.current!=$slug][0..2]{
-      title,
-      "slug":slug.current,
-      "image":mainImage.asset->{url,"lqip":metadata.lqip},
-    }`,
-    { category: product.category, slug }
-  )
-
-  return {
-    props: {
-      product,
-      mayLikes,
-    },
-    revalidate: 2,
-  }
 }
 
 function BookForm({ setShowForm, title, discountedPrice }) {

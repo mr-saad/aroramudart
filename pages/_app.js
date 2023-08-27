@@ -122,7 +122,7 @@ const App = ({ Component, pageProps }) => {
       <ThemeProvider defaultTheme="light" attribute="class">
         <Context.Provider value={{ showSearch, setShowSearch, setTheme }}>
           <Navbar />
-          <div className="md:px-20 px-4 py-3 overflow-hidden">
+          <div className="md:px-20 px-4 py-3 overflow-hidden max-w-4xl mx-auto">
             {loading ? (
               <div className="flex h-[calc(100vh-100px)] mx-auto justify-center items-center">
                 <PropagateLoader

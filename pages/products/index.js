@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useRef } from "react"
 import Head from "next/head"
 import Link from "next/link"
 import React from "react"
@@ -10,6 +10,27 @@ import dynamic from "next/dynamic"
 import { Context } from "../_app"
 import { useTheme } from "next-themes"
 const Product = dynamic(() => import("../../components/Product"))
+
+export const getServerSideProps = async () => {
+  const { default: sanity } = await import("../../components/sanityClient")
+
+  const data = await sanity.fetch(`
+  *[_type == "product"] | order(_createdAt desc){
+    _id,
+    "slug":slug.current,
+    title,
+    category,
+    price,
+    discount,
+    "image":mainImage.asset->{url,"lqip":metadata.lqip}
+  }`)
+
+  return {
+    props: {
+      products: data,
+    },
+  }
+}
 
 const Products = ({ products }) => {
   const { showSearch, setShowSearch } = useContext(Context)
@@ -69,7 +90,7 @@ const Products = ({ products }) => {
   }, [selectedCat])
 
   return (
-    <div className="mb-20 mt-2">
+    <div className="mb-20 mt-2 min-h-screen">
       <Head>
         <title>Products | Arora Mud Art</title>
       </Head>
@@ -85,7 +106,7 @@ const Products = ({ products }) => {
         />
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-3 md:gap-10 capitalize mx-[-6px] md:mx-0">
+      <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-3 md:gap-10 capitalize">
         {finalProducts.length !== 0 ? (
           finalProducts.map((all) => {
             return <Product key={all.slug} {...all} />
@@ -240,24 +261,4 @@ export const Filter = ({
       </div>
     </div>
   )
-}
-
-export const getServerSideProps = async () => {
-  const { default: sanity } = await import("../../components/sanityClient")
-
-  const data = await sanity.fetch(`
-  *[_type == "product"] | order(_createdAt desc){
-    "slug":slug.current,
-    title,
-    category,
-    price,
-    discount,
-    "image":mainImage.asset->{url,"lqip":metadata.lqip}
-  }`)
-
-  return {
-    props: {
-      products: data,
-    },
-  }
 }

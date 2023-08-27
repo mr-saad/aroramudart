@@ -1,11 +1,9 @@
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
-import { BsMoonFill, BsSearch } from "react-icons/bs"
+import { BsMoonFill, BsSearch, BsSunFill } from "react-icons/bs"
 import { VscClose } from "react-icons/vsc"
 import { Context } from "../pages/_app"
-import { LuSun } from "react-icons/lu"
 import { useTheme } from "next-themes"
 
 const Navbar = () => {
@@ -140,22 +138,22 @@ const Navbar = () => {
           About
         </Link>
         <div>
-          {theme === "dark" ? (
-            <LuSun
-              size={20}
-              className="cursor-pointer"
-              onClick={() => {
-                setTheme("light")
-                localStorage.setItem("theme", "light")
-              }}
-            />
-          ) : (
+          {!theme === "dark" ? (
             <BsMoonFill
               size={20}
               className="cursor-pointer"
               onClick={() => {
                 setTheme("dark")
                 localStorage.setItem("theme", "dark")
+              }}
+            />
+          ) : (
+            <BsSunFill
+              size={20}
+              className="cursor-pointer"
+              onClick={() => {
+                setTheme("light")
+                localStorage.setItem("theme", "light")
               }}
             />
           )}
