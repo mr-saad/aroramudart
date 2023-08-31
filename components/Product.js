@@ -8,7 +8,7 @@ const Product = ({ slug, image: { url, lqip }, title }) => {
       href={`/products/${slug}`}
     >
       <Image
-        // style={{ height: "auto" }}
+        priority={false}
         sizes="(max-width: 540px) 40vw,
                 (max-width: 768px) 60vw,
                 (max-width: 1200px) 80vw"

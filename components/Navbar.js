@@ -1,16 +1,24 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
-import { BsMoonFill, BsSearch, BsSunFill } from "react-icons/bs"
+import { BsMoonFill, BsSearch } from "react-icons/bs"
+import { LuSun } from "react-icons/lu"
 import { VscClose } from "react-icons/vsc"
 import { Context } from "../pages/_app"
 import { useTheme } from "next-themes"
+
+export const hasMounted = () => {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  return mounted
+}
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { route } = useRouter()
 
   const { theme, setTheme } = useTheme()
+  const mount = hasMounted()
 
   useEffect(() => {
     document.documentElement.classList.toggle("over-hide", open)
@@ -101,45 +109,54 @@ const Navbar = () => {
           open ? "ulOpen" : "ulClose"
         }`}
       >
-        <Link
-          href="/"
-          className={`nav-link transition-all duration-100 ${
-            route === "/" &&
-            "text-black dark:text-white md:dark:text-black font-bold"
-          }`}
-        >
-          Home
-        </Link>
-        <Link
-          href="/products"
-          className={`nav-link transition-all duration-100 ${
-            route.includes("/products") &&
-            "text-black dark:text-white md:dark:text-black font-bold"
-          }`}
-        >
-          Products
-        </Link>
-        <Link
-          href="/contact"
-          className={`nav-link transition-all duration-100 ${
-            route === "/contact" &&
-            "text-black dark:text-white md:dark:text-black font-bold"
-          }`}
-        >
-          Contact
-        </Link>
-        <Link
-          href="/about"
-          className={`nav-link transition-all duration-100 ${
-            route === "/about" &&
-            "text-black dark:text-white md:dark:text-black font-bold"
-          }`}
-        >
-          About
-        </Link>
-        <div>
-          {theme === "dark" ? (
-            <BsSunFill
+        <li>
+          <Link
+            href="/"
+            className={`nav-link transition-all duration-100 ${
+              route === "/" &&
+              "text-black dark:text-white md:dark:text-black font-bold"
+            }`}
+          >
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/products"
+            className={`nav-link transition-all duration-100 ${
+              route.includes("/products") &&
+              "text-black dark:text-white md:dark:text-black font-bold"
+            }`}
+          >
+            Products
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/contact"
+            className={`nav-link transition-all duration-100 ${
+              route === "/contact" &&
+              "text-black dark:text-white md:dark:text-black font-bold"
+            }`}
+          >
+            Contact
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/about"
+            className={`nav-link transition-all duration-100 ${
+              route === "/about" &&
+              "text-black dark:text-white md:dark:text-black font-bold"
+            }`}
+          >
+            About
+          </Link>
+        </li>
+
+        <li>
+          {mount && theme === "dark" ? (
+            <LuSun
               size={20}
               className="cursor-pointer"
               onClick={() => {
@@ -157,7 +174,7 @@ const Navbar = () => {
               }}
             />
           )}
-        </div>
+        </li>
       </ul>
     </nav>
   )
