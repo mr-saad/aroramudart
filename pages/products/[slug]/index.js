@@ -15,14 +15,14 @@ import dynamic from "next/dynamic"
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
   const data = await sanity.fetch(`*[_type == "product"]{"slug":slug.current}`)
-  const paths = data.map((all) => ({
+  const paths = data.map(all => ({
     params: {
-      slug: all.slug,
-    },
+      slug: all.slug
+    }
   }))
   return {
     paths,
-    fallback: "blocking",
+    fallback: "blocking"
   }
 }
 
@@ -55,9 +55,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
   return {
     props: {
       product,
-      mayLikes,
+      mayLikes
     },
-    revalidate: 2,
+    revalidate: 6
   }
 }
 
@@ -68,9 +68,9 @@ export default function DynamicProduct({
     discount,
     image: { url, lqip },
     images,
-    body,
+    body
   },
-  mayLikes,
+  mayLikes
 }) {
   const [showForm, setShowForm] = useState(false)
 
@@ -83,13 +83,15 @@ export default function DynamicProduct({
     <div className="mb-20 mx-auto text-sm md:text-base px-1">
       <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
-          <BiArrowBack size={18} />
+          <BiArrowBack size={18} className="inline" />
+          <p className="capitalize inline text-sm ml-1">
+            {asPath.replace("/", "").replace(/\//g, " > ")}
+          </p>
         </button>
-        <p className="capitalize text-sm md:text-sm ml-1">
-          {asPath.replace("/", "").replace(/\//g, " > ")}
-        </p>
       </div>
-      <Head>{<title>{title1}</title>}</Head>
+      <Head>
+        <title>{title1}</title>
+      </Head>
       <div className="flex gap-10 flex-col md:flex-row capitalize">
         <Swiper
           modules={[Pagination]}
@@ -98,10 +100,8 @@ export default function DynamicProduct({
         >
           <SwiperSlide>
             <Image
-              className="object-contain h-fit cursor-move"
-              sizes="(max-width: 540px) 40vw,
-            (max-width: 768px) 60vw,
-            (max-width: 1200px) 80vw"
+              className="object-contain h-fit rounded-l-md cursor-move"
+              sizes="(max-width: 640px) 80vw, 40vw"
               width={400}
               height={400}
               src={url}
@@ -114,10 +114,8 @@ export default function DynamicProduct({
             images?.map(({ url, lqip }) => (
               <SwiperSlide key={url}>
                 <Image
-                  className="cursor-move object-contain h-fit"
-                  sizes="(max-width: 540px) 40vw,
-              (max-width: 768px) 60vw,
-              (max-width: 1200px) 80vw"
+                  className="cursor-move object-contain h-fit last:rounded-r-md"
+                  sizes="(max-width: 640px) 80vw, 40vw"
                   width={400}
                   height={400}
                   src={url}
@@ -175,15 +173,15 @@ export default function DynamicProduct({
             spaceBetween={20}
             breakpoints={{
               540: {
-                slidesPerView: 3,
-              },
+                slidesPerView: 3
+              }
             }}
             pagination={{
-              type: "progressbar",
+              type: "progressbar"
             }}
             modules={[Pagination]}
           >
-            {mayLikes.map((props) => (
+            {mayLikes.map(props => (
               <SwiperSlide key={props.slug}>
                 <Product {...props} />
               </SwiperSlide>
@@ -205,13 +203,13 @@ function BookForm({ setShowForm, title, discountedPrice }) {
     mobile: "",
     address: "",
     title,
-    discountedPrice,
+    discountedPrice
   })
   const Change = ({ target: { value, name } }) => {
     setBook({ ...book, [name]: value })
   }
 
-  const BookProduct = async (e) => {
+  const BookProduct = async e => {
     setLoading(true)
     e.preventDefault()
     const values = Object.entries(book).map(([key, value]) => value)
@@ -219,9 +217,9 @@ function BookForm({ setShowForm, title, discountedPrice }) {
       await fetch("/api/book", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(values)
       })
 
       setShowSuccess(true)
@@ -312,7 +310,8 @@ const HangOn = () => (
 
 import SuccessJson from "./success.json"
 const Lottie = dynamic(() => import("lottie-react"), {
-  loading: () => <p>Loading...</p>,
+  ssr: false,
+  loading: () => <p>Loading...</p>
 })
 const Success = ({ setShowSuccess, push }) => {
   return (

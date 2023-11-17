@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind utilities;
-/* @tailwind components; */
 
 @font-face {
   font-family: Rubik;
@@ -22,6 +21,13 @@
     "Noto Color Emoji";
   -webkit-tap-highlight-color: transparent;
   text-wrap: balance;
+}
+
+html.dark .aroraSvg {
+  fill: #fff;
+}
+.aroraSvg {
+  fill: #222222;
 }
 
 body {

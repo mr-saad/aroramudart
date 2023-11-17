@@ -1,11 +1,10 @@
 import Head from "next/head"
-import Router from "next/router"
-import { createContext, useEffect, useState } from "react"
-import PropagateLoader from "react-spinners/PropagateLoader"
+import { Suspense, createContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import "../globals.css"
 import dynamic from "next/dynamic"
 import { ThemeProvider, useTheme } from "next-themes"
+import PropagateLoader from "react-spinners/PropagateLoader"
 
 export const Context = createContext()
 
@@ -23,17 +22,6 @@ const App = ({ Component, pageProps }) => {
       setTheme("light")
     }
   }, [])
-
-  const [loading, setLoading] = useState(false)
-
-  Router.events.on("routeChangeStart", () => {
-    scrollTo(0, 0)
-    setLoading(true)
-    document.documentElement.classList.remove("over-hide")
-    setShowSearch(false)
-  })
-  Router.events.on("routeChangeComplete", () => setLoading(false))
-  Router.events.on("routeChangeError", () => setLoading(false))
 
   return (
     <>
@@ -123,17 +111,17 @@ const App = ({ Component, pageProps }) => {
         <Context.Provider value={{ showSearch, setShowSearch, setTheme }}>
           <Navbar />
           <div className="md:px-20 px-4 py-3 overflow-hidden max-w-4xl mx-auto">
-            {loading ? (
-              <div className="flex h-[calc(100vh-100px)] mx-auto justify-center items-center">
+            <Suspense
+              fallback={
                 <PropagateLoader
                   size={20}
                   color={"#f28c28"}
                   style={{ transform: "translate(-.5rem)" }}
                 />
-              </div>
-            ) : (
+              }
+            >
               <Component {...pageProps} />
-            )}
+            </Suspense>
           </div>
           <Footer />
         </Context.Provider>

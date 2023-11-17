@@ -27,7 +27,7 @@ const Navbar = () => {
   const { showSearch, setShowSearch } = useContext(Context)
 
   useEffect(() => {
-    ;[...document.querySelectorAll(".nav-link")].forEach((link) => {
+    ;[...document.querySelectorAll(".nav-link")].forEach(link => {
       link.onclick = () => {
         document.documentElement.classList.remove("over-hide")
         setOpen(false)
@@ -84,7 +84,7 @@ const Navbar = () => {
       <div
         className="md:hidden flex flex-col justify-between gap-2 z-20"
         onClick={() => {
-          setOpen((prev) => !prev)
+          setOpen(prev => !prev)
         }}
       >
         <span

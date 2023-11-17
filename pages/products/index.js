@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { useState, useEffect, useContext, useRef } from "react"
+import { useState, useEffect, useContext } from "react"
 import Head from "next/head"
 import Link from "next/link"
 import React from "react"
@@ -11,7 +11,7 @@ import { Context } from "../_app"
 import { useTheme } from "next-themes"
 const Product = dynamic(() => import("../../components/Product"))
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const { default: sanity } = await import("../../components/sanityClient")
 
   const data = await sanity.fetch(`
@@ -27,8 +27,9 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      products: data,
+      products: data
     },
+    revalidate: 6
   }
 }
 
@@ -40,7 +41,7 @@ const Products = ({ products }) => {
   const [selectedCat, setSelectedCat] = useState("All Designs")
 
   useEffect(() => {
-    const filter = products.filter((product) => {
+    const filter = products.filter(product => {
       return product.title.toLowerCase().includes(input.toLowerCase())
     })
     input === "" ? setFiltered([]) : setFiltered(filter)
@@ -53,69 +54,70 @@ const Products = ({ products }) => {
         break
       case "Traditional Designs":
         setFinalProducts(
-          products.filter((all) => all.category === "Traditional Designs")
+          products.filter(all => all.category === "Traditional Designs")
         )
         break
       case "Classic Designs":
         setFinalProducts(
-          products.filter((all) => all.category === "Classic Designs")
+          products.filter(all => all.category === "Classic Designs")
         )
         break
       case "Mirror Designs":
         setFinalProducts(
-          products.filter((all) => all.category === "Mirror Designs")
+          products.filter(all => all.category === "Mirror Designs")
         )
         break
       case "Islamic Designs":
         setFinalProducts(
-          products.filter((all) => all.category === "Islamic Designs")
+          products.filter(all => all.category === "Islamic Designs")
         )
         break
       case "Kutchi Work Designs":
         setFinalProducts(
-          products.filter((all) => all.category === "Kutchi Work Designs")
+          products.filter(all => all.category === "Kutchi Work Designs")
         )
         break
       case "Printed Clocks":
         setFinalProducts(
-          products.filter((all) => all.category === "Printed Clocks")
+          products.filter(all => all.category === "Printed Clocks")
         )
         break
       case "Mudwork Clocks":
         setFinalProducts(
-          products.filter((all) => all.category === "Mudwork Clocks")
+          products.filter(all => all.category === "Mudwork Clocks")
         )
         break
     }
   }, [selectedCat])
 
   return (
-    <div className="mb-20 mt-2 min-h-screen">
+    <>
       <Head>
         <title>Products | Arora Mud Art</title>
       </Head>
-
-      {showSearch && (
-        <Filter
-          input={input}
-          setInput={setInput}
-          filtered={filtered}
-          selectedCat={selectedCat}
-          setSelectedCat={setSelectedCat}
-          setShowSearch={setShowSearch}
-        />
-      )}
-
-      <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-3 md:gap-10 capitalize">
-        {finalProducts.length !== 0 ? (
-          finalProducts.map((all) => {
-            return <Product key={all.slug} {...all} />
-          })
-        ) : (
-          <span>No Products</span>
+      <div className="mb-20 mt-2 min-h-screen">
+        {showSearch && (
+          <Filter
+            input={input}
+            setInput={setInput}
+            filtered={filtered}
+            selectedCat={selectedCat}
+            setSelectedCat={setSelectedCat}
+            setShowSearch={setShowSearch}
+          />
         )}
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-3 md:gap-10 capitalize">
+          {finalProducts.length !== 0 ? (
+            finalProducts.map(all => {
+              return <Product key={all.slug} {...all} />
+            })
+          ) : (
+            <span>No Products</span>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -129,7 +131,7 @@ const categories = [
   "Islamic Designs",
   "Kutchi Work Designs",
   "Printed Clocks",
-  "Mudwork Clocks",
+  "Mudwork Clocks"
 ]
 export const Filter = ({
   filtered,
@@ -137,7 +139,7 @@ export const Filter = ({
   input,
   setInput,
   setSelectedCat,
-  setShowSearch,
+  setShowSearch
 }) => {
   const [open, setOpen] = useState(false)
 
@@ -157,7 +159,7 @@ export const Filter = ({
           <input
             maxLength={25}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             type="text"
             placeholder="What are you Searching For?"
             className="px-10 text-sm w-full py-2 bg-transparent rounded-md dark:text-white text-black outline-none border dark:border-white/20 dark:focus:border-white/40 dark:placeholder:text-white/50 placeholder:text-black/50 border-black/50 focus:border-black"
@@ -239,7 +241,7 @@ export const Filter = ({
                 transition={{ ease: "linear", duration: 0.1 }}
                 className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden dark:bg-[#222222] bg-[#f28c28] border border-black dark:border-white/10"
               >
-                {categories.map((all) => {
+                {categories.map(all => {
                   return (
                     <h3
                       key={all}
