@@ -4,33 +4,33 @@ const steps = [
   {
     img: "/step-1.jpeg",
     title: "Making dough",
-    text: " The mud is mostly from Bhuj, which is golden brown in color which is perfect for the art, The dough is kneaded for a uniform texture.",
+    text: " The mud is mostly from Bhuj, which is golden brown in color which is perfect for the art, The dough is kneaded for a uniform texture."
   },
   {
     img: "/step-1.jpeg",
     title: "Shaping dough",
-    text: "The artisan then takes tiny portions of the dough to give them a cylindrical shape of varying thickness. He does so by rolling the dough on the floor, or, in between the palms.",
+    text: "The artisan then takes tiny portions of the dough to give them a cylindrical shape of varying thickness. He does so by rolling the dough on the floor, or, in between the palms."
   },
   {
     title: "Drawing Motifs",
     text: "The wooden panel is marked with outlines according to the desired design. The cylindrical shapes made from dough is used to outline the design which define the framework of the craft.",
-    img: "/step-1.jpeg",
+    img: "/step-1.jpeg"
   },
   {
     title: "Embedding Mirrors",
     text: "The fourth step is to embed the mirrors and sequins in the motifs and patterns drawn. The mirrors used for the decoration are called  aabhla. They come in myriad shapes including round, diamond, and triangular.",
-    img: "/step-1.jpeg",
+    img: "/step-1.jpeg"
   },
   {
     title: "Clay Painting",
     text: "In the last step, the dried clay is coated with white clay from the salty marshland. It can be left white/mud color or bright colours can be painted , but many artisans keep it in the color of mud to keep it real.",
-    img: "/step-1.jpeg",
+    img: "/step-1.jpeg"
   },
   {
     title: "Drying Clay",
     text: "The fifth step is to dry the clay. The artwork is left to dry in the sun for about 3 to 5 days. During this period of drying, the clay hardens and becomes a strong surface.",
-    img: "/step-1.jpeg",
-  },
+    img: "/step-1.jpeg"
+  }
 ]
 
 const About = () => {
@@ -76,11 +76,11 @@ const About = () => {
       <h1 className="heading mb-10">Steps to MudWork</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {steps.map((all) => {
+        {steps.map(all => {
           return (
             <div
               key={all.title}
-              className="rounded-md dark:bg-white/5 bg-gray-100"
+              className="rounded-md dark:bg-white/5 bg-slate-100"
             >
               <Image
                 sizes="(max-width: 540px) 40vw,

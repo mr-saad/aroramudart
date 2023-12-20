@@ -31,7 +31,7 @@ html.dark .aroraSvg {
 }
 
 body {
-  @apply dark:bg-[#222222] dark:text-[#888] text-[#666];
+  @apply dark:bg-black dark:text-[#888] text-[#666];
   word-spacing: 0.1rem;
   letter-spacing: -0.015rem;
 }
@@ -45,17 +45,20 @@ body {
 }
 
 .btn {
-  @apply font-bold transition dark:text-black dark:hover:text-[#f28c28] dark:hover:bg-[#222222] hover:text-[#f28c28] hover:bg-white text-[#222222]  bg-[#f28c28] border border-[#f28c28] self-start px-3 py-2 rounded-md;
+  @apply font-bold transition text-white bg-black border border-black hover:text-black hover:bg-white dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white dark:border-white self-start px-3 py-2 rounded-md;
 }
 .neutral-btn {
-  @apply font-bold transition dark:text-[#f28c28] border border-[#666] dark:border-[#f28c28] px-3 py-2 rounded-md;
+  @apply font-bold transition border border-black dark:border-white px-3 py-2 rounded-md;
 }
 
 .input_text {
   @apply py-2 px-4 mb-4 w-full transition dark:text-white text-black dark:caret-white/50 font-semibold bg-transparent border border-black/10 rounded-md outline-none dark:border-white/10 dark:focus:border-white focus:border-black dark:placeholder:text-white/50;
 }
 :root {
-  --swiper-pagination-color: #f28c28;
+  --swiper-pagination-color: #000;
+}
+html.dark {
+  --swiper-pagination-color: #fff;
 }
 .swiper-pagination-progressbar {
   top: unset !important;

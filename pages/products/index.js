@@ -146,15 +146,17 @@ export const Filter = ({
   const { theme } = useTheme()
 
   return (
-    <div className="flex flex-col md:items-start fixed dark:bg-[#222222] bg-[#f28c28]/[.95] rounded-md inset-y-4 w-full h-full left-0 top-16 md:flex-row gap-5 mb-5 p-5">
+    <div
+      className="z-20 flex flex-col md:items-start fixed dark:bg-black bg-white h-full inset-0 pt-10
+     md:flex-row gap-5 mb-5 p-5"
+    >
       <div className="relative md:w-96 max-w-md">
         <p className="mb-2 dark:text-white text-black">Search</p>
 
         <div className="relative">
           <BsSearch
             size={16}
-            color={theme === "dark" ? "#fff" : "#000"}
-            className="absolute top-1/2 -translate-y-1/2 left-3"
+            className="absolute top-1/2 -translate-y-1/2 left-3 fill-black dark:fill-white"
           />
           <input
             maxLength={25}
@@ -181,10 +183,10 @@ export const Filter = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#222222] bg-[#f28c28] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
+              className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#111] bg-[#ddd] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
             >
               {filtered.map((all, i) => (
-                <AnimatePresence key={all.slug} exitBeforeEnter>
+                <AnimatePresence key={all.slug}>
                   <Link href={`/products/${all.slug}`}>
                     <motion.span
                       initial={{ opacity: 0 }}
@@ -204,7 +206,7 @@ export const Filter = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute text-sm z-[2] w-full p-3 mt-1 dark:text-white text-black rounded-md dark:bg-[#222222] bg-[#f28c28] break-all"
+                className="absolute text-sm z-[2] w-full p-3 mt-1 dark:text-white text-black rounded-md dark:bg-[#111] bg-[#ddd] break-all"
               >
                 No Results for "{input}"
               </motion.div>
@@ -239,21 +241,23 @@ export const Filter = ({
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.1 }}
-                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden dark:bg-[#222222] bg-[#f28c28] border border-black dark:border-white/10"
+                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden dark:bg-[#111] bg-[#ddd]"
               >
                 {categories.map(all => {
                   return (
-                    <h3
+                    <p
                       key={all}
                       onClick={() => {
                         setSelectedCat(all)
                         document.documentElement.classList.remove("over-hide")
                         setShowSearch(false)
                       }}
-                      className={"dark:text-white text-black cursor-pointer"}
+                      className={
+                        "dark:text-white py-1 text-black cursor-pointer"
+                      }
                     >
                       {all}
-                    </h3>
+                    </p>
                   )
                 })}
               </motion.div>

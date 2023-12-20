@@ -6,7 +6,7 @@ import Head from "next/head"
 import Image from "next/image"
 import Product from "../../../components/Product"
 import { useRouter } from "next/router"
-import { Pagination } from "swiper"
+import { Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
@@ -100,6 +100,7 @@ export default function DynamicProduct({
         >
           <SwiperSlide>
             <Image
+              loading="eager"
               className="object-contain h-fit rounded-l-md cursor-move"
               sizes="(max-width: 640px) 80vw, 40vw"
               width={400}
@@ -302,7 +303,7 @@ function BookForm({ setShowForm, title, discountedPrice }) {
 }
 
 const HangOn = () => (
-  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#222222] bg-[#f28c28]/90">
+  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#111] bg-[#ddd]">
     <BarLoader color="white" />
     <h1 className="text-4xl mt-5 dark:text-white text-black">Please Wait</h1>
   </div>

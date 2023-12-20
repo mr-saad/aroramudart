@@ -1,10 +1,9 @@
 import Head from "next/head"
-import { Suspense, createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import "../globals.css"
 import dynamic from "next/dynamic"
 import { ThemeProvider, useTheme } from "next-themes"
-import PropagateLoader from "react-spinners/PropagateLoader"
 
 export const Context = createContext()
 
@@ -46,24 +45,7 @@ const App = ({ Component, pageProps }) => {
         />
 
         {/* icons===========================>> */}
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/manifest.json" />
 
         {/* seo ======================>> */}
         <meta
@@ -78,7 +60,7 @@ const App = ({ Component, pageProps }) => {
           name="keywords"
           content="Arora,Mud,Art,Arora Mud Art,arora mud art,Mud Work,Lippan Work,Kutchi Work,Traditional Work,aroramudart,mudart,aroramudart.vercel.app,ovesarora,oves,arora,khatri,handicraft,handmade,handwork"
         />
-        <meta name="themme-color" content="#f28c28" />
+        <meta name="theme-color" content="#000" />
         <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://aroramudart.vercel.app" />
@@ -111,17 +93,7 @@ const App = ({ Component, pageProps }) => {
         <Context.Provider value={{ showSearch, setShowSearch, setTheme }}>
           <Navbar />
           <div className="md:px-20 px-4 py-3 overflow-hidden max-w-4xl mx-auto">
-            <Suspense
-              fallback={
-                <PropagateLoader
-                  size={20}
-                  color={"#f28c28"}
-                  style={{ transform: "translate(-.5rem)" }}
-                />
-              }
-            >
-              <Component {...pageProps} />
-            </Suspense>
+            <Component {...pageProps} />
           </div>
           <Footer />
         </Context.Provider>
