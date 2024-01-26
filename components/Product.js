@@ -8,11 +8,8 @@ const Product = ({ slug, image: { url, lqip }, title }) => {
       href={`/products/${slug}`}
     >
       <Image
-        priority={false}
-        sizes="(max-width: 540px) 40vw,
-                (max-width: 768px) 60vw,
-                (max-width: 1200px) 80vw"
-        className="w-full object-contain select-none rounded-md"
+        sizes="(max-width: 768px) 40vw, 33vw"
+        className="w-full object-cover select-none rounded-md"
         placeholder="blur"
         blurDataURL={lqip}
         width={400}
@@ -21,7 +18,7 @@ const Product = ({ slug, image: { url, lqip }, title }) => {
         alt={slug}
       />
 
-      <h2 className="p-3 md:p-5 text-sm text-black dark:text-white font-semibold">
+      <h2 className="px-3 pt-2 md:px-5 text-sm text-[#0c0908] dark:text-white font-semibold">
         {title}
       </h2>
     </Link>

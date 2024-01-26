@@ -60,7 +60,7 @@ const App = ({ Component, pageProps }) => {
           name="keywords"
           content="Arora,Mud,Art,Arora Mud Art,arora mud art,Mud Work,Lippan Work,Kutchi Work,Traditional Work,aroramudart,mudart,aroramudart.vercel.app,ovesarora,oves,arora,khatri,handicraft,handmade,handwork"
         />
-        <meta name="theme-color" content="#000" />
+        <meta name="theme-color" content="#0c0908" />
         <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://aroramudart.vercel.app" />

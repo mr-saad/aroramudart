@@ -15,14 +15,14 @@ import dynamic from "next/dynamic"
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
   const data = await sanity.fetch(`*[_type == "product"]{"slug":slug.current}`)
-  const paths = data.map(all => ({
+  const paths = data.map((all) => ({
     params: {
-      slug: all.slug
-    }
+      slug: all.slug,
+    },
   }))
   return {
     paths,
-    fallback: "blocking"
+    fallback: "blocking",
   }
 }
 
@@ -40,7 +40,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
       "images":images[].asset->{url,"lqip":metadata.lqip}
     }`,
-    { slug }
+    { slug },
   )
 
   const mayLikes = await sanity.fetch(
@@ -49,15 +49,15 @@ export const getStaticProps = async ({ params: { slug } }) => {
       "slug":slug.current,
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
     }`,
-    { category: product.category, slug }
+    { category: product.category, slug },
   )
 
   return {
     props: {
       product,
-      mayLikes
+      mayLikes,
     },
-    revalidate: 6
+    revalidate: 6,
   }
 }
 
@@ -68,9 +68,9 @@ export default function DynamicProduct({
     discount,
     image: { url, lqip },
     images,
-    body
+    body,
   },
-  mayLikes
+  mayLikes,
 }) {
   const [showForm, setShowForm] = useState(false)
 
@@ -80,7 +80,7 @@ export default function DynamicProduct({
   const title1 = `${title} | Arora Mud Art`
 
   return (
-    <div className="mb-20 mx-auto text-sm md:text-base px-1">
+    <div className="mx-auto leading-6">
       <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
           <BiArrowBack size={18} className="inline" />
@@ -92,7 +92,7 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex gap-10 flex-col md:flex-row capitalize">
+      <div className="min-h-[70vh] flex gap-2 md:gap-10 flex-col md:flex-row capitalize">
         <Swiper
           modules={[Pagination]}
           pagination={{ type: "progressbar" }}
@@ -100,9 +100,10 @@ export default function DynamicProduct({
         >
           <SwiperSlide>
             <Image
+              priority
               loading="eager"
               className="object-contain h-fit rounded-l-md cursor-move"
-              sizes="(max-width: 640px) 80vw, 40vw"
+              sizes="(max-width: 640px) 90vw, 40vw"
               width={400}
               height={400}
               src={url}
@@ -129,26 +130,27 @@ export default function DynamicProduct({
         </Swiper>
 
         <div className="flex-1">
-          <h1 className="text-lg font-semibold dark:text-white text-black">
+          <h1 className="text-lg font-semibold dark:text-white text-[#0c0908]">
             {title}
           </h1>
-          <div className="my-1">
-            <span>₹{discountedPrice} </span>
-            <s>₹{price}</s>
-          </div>
-          <span className="bg-green-600 text-sm text-white py-1 px-2 rounded-md">
+          <span className="bg-green-600 my-1 text-sm inline-block text-white px-3 rounded-md">
             SAVE ₹{discount}
           </span>
+          <div>
+            <span>₹{discountedPrice} </span>
+            <s className="text-sm">₹{price}</s>
+          </div>
           {!showForm ? (
             body && (
               <>
                 <PortableText
-                  className="leading-6 text-sm mt-5"
+                  className="mt-5"
                   content={body}
                   dataset="production"
                   projectId="5onybuvh"
                 />
                 <button
+                  type="button"
                   className="btn mt-2 inline-block"
                   onClick={() => setShowForm(true)}
                 >
@@ -168,21 +170,21 @@ export default function DynamicProduct({
 
       {mayLikes.length !== 0 && (
         <div className="mt-28">
-          <h1 className="heading mb-5">You May Also Like</h1>
+          <h1 className="heading">You May Also Like</h1>
           <Swiper
             slidesPerView={1}
             spaceBetween={20}
             breakpoints={{
               540: {
-                slidesPerView: 3
-              }
+                slidesPerView: 3,
+              },
             }}
             pagination={{
-              type: "progressbar"
+              type: "progressbar",
             }}
             modules={[Pagination]}
           >
-            {mayLikes.map(props => (
+            {mayLikes.map((props) => (
               <SwiperSlide key={props.slug}>
                 <Product {...props} />
               </SwiperSlide>
@@ -204,13 +206,13 @@ function BookForm({ setShowForm, title, discountedPrice }) {
     mobile: "",
     address: "",
     title,
-    discountedPrice
+    discountedPrice,
   })
   const Change = ({ target: { value, name } }) => {
     setBook({ ...book, [name]: value })
   }
 
-  const BookProduct = async e => {
+  const BookProduct = async (e) => {
     setLoading(true)
     e.preventDefault()
     const values = Object.entries(book).map(([key, value]) => value)
@@ -218,9 +220,9 @@ function BookForm({ setShowForm, title, discountedPrice }) {
       await fetch("/api/book", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(values),
       })
 
       setShowSuccess(true)
@@ -233,69 +235,60 @@ function BookForm({ setShowForm, title, discountedPrice }) {
 
   return (
     <>
-      <form
-        autoComplete="off"
-        onSubmit={BookProduct}
-        className="flex flex-col mt-5"
-      >
-        <div className="flex flex-col">
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            className="input_text"
-            name="username"
-            onChange={Change}
-            value={book.username}
-            required
-            type="text"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="email">E-Mail</label>
-          <input
-            id="email"
-            className="input_text"
-            name="email"
-            onChange={Change}
-            value={book.email}
-            required
-            type="email"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="mobile">Mobile</label>
-          <input
-            id="mobile"
-            className="input_text"
-            name="mobile"
-            onChange={Change}
-            value={book.mobile}
-            required
-            type="tel"
-            minLength={10}
-            maxLength={10}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="address">Address</label>
-          <textarea
-            id="address"
-            className="input_text"
-            name="address"
-            onChange={Change}
-            value={book.address}
-            required
-          ></textarea>
-        </div>
-        <div className="flex">
-          <button type="submit" className="btn mr-3">
-            Confirm
-          </button>
-          <button className="neutral-btn" onClick={() => setShowForm(false)}>
-            Cancel
-          </button>
-        </div>
+      <form onSubmit={BookProduct} className="mt-5">
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          className="input_text"
+          name="username"
+          onChange={Change}
+          value={book.username}
+          required
+          type="text"
+        />
+
+        <label htmlFor="email">E-Mail</label>
+        <input
+          id="email"
+          className="input_text"
+          name="email"
+          onChange={Change}
+          value={book.email}
+          required
+          type="email"
+        />
+
+        <label htmlFor="mobile">Mobile</label>
+        <input
+          id="mobile"
+          className="input_text"
+          name="mobile"
+          onChange={Change}
+          value={book.mobile}
+          required
+          type="tel"
+          minLength={10}
+          maxLength={10}
+        />
+
+        <label htmlFor="address">Address</label>
+        <textarea
+          id="address"
+          className="input_text"
+          name="address"
+          onChange={Change}
+          value={book.address}
+          required
+        ></textarea>
+
+        <button type="submit" className="btn mr-3">
+          Confirm
+        </button>
+        <button className="neutral-btn" onClick={() => setShowForm(false)}>
+          Cancel
+        </button>
       </form>
+
       {loading && <HangOn />}
       {showSuccess && <Success setShowSuccess={setShowSuccess} push={push} />}
     </>
@@ -305,20 +298,22 @@ function BookForm({ setShowForm, title, discountedPrice }) {
 const HangOn = () => (
   <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#111] bg-[#ddd]">
     <BarLoader color="white" />
-    <h1 className="text-4xl mt-5 dark:text-white text-black">Please Wait</h1>
+    <h1 className="text-4xl mt-5 dark:text-white text-[#0c0908]">
+      Please Wait
+    </h1>
   </div>
 )
 
 import SuccessJson from "./success.json"
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
-  loading: () => <p>Loading...</p>
+  loading: () => <p>Loading...</p>,
 })
 const Success = ({ setShowSuccess, push }) => {
   return (
     <div className="dark:bg-[#222222] bg-white border fixed w-full max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
       <Lottie animationData={SuccessJson} loop={true} />
-      <h1 className="dark:text-white text-black font-semibold text-lg">
+      <h1 className="dark:text-white text-[#0c0908] font-semibold text-lg">
         Your Order Has Been Booked!
       </h1>
       <button

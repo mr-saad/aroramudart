@@ -4,39 +4,39 @@ const steps = [
   {
     img: "/step-1.jpeg",
     title: "Making dough",
-    text: " The mud is mostly from Bhuj, which is golden brown in color which is perfect for the art, The dough is kneaded for a uniform texture."
+    text: " The mud is mostly from Bhuj, which is golden brown in color which is perfect for the art, The dough is kneaded for a uniform texture.",
   },
   {
     img: "/step-1.jpeg",
     title: "Shaping dough",
-    text: "The artisan then takes tiny portions of the dough to give them a cylindrical shape of varying thickness. He does so by rolling the dough on the floor, or, in between the palms."
+    text: "The artisan then takes tiny portions of the dough to give them a cylindrical shape of varying thickness. He does so by rolling the dough on the floor, or, in between the palms.",
   },
   {
     title: "Drawing Motifs",
     text: "The wooden panel is marked with outlines according to the desired design. The cylindrical shapes made from dough is used to outline the design which define the framework of the craft.",
-    img: "/step-1.jpeg"
+    img: "/step-1.jpeg",
   },
   {
     title: "Embedding Mirrors",
     text: "The fourth step is to embed the mirrors and sequins in the motifs and patterns drawn. The mirrors used for the decoration are called  aabhla. They come in myriad shapes including round, diamond, and triangular.",
-    img: "/step-1.jpeg"
+    img: "/step-1.jpeg",
   },
   {
     title: "Clay Painting",
     text: "In the last step, the dried clay is coated with white clay from the salty marshland. It can be left white/mud color or bright colours can be painted , but many artisans keep it in the color of mud to keep it real.",
-    img: "/step-1.jpeg"
+    img: "/step-1.jpeg",
   },
   {
     title: "Drying Clay",
     text: "The fifth step is to dry the clay. The artwork is left to dry in the sun for about 3 to 5 days. During this period of drying, the clay hardens and becomes a strong surface.",
-    img: "/step-1.jpeg"
-  }
+    img: "/step-1.jpeg",
+  },
 ]
 
 const About = () => {
   return (
     <div className="text-sm leading-6 mt-5">
-      <h2 className="heading mb-2">Welcome to Arora Mud Art!</h2>
+      <h2 className="heading">Welcome to Arora Mud Art!</h2>
       <p>
         At Arora Mud Art, we are passionate about creating unique and exquisite
         artworks using mud as our primary medium. Our aim is to bring the beauty
@@ -50,7 +50,7 @@ const About = () => {
         stay updated with our latest artworks, behind-the-scenes insights, and
         upcoming exhibitions.
       </p>
-      <div className="flex md:flex-row flex-col gap-10 mt-10 mb-28 items-center">
+      <div className="flex md:flex-row flex-col gap-10 mt-10 items-center">
         <div>
           <h2 className="heading">Tracing the Craft</h2>
           <p className="mt-2">
@@ -72,40 +72,7 @@ const About = () => {
           height={300}
         />
       </div>
-
-      <h1 className="heading mb-10">Steps to MudWork</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {steps.map(all => {
-          return (
-            <div
-              key={all.title}
-              className="rounded-md dark:bg-white/5 bg-slate-100"
-            >
-              <Image
-                sizes="(max-width: 540px) 40vw,
-                (max-width: 768px) 60vw,
-                (max-width: 1200px) 80vw
-                "
-                quality={30}
-                width={500}
-                height={500}
-                src={all.img}
-                alt={all.title}
-                className="aspect-square w-full object-cover"
-              />
-              <div className="p-5">
-                <h1 className="dark:text-white text-black text-sm mb-2 font-semibold">
-                  {all.title}
-                </h1>
-                <p>{all.text}</p>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      <p className="mt-10">
+      <p className="my-10">
         If you have any questions, custom order inquiries, or simply want to
         connect with us, please don't hesitate to reach out. You can contact us
         via email at{" "}
@@ -134,6 +101,38 @@ const About = () => {
         beauty and creativity of our mud artworks with you, and we hope our
         pieces bring a touch of natural elegance into your surroundings.
       </p>
+
+      <h1 className="heading">Steps to Mud Work</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {steps.map((all) => {
+          return (
+            <div
+              key={all.title}
+              className="rounded-md overflow-hidden dark:bg-white/5 bg-[#e6e6e6]"
+            >
+              <Image
+                sizes="(max-width: 540px) 40vw,
+                (max-width: 768px) 60vw,
+                (max-width: 1200px) 80vw
+                "
+                quality={30}
+                width={500}
+                height={500}
+                src={all.img}
+                alt={all.title}
+                className="aspect-square w-full object-cover"
+              />
+              <div className="p-5">
+                <h1 className="dark:text-white text-[#0c0908] text-sm mb-2 font-semibold">
+                  {all.title}
+                </h1>
+                <p>{all.text}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

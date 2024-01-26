@@ -27,9 +27,9 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      products: data
+      products: data,
     },
-    revalidate: 6
+    revalidate: 6,
   }
 }
 
@@ -41,7 +41,7 @@ const Products = ({ products }) => {
   const [selectedCat, setSelectedCat] = useState("All Designs")
 
   useEffect(() => {
-    const filter = products.filter(product => {
+    const filter = products.filter((product) => {
       return product.title.toLowerCase().includes(input.toLowerCase())
     })
     input === "" ? setFiltered([]) : setFiltered(filter)
@@ -54,37 +54,37 @@ const Products = ({ products }) => {
         break
       case "Traditional Designs":
         setFinalProducts(
-          products.filter(all => all.category === "Traditional Designs")
+          products.filter((all) => all.category === "Traditional Designs"),
         )
         break
       case "Classic Designs":
         setFinalProducts(
-          products.filter(all => all.category === "Classic Designs")
+          products.filter((all) => all.category === "Classic Designs"),
         )
         break
       case "Mirror Designs":
         setFinalProducts(
-          products.filter(all => all.category === "Mirror Designs")
+          products.filter((all) => all.category === "Mirror Designs"),
         )
         break
       case "Islamic Designs":
         setFinalProducts(
-          products.filter(all => all.category === "Islamic Designs")
+          products.filter((all) => all.category === "Islamic Designs"),
         )
         break
       case "Kutchi Work Designs":
         setFinalProducts(
-          products.filter(all => all.category === "Kutchi Work Designs")
+          products.filter((all) => all.category === "Kutchi Work Designs"),
         )
         break
       case "Printed Clocks":
         setFinalProducts(
-          products.filter(all => all.category === "Printed Clocks")
+          products.filter((all) => all.category === "Printed Clocks"),
         )
         break
       case "Mudwork Clocks":
         setFinalProducts(
-          products.filter(all => all.category === "Mudwork Clocks")
+          products.filter((all) => all.category === "Mudwork Clocks"),
         )
         break
     }
@@ -95,7 +95,7 @@ const Products = ({ products }) => {
       <Head>
         <title>Products | Arora Mud Art</title>
       </Head>
-      <div className="mb-20 mt-2 min-h-screen">
+      <div className="mt-2 min-h-screen grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 capitalize">
         {showSearch && (
           <Filter
             input={input}
@@ -107,15 +107,13 @@ const Products = ({ products }) => {
           />
         )}
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-3 md:gap-10 capitalize">
-          {finalProducts.length !== 0 ? (
-            finalProducts.map(all => {
-              return <Product key={all.slug} {...all} />
-            })
-          ) : (
-            <span>No Products</span>
-          )}
-        </div>
+        {finalProducts.length !== 0 ? (
+          finalProducts.map((all) => {
+            return <Product key={all.slug} {...all} />
+          })
+        ) : (
+          <span>No Products</span>
+        )}
       </div>
     </>
   )
@@ -131,7 +129,7 @@ const categories = [
   "Islamic Designs",
   "Kutchi Work Designs",
   "Printed Clocks",
-  "Mudwork Clocks"
+  "Mudwork Clocks",
 ]
 export const Filter = ({
   filtered,
@@ -139,38 +137,34 @@ export const Filter = ({
   input,
   setInput,
   setSelectedCat,
-  setShowSearch
+  setShowSearch,
 }) => {
   const [open, setOpen] = useState(false)
 
   const { theme } = useTheme()
 
   return (
-    <div
-      className="z-20 flex flex-col md:items-start fixed dark:bg-black bg-white h-full inset-0 pt-10
-     md:flex-row gap-5 mb-5 p-5"
-    >
+    <div className="z-[2] flex flex-col md:items-start fixed dark:bg-[#0c0908] bg-white h-full left-0 right-0 bottom-0 top-[4.7rem] md:flex-row gap-5 mb-5 p-5">
       <div className="relative md:w-96 max-w-md">
-        <p className="mb-2 dark:text-white text-black">Search</p>
-
+        <p className="mb-2 dark:text-white text-[#0c0908]">Search</p>
         <div className="relative">
           <BsSearch
             size={16}
-            className="absolute top-1/2 -translate-y-1/2 left-3 fill-black dark:fill-white"
+            className="absolute top-1/2 -translate-y-1/2 left-3 fill-[#0c0908] dark:fill-white"
           />
           <input
             maxLength={25}
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             type="text"
-            placeholder="What are you Searching For?"
-            className="px-10 text-sm w-full py-2 bg-transparent rounded-md dark:text-white text-black outline-none border dark:border-white/20 dark:focus:border-white/40 dark:placeholder:text-white/50 placeholder:text-black/50 border-black/50 focus:border-black"
+            placeholder="What are you searching for?"
+            className="px-10 w-full py-2 bg-transparent rounded-md dark:text-white text-[#0c0908] outline-none border dark:border-white/20 dark:focus:border-white/40 dark:placeholder:text-white/50 placeholder:text-[#0c0908]/50 border-[#0c0908]/50 focus:border-[#0c0908]"
           />
           {(filtered.length !== 0 || input) && (
             <VscClose
               onClick={() => setInput("")}
               size={25}
-              color={theme === "dark" ? "#fff" : "#000"}
+              color={theme === "dark" ? "#fff" : "#0c0908"}
               className="absolute right-3 top-1/2 -translate-y-1/2"
             />
           )}
@@ -183,21 +177,23 @@ export const Filter = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute text-sm top-full flex flex-col mt-1 w-full dark:bg-[#111] bg-[#ddd] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-black rounded-md gap-3 p-3 will-change-contents overflow-hidden"
+              className="absolute top-full mt-2 w-full dark:bg-[#111] bg-[#e6e6e6] capitalize z-[2] max-h-40 overflow-y-auto dark:text-white text-[#0c0908] rounded-md p-4 dark:border-white/40"
             >
-              {filtered.map((all, i) => (
-                <AnimatePresence key={all.slug}>
-                  <Link href={`/products/${all.slug}`}>
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
+              <AnimatePresence mode="popLayout">
+                {filtered.map((all, i) => (
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    key={all.slug}
+                    className="block pb-2"
+                  >
+                    <Link className="block" href={`/products/${all.slug}`}>
                       {all.title}
-                    </motion.span>
-                  </Link>
-                </AnimatePresence>
-              ))}
+                    </Link>
+                  </motion.span>
+                ))}
+              </AnimatePresence>
             </motion.div>
           ) : (
             input && (
@@ -206,7 +202,7 @@ export const Filter = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute text-sm z-[2] w-full p-3 mt-1 dark:text-white text-black rounded-md dark:bg-[#111] bg-[#ddd] break-all"
+                className="absolute z-[2] w-full p-4 mt-2 dark:text-white text-[#0c0908] rounded-md dark:bg-[#111] bg-[#e6e6e6] break-all"
               >
                 No Results for "{input}"
               </motion.div>
@@ -216,15 +212,17 @@ export const Filter = ({
       </div>
 
       <div>
-        <p className="mb-2 dark:text-white text-black">Sort By Category</p>
-        <div className="rounded-md md:w-96 max-w-md relative border dark:border-white/20 border-black/50 text-sm select-none">
+        <p className="mb-2 dark:text-white text-[#0c0908]">Sort By Category</p>
+        <div className="rounded-md md:w-96 max-w-md relative border dark:border-white/20 border-[#0c0908]/50 select-none">
           <div
             onClick={() => {
               setOpen(!open)
             }}
             className="flex justify-between items-center px-4 py-2 cursor-pointer"
           >
-            <h3 className="w-full text-black dark:text-white">{selectedCat}</h3>
+            <h3 className="w-full text-[#0c0908] dark:text-white">
+              {selectedCat}
+            </h3>
             <FaAngleDown
               onClick={() => {
                 setOpen(!open)
@@ -241,9 +239,9 @@ export const Filter = ({
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.1 }}
-                className="absolute mt-1 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden dark:bg-[#111] bg-[#ddd]"
+                className="absolute mt-2 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden dark:bg-[#111] bg-[#ddd]"
               >
-                {categories.map(all => {
+                {categories.map((all) => {
                   return (
                     <p
                       key={all}
@@ -253,7 +251,7 @@ export const Filter = ({
                         setShowSearch(false)
                       }}
                       className={
-                        "dark:text-white py-1 text-black cursor-pointer"
+                        "dark:text-white py-1 text-[#0c0908] cursor-pointer"
                       }
                     >
                       {all}
