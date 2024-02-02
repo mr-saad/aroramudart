@@ -42,16 +42,14 @@ const Footer = () => {
         <div>
           mud handicraft Insights from clever artists direct to your inbox
           <br />
-          {/* <div className="flex items-center gap-2 mt-3"> */}
           <input
             type="text"
             placeholder="Your E-Mail"
-            className="input_text !mb-0 !w-auto mt-2"
+            className="input_text !mb-0 !w-auto mt-2 !rounded-r-none !border-r-0"
           />
-          <button type="button" className="btn">
+          <button type="button" className="btn !rounded-l-none">
             Submit
           </button>
-          {/* </div> */}
         </div>
         <div>
           <span className="dark:text-white text-[#0c0908] font-semibold">

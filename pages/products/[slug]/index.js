@@ -80,7 +80,7 @@ export default function DynamicProduct({
   const title1 = `${title} | Arora Mud Art`
 
   return (
-    <div className="mx-auto leading-6">
+    <div className="mx-auto leading-6 min-h-[80vh]">
       <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
           <BiArrowBack size={18} className="inline" />
@@ -92,7 +92,7 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="min-h-[70vh] flex gap-2 md:gap-10 flex-col md:flex-row capitalize">
+      <div className="flex gap-5 md:gap-10 flex-col md:flex-row capitalize">
         <Swiper
           modules={[Pagination]}
           pagination={{ type: "progressbar" }}
@@ -133,7 +133,7 @@ export default function DynamicProduct({
           <h1 className="text-lg font-semibold dark:text-white text-[#0c0908]">
             {title}
           </h1>
-          <span className="bg-green-600 my-1 text-sm inline-block text-white px-3 rounded-md">
+          <span className="bg-green-600 my-1 text-sm inline-block text-white px-3 py-1 rounded-md">
             SAVE ₹{discount}
           </span>
           <div>
@@ -144,7 +144,6 @@ export default function DynamicProduct({
             body && (
               <>
                 <PortableText
-                  className="mt-5"
                   content={body}
                   dataset="production"
                   projectId="5onybuvh"
@@ -169,7 +168,7 @@ export default function DynamicProduct({
       </div>
 
       {mayLikes.length !== 0 && (
-        <div className="mt-28">
+        <div className="mt-24">
           <h1 className="heading">You May Also Like</h1>
           <Swiper
             slidesPerView={1}
@@ -200,22 +199,18 @@ function BookForm({ setShowForm, title, discountedPrice }) {
   const { push } = useRouter()
   const [showSuccess, setShowSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [book, setBook] = useState({
-    username: "",
-    email: "",
-    mobile: "",
-    address: "",
-    title,
-    discountedPrice,
-  })
-  const Change = ({ target: { value, name } }) => {
-    setBook({ ...book, [name]: value })
-  }
 
   const BookProduct = async (e) => {
     setLoading(true)
     e.preventDefault()
-    const values = Object.entries(book).map(([key, value]) => value)
+    const formData = new FormData(e.target)
+    const values = []
+    for (const value of formData.values()) {
+      values.push(value)
+    }
+    values.push(title)
+    values.push(discountedPrice)
+
     try {
       await fetch("/api/book", {
         method: "POST",
@@ -224,7 +219,6 @@ function BookForm({ setShowForm, title, discountedPrice }) {
         },
         body: JSON.stringify(values),
       })
-
       setShowSuccess(true)
     } catch (error) {
       alert(error.message)
@@ -241,8 +235,6 @@ function BookForm({ setShowForm, title, discountedPrice }) {
           id="username"
           className="input_text"
           name="username"
-          onChange={Change}
-          value={book.username}
           required
           type="text"
         />
@@ -252,8 +244,6 @@ function BookForm({ setShowForm, title, discountedPrice }) {
           id="email"
           className="input_text"
           name="email"
-          onChange={Change}
-          value={book.email}
           required
           type="email"
         />
@@ -263,8 +253,6 @@ function BookForm({ setShowForm, title, discountedPrice }) {
           id="mobile"
           className="input_text"
           name="mobile"
-          onChange={Change}
-          value={book.mobile}
           required
           type="tel"
           minLength={10}
@@ -276,8 +264,6 @@ function BookForm({ setShowForm, title, discountedPrice }) {
           id="address"
           className="input_text"
           name="address"
-          onChange={Change}
-          value={book.address}
           required
         ></textarea>
 
@@ -311,20 +297,22 @@ const Lottie = dynamic(() => import("lottie-react"), {
 })
 const Success = ({ setShowSuccess, push }) => {
   return (
-    <div className="dark:bg-[#222222] bg-white border fixed w-full max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
-      <Lottie animationData={SuccessJson} loop={true} />
-      <h1 className="dark:text-white text-[#0c0908] font-semibold text-lg">
-        Your Order Has Been Booked!
-      </h1>
-      <button
-        className="btn !self-center mt-2"
-        onClick={() => {
-          push("/products")
-          setShowSuccess(false)
-        }}
-      >
-        Got It
-      </button>
+    <div className="bg-[#0c0908]/70 fixed left-0 top-0 z-[2] w-full h-full">
+      <div className="dark:bg-[#0c0908] bg-white border border-white/10 fixed w-[calc(100%-2rem)] max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
+        <Lottie animationData={SuccessJson} loop={true} />
+        <p className="dark:text-white text-[#0c0908] font-semibold text-lg my-5">
+          Your Order Has Been Booked!
+        </p>
+        <button
+          className="btn !self-center"
+          onClick={() => {
+            push("/products")
+            setShowSuccess(false)
+          }}
+        >
+          Got It
+        </button>
+      </div>
     </div>
   )
 }

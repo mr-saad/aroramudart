@@ -95,7 +95,7 @@ const Products = ({ products }) => {
       <Head>
         <title>Products | Arora Mud Art</title>
       </Head>
-      <div className="mt-2 min-h-screen grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 capitalize">
+      <div className="mt-2 min-h-screen capitalize">
         {showSearch && (
           <Filter
             input={input}
@@ -107,13 +107,15 @@ const Products = ({ products }) => {
           />
         )}
 
-        {finalProducts.length !== 0 ? (
-          finalProducts.map((all) => {
-            return <Product key={all.slug} {...all} />
-          })
-        ) : (
-          <span>No Products</span>
-        )}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+          {finalProducts.length !== 0 ? (
+            finalProducts.map((all) => {
+              return <Product key={all.slug} {...all} />
+            })
+          ) : (
+            <span>No Products</span>
+          )}
+        </div>
       </div>
     </>
   )

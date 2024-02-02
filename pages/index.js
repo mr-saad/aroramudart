@@ -86,7 +86,7 @@ const Home = ({ data, images }) => {
             />
           </svg>
 
-          <h1 className="text-lg font-bold mt-5 text-center">
+          <h1 className="text-xl font-bold mt-5 text-center">
             Unleashing the Timeless Beauty of Elegance
           </h1>
         </div>
@@ -95,7 +95,7 @@ const Home = ({ data, images }) => {
       <div className="mx-auto items-center">
         <h1 className="heading">Products</h1>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
           {data.map((all) => {
             return <Product key={all.slug} {...all} />
           })}
