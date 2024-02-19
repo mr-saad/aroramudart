@@ -107,7 +107,7 @@ const Products = ({ products }) => {
           />
         )}
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 items-center">
           {finalProducts.length !== 0 ? (
             finalProducts.map((all) => {
               return <Product key={all.slug} {...all} />

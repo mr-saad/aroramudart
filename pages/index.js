@@ -3,7 +3,7 @@ import Image from "next/image"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
-import { Pagination } from "swiper/modules"
+import { Pagination, Keyboard, Mousewheel } from "swiper/modules"
 import dynamic from "next/dynamic"
 const Product = dynamic(() => import("../components/Product"))
 
@@ -15,7 +15,9 @@ const Home = ({ data, images }) => {
           pagination={{
             type: "progressbar",
           }}
-          modules={[Pagination]}
+          mousewheel
+          keyboard
+          modules={[Pagination, Mousewheel, Keyboard]}
           className="w-3/4 md:w-full max-w-[400px] rounded-md"
         >
           <SwiperSlide>
@@ -95,7 +97,7 @@ const Home = ({ data, images }) => {
       <div className="mx-auto items-center">
         <h1 className="heading">Products</h1>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 items-center">
           {data.map((all) => {
             return <Product key={all.slug} {...all} />
           })}

@@ -6,7 +6,7 @@ import Head from "next/head"
 import Image from "next/image"
 import Product from "../../../components/Product"
 import { useRouter } from "next/router"
-import { Pagination } from "swiper/modules"
+import { Pagination, Keyboard, Mousewheel } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
@@ -94,7 +94,9 @@ export default function DynamicProduct({
       </Head>
       <div className="flex gap-5 md:gap-10 flex-col md:flex-row capitalize">
         <Swiper
-          modules={[Pagination]}
+          modules={[Pagination, Keyboard, Mousewheel]}
+          mousewheel
+          keyboard
           pagination={{ type: "progressbar" }}
           className="md:flex-1 w-full max-w-[400px] self-start rounded-md"
         >
