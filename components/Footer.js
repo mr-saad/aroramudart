@@ -1,5 +1,6 @@
 import { BsFacebook, BsFillTelephoneFill, BsWhatsapp } from "react-icons/bs"
 import { AiOutlineInstagram } from "react-icons/ai"
+import Link from "next/link"
 
 const Footer = () => {
   return (
@@ -98,7 +99,19 @@ const Footer = () => {
           Bhuj - Kachchh, Gujarat
         </p>
         <p>
-          <span>Terms & Conditions</span> | <span>Privacy Policy</span>
+          <Link
+            className="dark:hover:text-white hover:text-[#0c0908] transition"
+            href="/terms-conditions"
+          >
+            Terms & Conditions
+          </Link>{" "}
+          |{" "}
+          <Link
+            className="dark:hover:text-white hover:text-[#0c0908] transition"
+            href="/privacy-policy"
+          >
+            Privacy Policy
+          </Link>
         </p>
       </div>
     </footer>

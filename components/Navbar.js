@@ -161,7 +161,7 @@ const Navbar = () => {
           </Link>
         </li>
 
-        <li className="px-4">
+        <li className="p-4">
           {mounted && theme === "dark" ? (
             <LuSun
               size={20}

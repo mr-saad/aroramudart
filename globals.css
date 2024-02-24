@@ -31,6 +31,10 @@ body {
   @apply transition-colors duration-100 dark:bg-[#0c0908] dark:text-[#888] text-[#666];
 }
 
+.highlight {
+  @apply text-[#0c0908] dark:text-white;
+}
+
 .heading {
   @apply text-2xl dark:text-white text-[#0c0908] font-bold mb-2;
 }

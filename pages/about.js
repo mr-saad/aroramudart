@@ -35,7 +35,7 @@ const steps = [
 
 const About = () => {
   return (
-    <div className="text-sm leading-6 mt-5">
+    <div className="leading-6 mt-5">
       <h2 className="heading">Welcome to Arora Mud Art!</h2>
       <p>
         At Arora Mud Art, we are passionate about creating unique and exquisite
@@ -77,20 +77,20 @@ const About = () => {
         connect with us, please don't hesitate to reach out. You can contact us
         via email at{" "}
         <a
-          className="border-b dark:border-white/50"
+          className="border-b highlight font-bold"
           href="mailto:aroramudartbhuj@gmail.com"
         >
           aroramudartbhuj@gmail.com
         </a>
         , through Whatsapp at{" "}
         <a
-          className="border-b dark:border-white/50"
+          className="border-b highlight font-bold"
           href="https://wa.me/91997962226"
         >
           +91 997962226
         </a>
         , or by calling us directly at{" "}
-        <a className="border-b dark:border-white/50" href="tel:919979662226">
+        <a className="border-b highlight font-bold" href="tel:919979662226">
           {" "}
           +91 9979662226
         </a>

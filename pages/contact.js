@@ -8,7 +8,7 @@ const Contact = () => {
   const { push } = useRouter()
 
   return (
-    <div className="text-sm leading-6 mt-5">
+    <div className="leading-6 mt-5">
       {state.submitting && (
         <div className="p-5 z-[5] fixed dark:bg-[#111] bg-[#ddd] text-4xl font-semibold dark:text-white text-[#0c0908] inset-0 flex justify-center items-center">
           Please Wait
