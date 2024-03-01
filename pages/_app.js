@@ -43,9 +43,14 @@ const App = ({ Component, pageProps }) => {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-
+        <link
+          rel="icon"
+          href="/favicon.ico"
+          type="image/x-icon"
+          sizes="16x16"
+        />
         {/* icons===========================>> */}
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/site.webmanifest" />
 
         {/* seo ======================>> */}
         <meta
