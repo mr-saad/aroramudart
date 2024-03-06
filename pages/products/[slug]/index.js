@@ -83,8 +83,8 @@ export default function DynamicProduct({
     <div className="mx-auto leading-6 min-h-[80vh]">
       <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
-          <BiArrowBack size={18} className="inline" />
-          <p className="capitalize inline text-sm ml-1">
+          <BiArrowBack size={19} className="inline" />
+          <p className="capitalize inline  ml-1">
             {asPath.replace("/", "").replace(/\//g, " > ")}
           </p>
         </button>

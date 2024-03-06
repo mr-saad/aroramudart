@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const Footer = () => {
   return (
-    <footer className="text-sm md:text-sm mt-20 px-4 md:px-20 py-10 border-t bg-[#e6e6e6] dark:bg-transparent dark:border-white/10">
+    <footer className="mt-20 px-4 md:px-20 py-10 border-t bg-[#e6e6e6] dark:bg-transparent dark:border-white/10">
       <svg
         className="fill-[#0c0809] dark:fill-white"
         width="115"

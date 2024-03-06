@@ -124,7 +124,7 @@ const About = () => {
                 className="aspect-square w-full object-cover"
               />
               <div className="p-5">
-                <h1 className="dark:text-white text-[#0c0908] text-sm mb-2 font-semibold">
+                <h1 className="dark:text-white text-[#0c0908] mb-2 font-semibold">
                   {all.title}
                 </h1>
                 <p>{all.text}</p>
