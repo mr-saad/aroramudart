@@ -80,7 +80,7 @@ export default function DynamicProduct({
   const title1 = `${title} | Arora Mud Art`
 
   return (
-    <div className="mx-auto leading-6 min-h-[80vh]">
+    <div className="mx-auto min-h-[80vh]">
       <div className="flex items-center mb-2 md:my-5">
         <button onClick={() => back()}>
           <BiArrowBack size={19} className="inline" />
@@ -149,6 +149,7 @@ export default function DynamicProduct({
                   content={body}
                   dataset="production"
                   projectId="5onybuvh"
+                  className="leading-relaxed"
                 />
                 <button
                   type="button"

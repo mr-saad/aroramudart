@@ -190,7 +190,14 @@ export const Filter = ({
                     key={all.slug}
                     className="block pb-2"
                   >
-                    <Link className="block" href={`/products/${all.slug}`}>
+                    <Link
+                      onClick={() => {
+                        setShowSearch(false)
+                        document.documentElement.classList.remove("over-hide")
+                      }}
+                      className="block"
+                      href={`/products/${all.slug}`}
+                    >
                       {all.title}
                     </Link>
                   </motion.span>

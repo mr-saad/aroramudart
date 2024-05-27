@@ -35,7 +35,7 @@ const steps = [
 
 const About = () => {
   return (
-    <div className="leading-6 mt-5">
+    <div className="leading-relaxed mt-5">
       <h2 className="heading">Welcome to Arora Mud Art!</h2>
       <p>
         At Arora Mud Art, we are passionate about creating unique and exquisite

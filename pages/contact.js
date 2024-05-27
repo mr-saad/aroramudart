@@ -8,7 +8,7 @@ const Contact = () => {
   const { push } = useRouter()
 
   return (
-    <div className="leading-6 mt-5">
+    <div className="leading-relaxed mt-5">
       {state.submitting && (
         <div className="p-5 z-[5] fixed dark:bg-[#111] bg-[#ddd] text-4xl font-semibold dark:text-white text-[#0c0908] inset-0 flex justify-center items-center">
           Please Wait
@@ -26,11 +26,11 @@ const Contact = () => {
           </button>
         </div>
       )}
-      <p className="mb-2">
+      <p className="mb-">
         We would love to hear from you! Feel free to reach out to us using any
         of the following methods:
       </p>
-      <ul className="mb-2">
+      <ul className="mb-5">
         <li>
           Email :{" "}
           <a
@@ -77,25 +77,25 @@ const Contact = () => {
           </a>
         </li>
       </ul>
-      <p className="mb-2">
+      <p className="mb-5">
         For any inquiries, questions, or feedback regarding our mud art
         creations, customization requests, or order information, please don't
         hesitate to get in touch. Our dedicated team is here to assist you and
         provide the information you need.
       </p>
-      <p className="mb-2">
+      <p className="mb-5">
         We value your input and look forward to hearing from you. Whether you're
         an art enthusiast, a potential customer, or someone with a general
         interest in our work, we appreciate your interest in Arora Mud Art. Your
         support means a lot to us, and we're excited to assist you in any way we
         can.
       </p>
-      <p>
+      <p className="mb-5">
         Thank you for choosing Arora Mud Art. We are dedicated to providing you
         with exceptional mud artworks that bring nature's beauty into your
         surroundings.
       </p>
-      <div className="flex flex-col gap-10 md:flex-row my-10 md:my-28">
+      <div className="flex flex-col gap-10 md:flex-row">
         <Image
           width={500}
           height={500}
