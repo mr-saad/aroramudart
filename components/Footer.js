@@ -5,14 +5,15 @@ import Link from "next/link"
 const Footer = () => {
   return (
     <footer className="mt-20 px-4 md:px-20 py-10 border-t bg-[#e6e6e6] dark:bg-transparent dark:border-white/10">
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-10 capitalize ">
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-10">
+        <p className="text-[#0c0908] dark:text-white">
+          The Ability to draw depends on One's ability to see the way an Artist
+          sees.
+        </p>
         <div>
-          The Ability to Draw Depends on One's Ability to See the Way An Artist
-          Sees
-        </div>
-        <div>
-          mud handicraft Insights from clever artists direct to your inbox
-          <br />
+          <p className="text-[#0c0908] dark:text-white">
+            Mud handicraft insights from clever artists direct to your inbox
+          </p>
           <div className="flex flex-wrap gap-2 mt-2">
             <input
               type="text"

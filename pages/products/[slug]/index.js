@@ -81,13 +81,11 @@ export default function DynamicProduct({
 
   return (
     <div className="mx-auto min-h-[80vh]">
-      <div className="flex items-center mb-2 md:my-5">
-        <button onClick={() => back()}>
-          <BiArrowBack size={19} className="inline" />
-          <p className="capitalize inline  ml-1">
-            {asPath.replace("/", "").replace(/\//g, " > ")}
-          </p>
-        </button>
+      <div onClick={() => back()} className="flex mb-2 md:my-5 cursor-pointer">
+        <BiArrowBack size={19} className="inline" />
+        <p className="capitalize inline  ml-1">
+          {asPath.replace("/", "").replace(/\//g, " > ")}
+        </p>
       </div>
       <Head>
         <title>{title1}</title>
@@ -172,7 +170,7 @@ export default function DynamicProduct({
 
       {mayLikes.length !== 0 && (
         <div className="mt-24">
-          <h1 className="heading">You May Also Like</h1>
+          <h1 className="heading">You Might Also Like</h1>
           <Swiper
             slidesPerView={1}
             spaceBetween={20}
@@ -185,6 +183,7 @@ export default function DynamicProduct({
               type: "progressbar",
             }}
             modules={[Pagination]}
+            className="mayLikes"
           >
             {mayLikes.map((props) => (
               <SwiperSlide key={props.slug}>

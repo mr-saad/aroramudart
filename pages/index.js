@@ -18,7 +18,7 @@ const Home = ({ data, images }) => {
           mousewheel
           keyboard
           modules={[Pagination, Mousewheel, Keyboard]}
-          className="w-3/4 md:w-full max-w-[400px] rounded-md"
+          className="w-3/4 md:w-full max-w-[343px] rounded-md"
         >
           <SwiperSlide>
             <Link href={`/products/${images[0].slug}`}>
@@ -58,8 +58,8 @@ const Home = ({ data, images }) => {
           ))}
         </Swiper>
 
-        <div className="flex w-full flex-col justify-center items-center">
-          <svg
+        {/* <div className="flex w-full flex-col justify-center"> */}
+        {/* <svg
             width="300"
             viewBox="0 0 683 239"
             className="fill-[#0c0809] dark:fill-white"
@@ -86,18 +86,18 @@ const Home = ({ data, images }) => {
               clipRule="evenodd"
               d="M62.8976 161.21C63.6714 156.104 66.7868 150.604 71.2691 144.823C73.2997 142.204 77.0686 141.728 79.6873 143.758C82.306 145.789 82.7828 149.558 80.7523 152.176C76.6082 157.521 75.0638 161.017 74.7621 163.008C74.6317 163.868 74.7742 164.182 74.7959 164.229L74.7961 164.23C74.8165 164.274 74.9347 164.531 75.5549 164.915C77.044 165.834 80.2009 166.725 85.7938 166.924C91.1922 167.116 98.1021 166.647 106.437 165.551C139.925 161.148 192.953 147.129 253.878 130.585C259.388 129.088 264.961 127.572 270.586 126.041C326.921 110.713 388.527 93.9497 446.047 81.3271C509.14 67.4814 568.065 58.4369 610.011 62.0218C613.313 62.304 615.76 65.2093 615.478 68.5109C615.196 71.8126 612.291 74.2604 608.989 73.9782C569.033 70.5634 511.694 79.2064 448.619 93.0482C391.409 105.603 330.094 122.286 273.708 137.628C268.094 139.156 262.529 140.67 257.022 142.165C196.423 158.621 142.48 172.915 108.002 177.449C99.3458 178.587 91.7024 179.142 85.3676 178.916C79.2272 178.698 73.4709 177.732 69.249 175.124C67.0161 173.745 65.0779 171.822 63.8909 169.237C62.706 166.657 62.4901 163.898 62.8976 161.21Z"
             />
-          </svg>
+          </svg> */}
 
-          <h1 className="text-xl font-bold mt-5 text-center">
-            Unleashing the Timeless Beauty of Elegance
-          </h1>
-        </div>
+        <h1 className="text-xl font-bold text-center">
+          Unleashing the Timeless <br /> Beauty of Elegance
+        </h1>
+        {/* </div> */}
       </div>
 
       <div className="mx-auto items-center">
         <h1 className="heading">Products</h1>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
           {data.map((all) => {
             return <Product key={all.slug} {...all} />
           })}

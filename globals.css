@@ -27,6 +27,9 @@
 html.dark {
   --swiper-pagination-color: #fff;
 }
+.mayLikes {
+  --swiper-pagination-color: #fff;
+}
 body {
   @apply transition-colors duration-100 dark:bg-[#0c0908] dark:text-[#888] text-[#666];
 }
