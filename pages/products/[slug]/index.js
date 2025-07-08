@@ -1,12 +1,11 @@
 import { useState } from "react"
 import PortableText from "react-portable-text"
-import { BiArrowBack } from "react-icons/bi"
 import { BarLoader } from "react-spinners"
 import Head from "next/head"
 import Image from "next/image"
 import Product from "../../../components/Product"
 import { useRouter } from "next/router"
-import { Pagination, Keyboard, Mousewheel } from "swiper/modules"
+import { Pagination, Keyboard } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
@@ -35,6 +34,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
       "slug":slug.current,
       price,
       discount,
+      instock,
       body,
       category,
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
@@ -44,7 +44,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   )
 
   const mayLikes = await sanity.fetch(
-    `*[category==$category&&slug.current!=$slug][0..2]{
+    `*[category==$category&&slug.current!=$slug][0..3]{
       title,
       "slug":slug.current,
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
@@ -66,6 +66,7 @@ export default function DynamicProduct({
     title,
     price,
     discount,
+    instock,
     image: { url, lqip },
     images,
     body,
@@ -76,33 +77,32 @@ export default function DynamicProduct({
 
   const discountedPrice = price - discount
 
-  const { asPath, back } = useRouter()
   const title1 = `${title} | Arora Mud Art`
 
   return (
     <div className="mx-auto min-h-[80vh]">
-      <div onClick={() => back()} className="flex mb-2 md:my-5 cursor-pointer">
-        <BiArrowBack size={19} className="inline" />
-        <p className="capitalize inline  ml-1">
-          {asPath.replace("/", "").replace(/\//g, " > ")}
-        </p>
-      </div>
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex gap-5 md:gap-10 flex-col md:flex-row capitalize">
+      <div className="flex relative gap-5 md:gap-10  flex-col md:flex-row capitalize">
         <Swiper
-          modules={[Pagination, Keyboard, Mousewheel]}
-          mousewheel
+          modules={[Pagination, Keyboard]}
           keyboard
-          pagination={{ type: "progressbar" }}
-          className="md:flex-1 w-full max-w-[400px] self-start rounded-md"
+          pagination={{ type: "bullets" }}
+          className="md:flex-1/2 max-w-full"
+          spaceBetween={16}
+          breakpoints={{
+            768: {
+              enabled: false,
+            },
+          }}
+          wrapperClass="md:!grid md:gap-5"
         >
           <SwiperSlide>
             <Image
               priority
               loading="eager"
-              className="object-contain h-fit rounded-l-md cursor-move"
+              className="object-contain w-full h-auto"
               sizes="(max-width: 640px) 90vw, 40vw"
               width={400}
               height={400}
@@ -112,11 +112,12 @@ export default function DynamicProduct({
               blurDataURL={lqip}
             />
           </SwiperSlide>
-          {images?.length !== 0 &&
+
+          {images?.length &&
             images?.map(({ url, lqip }) => (
               <SwiperSlide key={url}>
                 <Image
-                  className="cursor-move object-contain h-fit last:rounded-r-md"
+                  className="object-contain w-full h-auto"
                   sizes="(max-width: 640px) 80vw, 40vw"
                   width={400}
                   height={400}
@@ -129,17 +130,34 @@ export default function DynamicProduct({
             ))}
         </Swiper>
 
-        <div className="flex-1">
-          <h1 className="text-lg font-semibold dark:text-white text-[#0c0908]">
+        <div className="flex-1/3 md:self-start sticky top-[8.5rem]">
+          <h1 className="text-lg font-semibold text-black uppercase">
             {title}
           </h1>
-          <span className="bg-green-600 my-1 text-sm inline-block text-white px-3 py-1 rounded-md">
-            SAVE ₹{discount}
-          </span>
-          <div>
-            <span>₹{discountedPrice} </span>
-            <s className="text-sm">₹{price}</s>
+          <div className="my-4">
+            <span className="bg-green-600 text-sm mr-4 inline-block text-white px-3 py-1">
+              SAVE ₹{discount}
+            </span>
+            <span className="text-lg text-black">₹{discountedPrice} </span>
+            <s className="text-base">₹{price}</s>
           </div>
+          <p
+            className={`border-b border-current ${
+              instock ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {instock ? "In Stock" : "Out of Stock"}
+          </p>
+          {!showForm && (
+            <button
+              type="button"
+              className="btn w-full block my-4"
+              onClick={() => setShowForm(true)}
+            >
+              Book Now
+            </button>
+          )}
+
           {!showForm ? (
             body && (
               <>
@@ -149,13 +167,6 @@ export default function DynamicProduct({
                   projectId="5onybuvh"
                   className="leading-relaxed"
                 />
-                <button
-                  type="button"
-                  className="btn mt-2 inline-block"
-                  onClick={() => setShowForm(true)}
-                >
-                  Book Now
-                </button>
               </>
             )
           ) : (
@@ -170,18 +181,16 @@ export default function DynamicProduct({
 
       {mayLikes.length !== 0 && (
         <div className="mt-24">
-          <h1 className="heading">You Might Also Like</h1>
+          <h1 className="heading text-center mb-4">You Might Also Like</h1>
           <Swiper
             slidesPerView={1}
-            spaceBetween={20}
+            spaceBetween={16}
             breakpoints={{
               540: {
-                slidesPerView: 3,
+                slidesPerView: 4,
               },
             }}
-            pagination={{
-              type: "progressbar",
-            }}
+            pagination
             modules={[Pagination]}
             className="mayLikes"
           >
@@ -272,7 +281,10 @@ function BookForm({ setShowForm, title, discountedPrice }) {
         <button type="submit" className="btn mr-3">
           Confirm
         </button>
-        <button className="neutral-btn" onClick={() => setShowForm(false)}>
+        <button
+          className="neutral-btn cursor-pointer"
+          onClick={() => setShowForm(false)}
+        >
           Cancel
         </button>
       </form>
@@ -284,11 +296,9 @@ function BookForm({ setShowForm, title, discountedPrice }) {
 }
 
 const HangOn = () => (
-  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px] dark:bg-[#111] bg-[#ddd]">
+  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px]  bg-[#ddd]">
     <BarLoader color="white" />
-    <h1 className="text-4xl mt-5 dark:text-white text-[#0c0908]">
-      Please Wait
-    </h1>
+    <h1 className="text-4xl mt-5  text-black">Please Wait</h1>
   </div>
 )
 
@@ -299,10 +309,10 @@ const Lottie = dynamic(() => import("lottie-react"), {
 })
 const Success = ({ setShowSuccess, push }) => {
   return (
-    <div className="bg-[#0c0908]/70 fixed left-0 top-0 z-[2] w-full h-full">
-      <div className="dark:bg-[#0c0908] bg-white border border-white/10 fixed w-[calc(100%-2rem)] max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
+    <div className="bg-black/70 fixed left-0 top-0 z-[2] w-full h-full">
+      <div className=" bg-white border border-white/10 fixed w-[calc(100%-2rem)] max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
         <Lottie animationData={SuccessJson} loop={true} />
-        <p className="dark:text-white text-[#0c0908] font-semibold text-lg my-5">
+        <p className=" text-black font-semibold text-lg my-5">
           Your Order Has Been Booked!
         </p>
         <button

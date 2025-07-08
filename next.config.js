@@ -13,4 +13,5 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
+  devIndicators: false,
 }

@@ -10,13 +10,13 @@ const Contact = () => {
   return (
     <div className="leading-relaxed mt-5">
       {state.submitting && (
-        <div className="p-5 z-[5] fixed dark:bg-[#111] bg-[#ddd] text-4xl font-semibold dark:text-white text-[#0c0908] inset-0 flex justify-center items-center">
+        <div className="p-5 z-[5] fixed  bg-[#ddd] text-4xl font-semibold  text-black inset-0 flex justify-center items-center">
           Please Wait
         </div>
       )}
       {state.succeeded && (
-        <div className="fixed inset-0 text-[#0c0908] dark:bg-[#111] bg-[#ddd] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
-          <p className="dark:text-white text-4xl">Your Message is Sent!</p>
+        <div className="fixed inset-0 text-black  bg-[#ddd] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
+          <p className=" text-4xl">Your Message is Sent!</p>
           <p>We'll Try Respond As Soon As Possible</p>
           <button
             onClick={() => push("/")}
@@ -34,7 +34,7 @@ const Contact = () => {
         <li>
           Email :{" "}
           <a
-            className="border-b dark:text-white text-[#0c0908]"
+            className="border-b  text-black"
             href="mailto:aroramudartbhuj@gmail.com"
           >
             aroramudartbhuj@gmail.com
@@ -43,7 +43,7 @@ const Contact = () => {
         <li>
           Instagram:{" "}
           <a
-            className="border-b dark:text-white text-[#0c0908]"
+            className="border-b  text-black"
             href="https://instagram.com/arora_mud_art"
           >
             @arora_mud_art
@@ -51,28 +51,19 @@ const Contact = () => {
         </li>
         <li>
           Facebook :{" "}
-          <a
-            href="https://facebook.com"
-            className="border-b dark:text-white text-[#0c0908]"
-          >
+          <a href="https://facebook.com" className="border-b  text-black">
             aroramudart
           </a>
         </li>
         <li>
           Whatsapp :{" "}
-          <a
-            className="border-b dark:text-white text-[#0c0908]"
-            href="https://wa.me/919979692226"
-          >
+          <a className="border-b  text-black" href="https://wa.me/919979692226">
             +91 99796 62226
           </a>
         </li>
         <li>
           Phone :{" "}
-          <a
-            className="border-b dark:text-white text-[#0c0908]"
-            href="tel:919979662226"
-          >
+          <a className="border-b  text-black" href="tel:919979662226">
             +91 99796 62226
           </a>
         </li>
@@ -95,7 +86,7 @@ const Contact = () => {
         with exceptional mud artworks that bring nature's beauty into your
         surroundings.
       </p>
-      <div className="flex flex-col gap-10 md:flex-row">
+      <div className="flex flex-col gap-10 md:flex-row mt-20">
         <Image
           width={500}
           height={500}

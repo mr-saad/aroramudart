@@ -50,10 +50,10 @@ const About = () => {
         stay updated with our latest artworks, behind-the-scenes insights, and
         upcoming exhibitions.
       </p>
-      <div className="flex md:flex-row flex-col gap-10 mt-10 items-center">
+      <div className="flex md:flex-row flex-col gap-20 mt-10 items-center">
         <div>
           <h2 className="heading">Tracing the Craft</h2>
-          <p className="mt-2">
+          <p>
             Mud work is one of the oldest crafts of the Kutch region. From mud
             work paintings, exclusive potteries to terracotta this place has
             offered all of it. Lippan Kaam is the traditional mural craft of
@@ -102,15 +102,12 @@ const About = () => {
         pieces bring a touch of natural elegance into your surroundings.
       </p>
 
-      <h1 className="heading">Steps to Mud Work</h1>
+      <h1 className="heading mb-4">Steps to Mud Work</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         {steps.map((all) => {
           return (
-            <div
-              key={all.title}
-              className="rounded-md overflow-hidden dark:bg-white/5 bg-[#e6e6e6]"
-            >
+            <div key={all.title} className=" bg-[#e6e6e6]">
               <Image
                 sizes="(max-width: 540px) 40vw,
                 (max-width: 768px) 60vw,
@@ -124,9 +121,7 @@ const About = () => {
                 className="aspect-square w-full object-cover"
               />
               <div className="p-5">
-                <h1 className="dark:text-white text-[#0c0908] mb-2 font-semibold">
-                  {all.title}
-                </h1>
+                <h1 className=" text-black mb-2 font-semibold">{all.title}</h1>
                 <p>{all.text}</p>
               </div>
             </div>

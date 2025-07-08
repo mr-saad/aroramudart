@@ -1,26 +1,15 @@
 import Head from "next/head"
-import { createContext, useEffect, useState } from "react"
+import { createContext, useState } from "react"
 import Navbar from "../components/Navbar"
 import "../globals.css"
 import dynamic from "next/dynamic"
-import { ThemeProvider, useTheme } from "next-themes"
 
 export const Context = createContext()
 
 const Footer = dynamic(() => import("../components/Footer"))
 
 const App = ({ Component, pageProps }) => {
-  const { setTheme } = useTheme()
-  const [showSearch, setShowSearch] = useState(false)
-
-  useEffect(() => {
-    const isDark = localStorage.getItem("theme")
-    if (isDark === "dark") {
-      setTheme("dark")
-    } else {
-      setTheme("light")
-    }
-  }, [])
+  // const [showSearch, setShowSearch] = useState(false)
 
   return (
     <>
@@ -31,16 +20,16 @@ const App = ({ Component, pageProps }) => {
         <link rel="canonical" href="https://aroramudart.vercel.app/" />
         <link
           rel="preload"
-          href="/rubik-regular.woff2"
+          href="/fonts/InstrumentSans-Regular.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/rubik-medium.woff2"
+          href="/fonts/InstrumentSans-SemiBold.ttf"
           as="font"
-          type="font/woff2"
+          type="font/ttf"
           crossOrigin="anonymous"
         />
         <link
@@ -94,15 +83,13 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
-      <ThemeProvider defaultTheme="light" attribute="class">
-        <Context.Provider value={{ showSearch, setShowSearch, setTheme }}>
-          <Navbar />
-          <div className="md:px-20 px-4 py-3 overflow-hidden max-w-4xl mx-auto">
-            <Component {...pageProps} />
-          </div>
-          <Footer />
-        </Context.Provider>
-      </ThemeProvider>
+      <Context.Provider value={{}}>
+        <Navbar />
+        <div className="md:px-20 px-4 py-4 mx-auto">
+          <Component {...pageProps} />
+        </div>
+        <Footer />
+      </Context.Provider>
     </>
   )
 }

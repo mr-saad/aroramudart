@@ -1,54 +1,52 @@
-@tailwind base;
-@tailwind utilities;
+@import "tailwindcss";
 
 @font-face {
-  font-family: Rubik;
+  font-family: InstrumentSans;
+  src: url("/fonts/InstrumentSans-Regular.ttf") format("truetype");
   font-display: swap;
-  src: url("/rubik-regular.woff2") format("woff2");
-  font-weight: 600;
+  font-weight: normal;
 }
-@font-face {
-  font-family: Rubik;
+/* @font-face {
+  font-family: InstrumentSans;
+  src: url("/fonts/InstrumentSans-SemiBold.ttf") format("truetype");
   font-display: swap;
-  src: url("/rubik-medium.woff2") format("woff2");
-  font-weight: 700;
-}
+  font-weight: bold;
+} */
 
 * {
-  font-family: "Rubik", ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+  font-family: InstrumentSans, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   -webkit-tap-highlight-color: transparent;
+  font-weight: normal;
 }
 :root {
-  --swiper-pagination-color: #0c0908;
+  --swiper-pagination-color: #000;
 }
-html.dark {
-  --swiper-pagination-color: #fff;
+.swiper-pagination {
+  position: unset !important;
+  @apply block md:hidden;
 }
-.mayLikes {
-  --swiper-pagination-color: #fff;
-}
+
 body {
-  @apply transition-colors duration-100 dark:bg-[#0c0908] dark:text-[#888] text-[#666];
+  @apply transition-colors text-black/60 tracking-widest;
 }
 
 .highlight {
-  @apply text-[#0c0908] dark:text-white;
+  @apply text-black;
 }
 
 .heading {
-  @apply text-2xl dark:text-white text-[#0c0908] font-bold mb-2;
+  @apply text-xl  text-black uppercase;
 }
 .btn {
-  @apply font-bold transition text-white bg-[#0c0908] border border-[#0c0908] hover:text-[#0c0908] focus-within:text-[#0c0908] focus-within:bg-white hover:bg-white dark:bg-white dark:text-[#0c0908] dark:hover:bg-[#0c0908] dark:hover:text-white dark:border-white dark:focus-within:bg-[#0c0908] dark:focus-within:text-white self-start px-3 py-2 rounded-md;
+  @apply cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-3 py-2 uppercase;
 }
 .neutral-btn {
-  @apply font-bold opacity-70 hover:opacity-100 focus-within:opacity-100 transition border text-[#0c0908] dark:text-white px-3 py-2 rounded-md;
+  @apply opacity-70 hover:opacity-100 focus-within:opacity-100 transition ease-out border text-black  px-3 py-2;
 }
 .input_text {
-  @apply py-2 px-3 mb-4 w-full transition dark:text-white text-[#0c0908] dark:caret-white/50 font-semibold bg-transparent border border-[#0c0908]/10 rounded-md outline-none dark:border-white/10 dark:focus:border-white focus:border-[#0c0908] dark:placeholder:text-white/50;
+  @apply py-2 px-3 mb-4 w-full transition ease-out  text-black  bg-transparent border border-black/10 outline-none  focus:border-black;
 }
 
 .over-hide {
@@ -59,13 +57,13 @@ body {
   top: unset !important;
   bottom: 0;
 }
-nav ul li a {
-  @apply transition-colors duration-100 md:py-1 py-4 px-4;
+/* nav ul li a {
+  @apply transition-colors ease-out duration-100 md:py-1 py-4 px-4;
   display: block;
 }
 nav ul li a:hover {
-  @apply text-[#0c0908] dark:text-white;
-}
+  @apply text-black;
+} */
 
 form label {
   display: block;
