@@ -10,7 +10,7 @@ const Contact = () => {
   return (
     <div className="leading-relaxed mt-5">
       {state.submitting && (
-        <div className="p-5 z-[5] fixed  bg-[#ddd] text-4xl font-semibold  text-black inset-0 flex justify-center items-center">
+        <div className="p-5 z-[5] fixed  bg-[#ddd] text-4xl   text-black inset-0 flex justify-center items-center">
           Please Wait
         </div>
       )}

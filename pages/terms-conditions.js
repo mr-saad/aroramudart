@@ -48,7 +48,7 @@ export default function Terms() {
         <h2 className="heading">Returns and Exchanges</h2> We want you to be
         satisfied with your purchase. If you are not completely happy with your
         order, please contact us within{" "}
-        <a href="tel:919979672226" className="highlight font-bold border-b">
+        <a href="tel:919979672226" className="highlight  border-b">
           +91 99796 72226
         </a>{" "}
         days of receiving your products to arrange for a return or exchange. All
@@ -92,10 +92,7 @@ export default function Terms() {
       <p className="mt-5">
         If you have any questions or concerns about these Terms and Conditions,
         please contact us at{" "}
-        <a
-          className="highlight font-bold border-b"
-          href="mailto:aroramudart@gmail.com"
-        >
+        <a className="highlight  border-b" href="mailto:aroramudart@gmail.com">
           aroramudart@gmail.com
         </a>
       </p>

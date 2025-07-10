@@ -77,20 +77,17 @@ const About = () => {
         connect with us, please don't hesitate to reach out. You can contact us
         via email at{" "}
         <a
-          className="border-b highlight font-bold"
+          className="border-b highlight "
           href="mailto:aroramudartbhuj@gmail.com"
         >
           aroramudartbhuj@gmail.com
         </a>
         , through Whatsapp at{" "}
-        <a
-          className="border-b highlight font-bold"
-          href="https://wa.me/91997962226"
-        >
+        <a className="border-b highlight " href="https://wa.me/91997962226">
           +91 997962226
         </a>
         , or by calling us directly at{" "}
-        <a className="border-b highlight font-bold" href="tel:919979662226">
+        <a className="border-b highlight " href="tel:919979662226">
           {" "}
           +91 9979662226
         </a>
@@ -121,7 +118,7 @@ const About = () => {
                 className="aspect-square w-full object-cover"
               />
               <div className="p-5">
-                <h1 className=" text-black mb-2 font-semibold">{all.title}</h1>
+                <h1 className=" text-black mb-2 ">{all.title}</h1>
                 <p>{all.text}</p>
               </div>
             </div>

@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const Product = ({ slug, image: { url, lqip }, title }) => {
   return (
-    <Link className="uppercase relative " href={`/products/${slug}`}>
+    <Link className="uppercase relative" href={`/products/${slug}`}>
       <div className="overflow-hidden">
         <Image
           sizes="(max-width: 768px) 40vw, 33vw"
@@ -18,7 +18,7 @@ const Product = ({ slug, image: { url, lqip }, title }) => {
       </div>
 
       <div className="p-3 text-center text-[14px]">
-        <h2 className="font-semibold">{title}</h2>
+        <h2 className="">{title}</h2>
       </div>
     </Link>
   )

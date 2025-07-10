@@ -6,12 +6,6 @@
   font-display: swap;
   font-weight: normal;
 }
-/* @font-face {
-  font-family: InstrumentSans;
-  src: url("/fonts/InstrumentSans-SemiBold.ttf") format("truetype");
-  font-display: swap;
-  font-weight: bold;
-} */
 
 * {
   font-family: InstrumentSans, system-ui, -apple-system, BlinkMacSystemFont,
@@ -57,13 +51,6 @@ body {
   top: unset !important;
   bottom: 0;
 }
-/* nav ul li a {
-  @apply transition-colors ease-out duration-100 md:py-1 py-4 px-4;
-  display: block;
-}
-nav ul li a:hover {
-  @apply text-black;
-} */
 
 form label {
   display: block;

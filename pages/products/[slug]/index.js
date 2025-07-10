@@ -88,7 +88,8 @@ export default function DynamicProduct({
         <Swiper
           modules={[Pagination, Keyboard]}
           keyboard
-          pagination={{ type: "bullets" }}
+          pagination
+          style={{ zIndex: "auto" }}
           className="md:flex-1/2 max-w-full"
           spaceBetween={16}
           breakpoints={{
@@ -96,7 +97,7 @@ export default function DynamicProduct({
               enabled: false,
             },
           }}
-          wrapperClass="md:!grid md:gap-5"
+          wrapperClass="md:!grid md:gap-5 !z-auto"
         >
           <SwiperSlide>
             <Image
@@ -131,9 +132,7 @@ export default function DynamicProduct({
         </Swiper>
 
         <div className="flex-1/3 md:self-start sticky top-[8.5rem]">
-          <h1 className="text-lg font-semibold text-black uppercase">
-            {title}
-          </h1>
+          <h1 className="text-lg  text-black uppercase">{title}</h1>
           <div className="my-4">
             <span className="bg-green-600 text-sm mr-4 inline-block text-white px-3 py-1">
               SAVE ₹{discount}
@@ -148,7 +147,7 @@ export default function DynamicProduct({
           >
             {instock ? "In Stock" : "Out of Stock"}
           </p>
-          {!showForm && (
+          {!showForm && instock && (
             <button
               type="button"
               className="btn w-full block my-4"
@@ -192,7 +191,8 @@ export default function DynamicProduct({
             }}
             pagination
             modules={[Pagination]}
-            className="mayLikes"
+            style={{ zIndex: "auto" }}
+            wrapperClass="!z-auto"
           >
             {mayLikes.map((props) => (
               <SwiperSlide key={props.slug}>
@@ -240,6 +240,9 @@ function BookForm({ setShowForm, title, discountedPrice }) {
 
   return (
     <>
+      {loading && <HangOn />}
+      {showSuccess && <Success setShowSuccess={setShowSuccess} push={push} />}
+
       <form onSubmit={BookProduct} className="mt-5">
         <label htmlFor="username">Username</label>
         <input
@@ -288,15 +291,12 @@ function BookForm({ setShowForm, title, discountedPrice }) {
           Cancel
         </button>
       </form>
-
-      {loading && <HangOn />}
-      {showSuccess && <Success setShowSuccess={setShowSuccess} push={push} />}
     </>
   )
 }
 
 const HangOn = () => (
-  <div className="fixed z-[30] inset-0 flex flex-col items-center justify-center backdrop-blur-[2px]  bg-[#ddd]">
+  <div className="fixed z-50 select-none inset-0 flex flex-col items-center justify-center backdrop-blur-[2px]  bg-[#ddd]">
     <BarLoader color="white" />
     <h1 className="text-4xl mt-5  text-black">Please Wait</h1>
   </div>
@@ -309,12 +309,10 @@ const Lottie = dynamic(() => import("lottie-react"), {
 })
 const Success = ({ setShowSuccess, push }) => {
   return (
-    <div className="bg-black/70 fixed left-0 top-0 z-[2] w-full h-full">
+    <div className="bg-black/70 fixed select-none left-0 top-0 z-50 w-full h-full">
       <div className=" bg-white border border-white/10 fixed w-[calc(100%-2rem)] max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
         <Lottie animationData={SuccessJson} loop={true} />
-        <p className=" text-black font-semibold text-lg my-5">
-          Your Order Has Been Booked!
-        </p>
+        <p className=" text-black  text-lg my-5">Order Placed!</p>
         <button
           className="btn !self-center"
           onClick={() => {
