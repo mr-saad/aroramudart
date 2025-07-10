@@ -125,8 +125,7 @@ const Footer = () => {
       <hr className="my-10 border-gray-200" />
       <div className="flex md:flex-row flex-col gap-2 justify-between text-balance">
         <p>
-          &copy;Arora Mud Art {new Date().getFullYear()}, Mud Handicraft Store,
-          Bhuj - Kachchh, Gujarat
+          &copy;Arora Mud Art {new Date().getFullYear()}, Mud Handicraft Store
         </p>
         <p>
           <Link

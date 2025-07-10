@@ -150,7 +150,7 @@ export default function DynamicProduct({
           {!showForm && instock && (
             <button
               type="button"
-              className="btn w-full block my-4"
+              className="btn w-full block mt-4"
               onClick={() => setShowForm(true)}
             >
               Book Now
@@ -164,7 +164,7 @@ export default function DynamicProduct({
                   content={body}
                   dataset="production"
                   projectId="5onybuvh"
-                  className="leading-relaxed"
+                  className="mt-4"
                 />
               </>
             )
