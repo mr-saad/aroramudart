@@ -2,12 +2,18 @@ import Link from "next/link"
 import "swiper/css"
 import "swiper/css/pagination"
 import dynamic from "next/dynamic"
+import { useContext } from "react"
+import { Context } from "./_app"
 const Product = dynamic(() => import("../components/Product"))
 
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
-  const [featured, newArrivals] = await Promise.all([
+  const [prods, featured, newArrivals] = await Promise.all([
+    sanity.fetch(`
+  *[_type == "product"]{
+      "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
+  }`),
     sanity.fetch(`
   *[_type == "featured"][0]{
       "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
@@ -20,6 +26,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
+      prods,
       featured,
       newArrivals,
     },
@@ -27,7 +34,9 @@ export const getStaticProps = async () => {
   }
 }
 
-const Home = ({ featured, newArrivals }) => {
+const Home = ({ prods, featured, newArrivals }) => {
+  const { setProducts } = useContext(Context)
+  setProducts(prods)
   return (
     <section>
       <div className="h-[94vh]"></div>
@@ -51,7 +60,7 @@ const Home = ({ featured, newArrivals }) => {
       <div className="mx-auto uppercase">
         <h1 className="heading text-center mb-5">New Arrivals</h1>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 md:gap-x-6 gap-x-4 gap-y-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-4">
           {newArrivals &&
             newArrivals.products.map((all) => (
               <Product key={all.slug} {...all} />
@@ -61,7 +70,7 @@ const Home = ({ featured, newArrivals }) => {
       <div className="mx-auto grid justify-items-center uppercase mt-15">
         <h1 className="heading text-center mb-5">Featured Collection</h1>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 md:gap-x-6 gap-x-4 gap-y-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-4">
           {featured &&
             featured.products.map((all) => <Product key={all.slug} {...all} />)}
         </div>

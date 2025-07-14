@@ -44,7 +44,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   )
 
   const mayLikes = await sanity.fetch(
-    `*[category==$category&&slug.current!=$slug][0..3]{
+    `*[category==$category&&slug.current!=$slug][0..2]{
       title,
       "slug":slug.current,
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
@@ -84,13 +84,13 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row capitalize border justify-center">
+      <div className="flex  relative gap-5 flex-col md:flex-row capitalize justify-center">
         <Swiper
           modules={[Pagination, Keyboard]}
           keyboard
           pagination
           style={{ zIndex: "auto" }}
-          className="md:flex-1/3 max-w-full"
+          className="max-w-lg w-full  !mx-0"
           spaceBetween={16}
           breakpoints={{
             768: {
@@ -131,7 +131,7 @@ export default function DynamicProduct({
             ))}
         </Swiper>
 
-        <div className="md:self-start sticky top-[8.5rem] md:flex-1/2">
+        <div className="md:self-start sticky top-[9.4rem] ">
           <h1 className="text-xl text-black uppercase">{title}</h1>
           {/* <div className="mt-4">
             <span className="bg-green-600 text-xs mr-4 inline-block text-white px-3 py-1">
@@ -188,7 +188,7 @@ export default function DynamicProduct({
             spaceBetween={16}
             breakpoints={{
               540: {
-                slidesPerView: 4,
+                slidesPerView: 3,
               },
             }}
             pagination

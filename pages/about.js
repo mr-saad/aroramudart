@@ -1,4 +1,25 @@
 import Image from "next/image"
+import { useContext } from "react"
+import { Context } from "./_app"
+
+export const getStaticProps = async () => {
+  const { default: sanity } = await import("../components/sanityClient")
+
+  const data = await sanity.fetch(`
+  *[_type == "product"] | order(_createdAt desc){
+    "slug":slug.current,
+    title,
+    category,
+    "image":mainImage.asset->{url,"lqip":metadata.lqip}
+  }`)
+
+  return {
+    props: {
+      products: data,
+    },
+    revalidate: 6,
+  }
+}
 
 const steps = [
   {
@@ -33,7 +54,9 @@ const steps = [
   },
 ]
 
-const About = () => {
+const About = ({ products }) => {
+  const { setProducts } = useContext(Context)
+  setProducts(products)
   return (
     <div className="leading-relaxed mt-5">
       <h2 className="heading">Welcome to Arora Mud Art!</h2>
@@ -101,10 +124,10 @@ const About = () => {
 
       <h1 className="heading mb-4">Steps to Mud Work</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {steps.map((all) => {
           return (
-            <div key={all.title} className=" bg-[#e6e6e6]">
+            <div key={all.title} className=" bg-[#f4f4f4]">
               <Image
                 sizes="(max-width: 540px) 40vw,
                 (max-width: 768px) 60vw,

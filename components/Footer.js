@@ -1,17 +1,29 @@
 import Link from "next/link"
 
 const Footer = () => {
+  const onClick = (e) => {
+    if (e.currentTarget.nextElementSibling) {
+      e.currentTarget.nextElementSibling.open = false
+      if (e.currentTarget.nextElementSibling.nextElementSibling)
+        e.currentTarget.nextElementSibling.nextElementSibling.open = false
+    }
+    if (e.currentTarget.previousElementSibling) {
+      e.currentTarget.previousElementSibling.open = false
+      if (e.currentTarget.previousElementSibling.previousElementSibling)
+        e.currentTarget.previousElementSibling.previousElementSibling.open = false
+    }
+  }
   return (
     <footer className="mt-20 px-4 md:px-20 py-10 border-t border-gray-200">
       <div className="grid gap-5">
-        <details className="group">
+        <details onClick={onClick} className="group">
           <summary className="text-black flex justify-between items-center cursor-pointer">
             NEWSLETTER
             <span className="text-2xl group-open:rotate-45 will-change-transform transition-transform select-none">
               +
             </span>
           </summary>
-          <p>
+          <p className="mt-5">
             Mud handicraft insights from clever artists direct to your inbox
           </p>
           <div className="flex flex-wrap gap-2 mt-2">
@@ -25,14 +37,14 @@ const Footer = () => {
             </button>
           </div>
         </details>
-        <details className="group">
+        <details onClick={onClick} className="group">
           <summary className="text-black flex justify-between items-center cursor-pointer">
             FOLLOW US
             <span className="text-2xl group-open:rotate-45 will-change-transform transition-transform select-none">
               +
             </span>
           </summary>
-          <div className="flex flex-col gap-4 mt-3">
+          <div className="flex flex-col gap-4 mt-5">
             <a
               className="flex items-center gap-2  hover:text-black transition"
               href="https://facebook.com"
@@ -75,14 +87,14 @@ const Footer = () => {
             </a>
           </div>
         </details>
-        <details className="group">
+        <details onClick={onClick} className="group">
           <summary className="text-black flex justify-between items-center cursor-pointer">
             CONTACT US
             <span className="text-2xl group-open:rotate-45 will-change-transform transition-transform select-none">
               +
             </span>
           </summary>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mt-5">
             <a
               className="flex gap-2 items-center mt-3 hover:text-black transition"
               href="tel:919979672226"
@@ -123,7 +135,7 @@ const Footer = () => {
         </details>
       </div>
       <hr className="my-10 border-gray-200" />
-      <div className="flex md:flex-row flex-col gap-2 justify-between text-balance">
+      <div className="flex md:flex-row flex-col-reverse  gap-2 justify-between text-balance">
         <p>
           &copy;Arora Mud Art {new Date().getFullYear()}, Mud Handicraft Store
         </p>

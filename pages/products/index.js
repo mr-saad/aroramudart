@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import Head from "next/head"
 import dynamic from "next/dynamic"
+import { useRouter } from "next/router"
 import { Context } from "../_app"
 const Product = dynamic(() => import("../../components/Product"))
 
@@ -9,12 +10,9 @@ export const getStaticProps = async () => {
 
   const data = await sanity.fetch(`
   *[_type == "product"] | order(_createdAt desc){
-    _id,
     "slug":slug.current,
     title,
     category,
-    price,
-    discount,
     "image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`)
 
@@ -27,59 +25,17 @@ export const getStaticProps = async () => {
 }
 
 const Products = ({ products }) => {
-  const [input, setInput] = useState("")
-  const [filtered, setFiltered] = useState([])
+  const { setProducts } = useContext(Context)
+  setProducts(products)
+
   const [finalProducts, setFinalProducts] = useState(products)
-  const [selectedCat, setSelectedCat] = useState("All Designs")
+
+  const selectedCat = useRouter().query.category
 
   useEffect(() => {
-    const filter = products.filter((product) => {
-      return product.title.toLowerCase().includes(input.toLowerCase())
-    })
-    input === "" ? setFiltered([]) : setFiltered(filter)
-  }, [input])
-
-  useEffect(() => {
-    switch (selectedCat) {
-      case "All Designs":
-        setFinalProducts(products)
-        break
-      case "Traditional Designs":
-        setFinalProducts(
-          products.filter((all) => all.category === "Traditional Designs"),
-        )
-        break
-      case "Classic Designs":
-        setFinalProducts(
-          products.filter((all) => all.category === "Classic Designs"),
-        )
-        break
-      case "Mirror Designs":
-        setFinalProducts(
-          products.filter((all) => all.category === "Mirror Designs"),
-        )
-        break
-      case "Islamic Designs":
-        setFinalProducts(
-          products.filter((all) => all.category === "Islamic Designs"),
-        )
-        break
-      case "Kutchi Work Designs":
-        setFinalProducts(
-          products.filter((all) => all.category === "Kutchi Work Designs"),
-        )
-        break
-      case "Printed Clocks":
-        setFinalProducts(
-          products.filter((all) => all.category === "Printed Clocks"),
-        )
-        break
-      case "Mudwork Clocks":
-        setFinalProducts(
-          products.filter((all) => all.category === "Mudwork Clocks"),
-        )
-        break
-    }
+    if (!selectedCat) setFinalProducts(products)
+    else
+      setFinalProducts(products.filter((prod) => prod.category === selectedCat))
   }, [selectedCat])
 
   return (
@@ -88,7 +44,7 @@ const Products = ({ products }) => {
         <title>Products | Arora Mud Art</title>
       </Head>
       <div className="mt-2 min-h-screen capitalize">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 gap-y-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 gap-y-4">
           {finalProducts.length !== 0 ? (
             finalProducts.map((all) => {
               return <Product key={all.slug} {...all} />

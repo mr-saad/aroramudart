@@ -1,8 +1,31 @@
 import { ValidationError, useForm } from "@formspree/react"
 import { useRouter } from "next/router"
 import Image from "next/image"
+import { useContext } from "react"
+import { Context } from "./_app"
 
-const Contact = () => {
+export const getStaticProps = async () => {
+  const { default: sanity } = await import("../components/sanityClient")
+
+  const data = await sanity.fetch(`
+  *[_type == "product"] | order(_createdAt desc){
+    "slug":slug.current,
+    title,
+    category,
+    "image":mainImage.asset->{url,"lqip":metadata.lqip}
+  }`)
+
+  return {
+    props: {
+      products: data,
+    },
+    revalidate: 6,
+  }
+}
+
+const Contact = ({ products }) => {
+  const { setProducts } = useContext(Context)
+  setProducts(products)
   const [state, Submit] = useForm("meqnlkpn")
 
   const { push } = useRouter()

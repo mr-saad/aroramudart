@@ -1,12 +1,14 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { AnimatePresence, motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { Context } from "../pages/_app"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
+  const [spin, setSpin] = useState(false)
   const [y, setY] = useState(0)
-  const { route } = useRouter()
+  const { route, events } = useRouter()
 
   const [showSearch, setShowSearch] = useState(false)
 
@@ -22,6 +24,8 @@ const Navbar = () => {
     ;() => {
       window.removeEventListener("scroll", listener)
     }
+    events.on("routeChangeStart", () => setSpin(true))
+    events.on("routeChangeComplete", () => setSpin(false))
   }, [])
 
   return (
@@ -34,10 +38,33 @@ const Navbar = () => {
           : "bg-white border-b"
       }`}
     >
+      {spin && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="black"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="absolute top-6 left-20 md:top-23 lg:left-75 xl:left-105 animate-spin"
+        >
+          <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
+          <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
+          <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
+          <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
+          <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
+          <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
+          <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
+          <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
+        </svg>
+      )}
       <div className="flex sm:mb-4 items-center justify-between">
         <div className="hidden md:block"></div>
         <div
-          className="md:hidden w-8 flex flex-col justify-between justify-self-end gap-2 z-10"
+          className="md:hidden cursor-pointer w-8 flex flex-col justify-between justify-self-end gap-2 z-10"
           onClick={() => {
             setOpen((prev) => !prev)
           }}
@@ -47,7 +74,7 @@ const Navbar = () => {
               route === "/"
                 ? y > 80 || open
                   ? "bg-black"
-                  : "bg-white"
+                  : "bg-white group-hover:bg-black"
                 : "bg-black"
             } rounded-md h-[2px] w-8 transition-all origin-left ${
               open && "!w-[28px] rotate-45"
@@ -58,7 +85,7 @@ const Navbar = () => {
               route === "/"
                 ? y > 80 || open
                   ? "bg-black"
-                  : "bg-white"
+                  : "bg-white group-hover:bg-black"
                 : "bg-black"
             } rounded-md h-[2px] w-8 transition-all ${open && "opacity-0"}`}
           ></span>
@@ -67,7 +94,7 @@ const Navbar = () => {
               route === "/"
                 ? y > 80 || open
                   ? "bg-black"
-                  : "bg-white"
+                  : "bg-white group-hover:bg-black"
                 : "bg-black"
             } rounded-md h-[2px] w-8 transition-all origin-left ${
               open && "!w-[28px] -rotate-45"
@@ -191,11 +218,10 @@ const Navbar = () => {
           open ? "ulOpen" : "ulClose"
         }`}
       >
-        {/* <AnimatePresence > */}
         <motion.li
-          initial={{ y: 20, opacity: 0 }}
-          transition={{ ease: "linear" }}
-          whileInView={{ y: 0, opacity: 1 }}
+          className="will-change-transform"
+          initial={{ x: -20, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1, transition: { ease: "linear" } }}
         >
           <Link
             href="/"
@@ -210,9 +236,13 @@ const Navbar = () => {
           </Link>
         </motion.li>
         <motion.li
-          initial={{ y: 20, opacity: 0 }}
-          transition={{ ease: "linear", duration: 0.15, delay: 0.2 }}
-          whileInView={{ y: 0, opacity: 1 }}
+          className="will-change-transform"
+          initial={{ x: -20, opacity: 0 }}
+          whileInView={{
+            x: 0,
+            opacity: 1,
+            transition: { ease: "linear", duration: 0.15, delay: 0.2 },
+          }}
         >
           <Link
             href="/products"
@@ -224,9 +254,13 @@ const Navbar = () => {
           </Link>
         </motion.li>
         <motion.li
-          initial={{ y: 20, opacity: 0 }}
-          transition={{ ease: "linear", duration: 0.15, delay: 0.4 }}
-          whileInView={{ y: 0, opacity: 1 }}
+          className="will-change-transform"
+          initial={{ x: -20, opacity: 0 }}
+          whileInView={{
+            x: 0,
+            opacity: 1,
+            transition: { ease: "linear", duration: 0.15, delay: 0.4 },
+          }}
         >
           <Link
             href="/contact"
@@ -238,9 +272,13 @@ const Navbar = () => {
           </Link>
         </motion.li>
         <motion.li
-          initial={{ y: 20, opacity: 0 }}
-          transition={{ ease: "linear", duration: 0.15, delay: 0.6 }}
-          whileInView={{ y: 0, opacity: 1 }}
+          className="will-change-transform"
+          initial={{ x: -20, opacity: 0 }}
+          whileInView={{
+            x: 0,
+            opacity: 1,
+            transition: { ease: "linear", duration: 0.15, delay: 0.6 },
+          }}
         >
           <Link
             href="/about"
@@ -251,79 +289,36 @@ const Navbar = () => {
             About
           </Link>
         </motion.li>
-        {/* </AnimatePresence> */}
       </ul>
       {showSearch && <Filter setShowSearch={setShowSearch} />}
     </nav>
   )
 }
 
-const categories = [
-  "All Designs",
-  "Traditional Designs",
-  "Classic Designs",
-  "Mirror Designs",
-  "Islamic Designs",
-  "Kutchi Work Designs",
-  "Printed Clocks",
-  "Mudwork Clocks",
-]
 export const Filter = ({ setShowSearch }) => {
   const [input, setInput] = useState("")
   const [dropdown, setDropdown] = useState(false)
   const [filtered, setFiltered] = useState([])
-  const [selectedCat, setSelectedCat] = useState("All Designs")
-  const [finalProducts, setFinalProducts] = useState([])
+  const { products } = useContext(Context)
   const { events } = useRouter()
+  const selectedCat = useRouter().query.category
+
+  const categories = [...new Set(products.map((prod) => prod.category))]
+
+  useEffect(() => {
+    const filter = products.filter((product) => {
+      return product.title.toLowerCase().includes(input.toLowerCase())
+    })
+    input === "" ? setFiltered([]) : setFiltered(filter)
+  }, [input])
 
   useEffect(() => {
     events.on("routeChangeStart", () => {
       setShowSearch(false)
     })
   }, [])
-
-  useEffect(() => {
-    switch (selectedCat) {
-      case "All Designs":
-        setFinalProducts([])
-        break
-      case "Traditional Designs":
-        setFinalProducts(
-          [].filter((all) => all.category === "Traditional Designs"),
-        )
-        break
-      case "Classic Designs":
-        setFinalProducts([].filter((all) => all.category === "Classic Designs"))
-        break
-      case "Mirror Designs":
-        setFinalProducts([].filter((all) => all.category === "Mirror Designs"))
-        break
-      case "Islamic Designs":
-        setFinalProducts([].filter((all) => all.category === "Islamic Designs"))
-        break
-      case "Kutchi Work Designs":
-        setFinalProducts(
-          [].filter((all) => all.category === "Kutchi Work Designs"),
-        )
-        break
-      case "Printed Clocks":
-        setFinalProducts([].filter((all) => all.category === "Printed Clocks"))
-        break
-      case "Mudwork Clocks":
-        setFinalProducts([].filter((all) => all.category === "Mudwork Clocks"))
-        break
-    }
-  }, [selectedCat])
-
-  useEffect(() => {
-    const filter = [].filter((product) => {
-      return product.title.toLowerCase().includes(input.toLowerCase())
-    })
-    input === "" ? setFiltered([]) : setFiltered(filter)
-  }, [input])
-
   return (
-    <div className="z-[5] flex flex-col md:items-start fixed border-t border-black/10  bg-white h-full left-0 right-0 bottom-0 top-[8.2rem] md:flex-row gap-5 mb-5 p-5">
+    <div className="z-[5] tracking-widest flex flex-col md:items-start fixed border-t border-black/10  bg-white h-full left-0 right-0 bottom-0 top-[8.2rem] md:flex-row gap-5 mb-5 p-5">
       <div className="relative md:w-96 max-w-md">
         <p className="mb-2  text-black">Search</p>
         <div className="relative">
@@ -334,9 +329,9 @@ export const Filter = ({ setShowSearch }) => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             size={16}
             className="absolute top-1/2 -translate-y-1/2 left-3
           "
@@ -357,16 +352,16 @@ export const Filter = ({ setShowSearch }) => {
               onClick={() => setInput("")}
               size={25}
               color={"#0c0908"}
-              className="absolute right-3 top-1/2 -translate-y-1/2"
+              className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path d="M18 6 6 18" />
               <path d="m6 6 12 12" />
@@ -381,7 +376,7 @@ export const Filter = ({ setShowSearch }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute top-full mt-2 w-full  bg-[#e6e6e6] capitalize z-[2] max-h-40 overflow-y-auto text-black rounded-md p-4 "
+              className="absolute top-full mt-2 w-full  bg-[#f4f4f4] capitalize z-[3] max-h-40 overflow-y-auto text-black rounded-md p-4 "
             >
               <AnimatePresence mode="popLayout">
                 {filtered.map((all, i) => (
@@ -412,7 +407,7 @@ export const Filter = ({ setShowSearch }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute z-[2] w-full p-4 mt-2  text-black rounded-md  bg-[#e6e6e6] break-all"
+                className="absolute z-[2] w-full p-4 mt-2  text-black rounded-md  bg-[#f4f4f4] break-all"
               >
                 No Results for "{input}"
               </motion.div>
@@ -431,7 +426,9 @@ export const Filter = ({ setShowSearch }) => {
             tabIndex={0}
             className="flex justify-between items-center px-4 py-2 cursor-pointer"
           >
-            <h3 className="w-full text-black ">{selectedCat}</h3>
+            <h3 className="w-full text-black ">
+              {selectedCat || "All Designs"}
+            </h3>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -439,9 +436,9 @@ export const Filter = ({ setShowSearch }) => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               onClick={() => {
                 setDropdown(!dropdown)
               }}
@@ -459,20 +456,29 @@ export const Filter = ({ setShowSearch }) => {
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.15, duration: 0.1 }}
-                className="absolute mt-2 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden  bg-[#ddd]"
+                className="absolute mt-2 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden  bg-[#f4f4f4]"
               >
-                {categories.map((all) => {
+                <Link
+                  href={`/products`}
+                  onClick={() => {
+                    setShowSearch(false)
+                  }}
+                  className={"py-1 text-black cursor-pointer"}
+                >
+                  All Designs
+                </Link>
+                {categories.map((cat) => {
                   return (
-                    <p
-                      key={all}
+                    <Link
+                      href={`/products?category=${cat}`}
+                      key={cat}
                       onClick={() => {
-                        setSelectedCat(all)
                         setShowSearch(false)
                       }}
-                      className={" py-1 text-black cursor-pointer"}
+                      className={"py-1 text-black cursor-pointer"}
                     >
-                      {all}
-                    </p>
+                      {cat}
+                    </Link>
                   )
                 })}
               </motion.div>

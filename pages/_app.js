@@ -9,7 +9,8 @@ export const Context = createContext()
 const Footer = dynamic(() => import("../components/Footer"))
 
 const App = ({ Component, pageProps }) => {
-  // const [showSearch, setShowSearch] = useState(false)
+  const [products, setProducts] = useState([])
+  // const [finalProducts, setFinalProducts] = useState([])
 
   return (
     <>
@@ -25,13 +26,7 @@ const App = ({ Component, pageProps }) => {
           type="font/ttf"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/fonts/InstrumentSans-SemiBold.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
+
         <link
           rel="icon"
           href="/favicon.ico"
@@ -83,7 +78,7 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
-      <Context.Provider value={{}}>
+      <Context.Provider value={{ products, setProducts }}>
         <Navbar />
         <div className="md:px-20 px-4 py-4 mx-auto">
           <Component {...pageProps} />
