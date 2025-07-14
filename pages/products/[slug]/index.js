@@ -84,13 +84,13 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex relative gap-5 md:gap-10  flex-col md:flex-row capitalize">
+      <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row capitalize border justify-center">
         <Swiper
           modules={[Pagination, Keyboard]}
           keyboard
           pagination
           style={{ zIndex: "auto" }}
-          className="md:flex-1/2 max-w-full"
+          className="md:flex-1/3 max-w-full"
           spaceBetween={16}
           breakpoints={{
             768: {
@@ -103,7 +103,7 @@ export default function DynamicProduct({
             <Image
               priority
               loading="eager"
-              className="object-contain w-full h-auto"
+              className="object-contain w-full"
               sizes="(max-width: 640px) 90vw, 40vw"
               width={400}
               height={400}
@@ -131,17 +131,19 @@ export default function DynamicProduct({
             ))}
         </Swiper>
 
-        <div className="flex-1/3 md:self-start sticky top-[8.5rem]">
-          <h1 className="text-lg  text-black uppercase">{title}</h1>
-          <div className="my-4">
-            <span className="bg-green-600 text-sm mr-4 inline-block text-white px-3 py-1">
+        <div className="md:self-start sticky top-[8.5rem] md:flex-1/2">
+          <h1 className="text-xl text-black uppercase">{title}</h1>
+          {/* <div className="mt-4">
+            <span className="bg-green-600 text-xs mr-4 inline-block text-white px-3 py-1">
               SAVE ₹{discount}
             </span>
-            <span className="text-lg text-black">₹{discountedPrice} </span>
-            <s className="text-base">₹{price}</s>
+          </div> */}
+          <div className="my-4">
+            <s className="text-sm mr-1">₹{price}</s>
+            <span className="text-lg text-black">₹{discountedPrice}</span>
           </div>
           <p
-            className={`border-b border-current ${
+            className={`border-b inline border-current ${
               instock ? "text-green-600" : "text-red-600"
             }`}
           >
@@ -180,7 +182,7 @@ export default function DynamicProduct({
 
       {mayLikes.length !== 0 && (
         <div className="mt-24">
-          <h1 className="heading text-center mb-4">You Might Also Like</h1>
+          <h1 className="heading text-center mb-4">Related Products</h1>
           <Swiper
             slidesPerView={1}
             spaceBetween={16}

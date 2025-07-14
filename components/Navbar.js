@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`group hover:bg-white hover:border-b border-gray-200 px-4 tracking-widest transition-colors uppercase sticky top-0 z-[3] md:px-20 py-4 md:pb-0 grid ${
+      className={`group hover:bg-white hover:border-b border-gray-200 px-4 tracking-[.25rem] transition-colors uppercase sticky top-0 z-[3] md:px-20 py-4 md:pb-0 grid ${
         route === "/"
           ? y > 80
             ? "bg-white border-b"
@@ -162,7 +162,7 @@ const Navbar = () => {
             </svg>
           )}
 
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -176,12 +176,12 @@ const Navbar = () => {
             <path d="M16 10a4 4 0 0 1-8 0" />
             <path d="M3.103 6.034h17.794" />
             <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" />
-          </svg>
+          </svg> */}
         </div>
       </div>
 
       <ul
-        className={`z-[9] px-4 md:px-0 flex flex-col gap-4 md:mt-5 pt-16 fixed transition-all w-full h-screen top-0 left-0 bg-white group-hover:text-black/50 ${
+        className={`z-[9] px-4 md:px-0 flex flex-col md:gap-8 gap-4 md:mt-5 pt-20 fixed transition-all w-full h-screen top-0 left-0 bg-white group-hover:text-black/50 ${
           route === "/"
             ? y > 80 || open
               ? "text-black/60"
@@ -191,10 +191,15 @@ const Navbar = () => {
           open ? "ulOpen" : "ulClose"
         }`}
       >
-        <li>
+        {/* <AnimatePresence > */}
+        <motion.li
+          initial={{ y: 20, opacity: 0 }}
+          transition={{ ease: "linear" }}
+          whileInView={{ y: 0, opacity: 1 }}
+        >
           <Link
             href="/"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
               route === "/" &&
               (y > 80 || open
                 ? "text-black"
@@ -203,37 +208,50 @@ const Navbar = () => {
           >
             Home
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li
+          initial={{ y: 20, opacity: 0 }}
+          transition={{ ease: "linear", duration: 0.15, delay: 0.2 }}
+          whileInView={{ y: 0, opacity: 1 }}
+        >
           <Link
             href="/products"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
               route.includes("/products") ? "text-black after:w-full" : null
             }`}
           >
             Products
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li
+          initial={{ y: 20, opacity: 0 }}
+          transition={{ ease: "linear", duration: 0.15, delay: 0.4 }}
+          whileInView={{ y: 0, opacity: 1 }}
+        >
           <Link
             href="/contact"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
               route === "/contact" ? "text-black after:w-full" : null
             }`}
           >
             Contact
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li
+          initial={{ y: 20, opacity: 0 }}
+          transition={{ ease: "linear", duration: 0.15, delay: 0.6 }}
+          whileInView={{ y: 0, opacity: 1 }}
+        >
           <Link
             href="/about"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
               route === "/about" ? "text-black after:w-full" : null
             }`}
           >
             About
           </Link>
-        </li>
+        </motion.li>
+        {/* </AnimatePresence> */}
       </ul>
       {showSearch && <Filter setShowSearch={setShowSearch} />}
     </nav>
@@ -440,7 +458,7 @@ export const Filter = ({ setShowSearch }) => {
                 initial={{ height: 0 }}
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
-                transition={{ ease: "linear", duration: 0.1 }}
+                transition={{ ease: "linear", duration: 0.15, duration: 0.1 }}
                 className="absolute mt-2 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden  bg-[#ddd]"
               >
                 {categories.map((all) => {

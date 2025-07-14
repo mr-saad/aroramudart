@@ -7,7 +7,7 @@ const Product = ({ slug, image: { url, lqip }, title }) => {
       <div className="overflow-hidden">
         <Image
           sizes="(max-width: 768px) 40vw, 33vw"
-          className="w-full aspect-square  will-change-transform object-cover select-none hover:scale-105 transition-transform duration-500 ease-out"
+          className="w-full aspect-square will-change-transform object-cover select-none hover:scale-105 transition-transform duration-1000 ease-out"
           placeholder="blur"
           blurDataURL={lqip}
           width={400}
