@@ -194,7 +194,7 @@ export default function DynamicProduct({
           <h1 className="heading text-center mb-15">Related Products</h1>
           <Swiper
             slidesPerView={1}
-            spaceBetween={16}
+            spaceBetween={24}
             breakpoints={{
               540: {
                 slidesPerView: 3,

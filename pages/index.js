@@ -9,7 +9,7 @@ const Product = dynamic(() => import("../components/Product"))
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
-  const [prods, featured, newArrivals] = await Promise.all([
+  const [prods, featured, newArrivals, headerMedia] = await Promise.all([
     sanity.fetch(`
   *[_type == "product"]{
       "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
@@ -22,6 +22,10 @@ export const getStaticProps = async () => {
   *[_type == "newArrival"][0]{
       "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
+    sanity.fetch(`
+  *[_type == "headerMedia"][0]{
+      "url":file.asset->url
+  }`),
   ])
 
   return {
@@ -29,25 +33,28 @@ export const getStaticProps = async () => {
       prods,
       featured,
       newArrivals,
+      headerMedia,
     },
     revalidate: 6,
   }
 }
 
-const Home = ({ prods, featured, newArrivals }) => {
+const Home = ({ prods, featured, newArrivals, headerMedia }) => {
   const { setProducts } = useContext(Context)
   setProducts(prods)
+
   return (
     <section>
-      <div className="h-[75vh]"></div>
+      <div className="h-[calc(94vh-72px)] md:h-[calc(94vh-132px)]"></div>
       <header className="h-[94vh] w-full absolute top-0 left-0">
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent to-black/60"></div>
         <video
+          preload="metadata"
           playsInline
           autoPlay
           muted
           loop
-          src="/mud_demo.mp4"
+          src={headerMedia.url}
           className="absolute inset-0 w-full h-[94vh] object-cover"
         ></video>
         <Link

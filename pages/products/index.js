@@ -44,7 +44,7 @@ const Products = ({ products }) => {
         <title>Products | Arora Mud Art</title>
       </Head>
       <div className="mt-2 min-h-screen capitalize">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 gap-y-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {finalProducts.length !== 0 ? (
             finalProducts.map((all) => {
               return <Product key={all.slug} {...all} />

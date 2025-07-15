@@ -10,6 +10,9 @@ const Navbar = () => {
   const [y, setY] = useState(0)
   const { route, events } = useRouter()
 
+  const { spotOffer } = useContext(Context)
+
+
   const [showSearch, setShowSearch] = useState(false)
 
   useEffect(() => {
@@ -21,19 +24,23 @@ const Navbar = () => {
     const listener = window.addEventListener("scroll", () => {
       setY(window.scrollY)
     })
+
+    events.on("routeChangeStart", () => setSpin(true))
+    events.on("routeChangeComplete", () => setSpin(false))
     ;() => {
       window.removeEventListener("scroll", listener)
     }
-    events.on("routeChangeStart", () => setSpin(true))
-    events.on("routeChangeComplete", () => setSpin(false))
   }, [])
 
   return (
     <>
       {route === "/" && (
-        <div className="bg-black text-white z-5 relative text-xs py-3 uppercase text-center">
+        <Link
+          href="/offers"
+          className="block bg-black text-white z-5 relative text-xs py-3 px-4 uppercase text-center"
+        >
           Eid al Adha Speical offer: 20% flat discount on items above ₹4500
-        </div>
+        </Link>
       )}
       <nav
         className={`group hover:bg-white hover:border-b border-gray-200 px-4 tracking-[.25rem] transition-colors uppercase sticky top-0 z-[3] md:px-20 py-4 md:pb-0 grid ${
@@ -194,22 +201,6 @@ const Navbar = () => {
                 <circle cx="11" cy="11" r="8" />
               </svg>
             )}
-
-            {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M16 10a4 4 0 0 1-8 0" />
-            <path d="M3.103 6.034h17.794" />
-            <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" />
-          </svg> */}
           </div>
         </div>
 
