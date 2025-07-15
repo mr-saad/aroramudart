@@ -78,7 +78,9 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
-      <Context.Provider value={{ products, setProducts, }}>
+      <Context.Provider
+        value={{ products, setProducts, spotOffer, setSpotOffer }}
+      >
         <Navbar />
         <div className="md:px-20 px-4 py-4 mx-auto">
           <Component {...pageProps} />

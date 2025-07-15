@@ -6,12 +6,11 @@ import { Context } from "../pages/_app"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
-  const [spin, setSpin] = useState(false)
+  // const [spin, setSpin] = useState(false);
   const [y, setY] = useState(0)
   const { route, events } = useRouter()
 
   const { spotOffer } = useContext(Context)
-
 
   const [showSearch, setShowSearch] = useState(false)
 
@@ -25,8 +24,8 @@ const Navbar = () => {
       setY(window.scrollY)
     })
 
-    events.on("routeChangeStart", () => setSpin(true))
-    events.on("routeChangeComplete", () => setSpin(false))
+    // events.on("routeChangeStart", () => setSpin(true));
+    // events.on("routeChangeComplete", () => setSpin(false));
     ;() => {
       window.removeEventListener("scroll", listener)
     }
@@ -34,16 +33,18 @@ const Navbar = () => {
 
   return (
     <>
-      {route === "/" && (
+      {route === "/" && spotOffer && (
         <Link
           href="/offers"
-          className="block bg-black text-white z-5 relative text-xs py-3 px-4 uppercase text-center"
+          className={` bg-black text-white z-5 relative text-xs py-3 px-4 uppercase text-center ${
+            open ? "hidden" : "block"
+          }`}
         >
-          Eid al Adha Speical offer: 20% flat discount on items above ₹4500
+          {spotOffer.offer.title}
         </Link>
       )}
       <nav
-        className={`group hover:bg-white hover:border-b border-gray-200 px-4 tracking-[.25rem] transition-colors uppercase sticky top-0 z-[3] md:px-20 py-4 md:pb-0 grid ${
+        className={`group sticky top-0 hover:bg-white hover:border-b border-gray-200 px-4 tracking-[.25rem] transition-colors uppercase z-[3] md:px-20 py-4 md:pb-0 grid ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -51,29 +52,6 @@ const Navbar = () => {
             : "bg-white border-b"
         }`}
       >
-        {spin && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="black"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="absolute top-6 left-20 md:top-23 lg:left-75 xl:left-105 animate-spin"
-          >
-            <path d="M10.1 2.182a10 10 0 0 1 3.8 0" />
-            <path d="M13.9 21.818a10 10 0 0 1-3.8 0" />
-            <path d="M17.609 3.721a10 10 0 0 1 2.69 2.7" />
-            <path d="M2.182 13.9a10 10 0 0 1 0-3.8" />
-            <path d="M20.279 17.609a10 10 0 0 1-2.7 2.69" />
-            <path d="M21.818 10.1a10 10 0 0 1 0 3.8" />
-            <path d="M3.721 6.391a10 10 0 0 1 2.7-2.69" />
-            <path d="M6.391 20.279a10 10 0 0 1-2.69-2.7" />
-          </svg>
-        )}
         <div className="flex sm:mb-4 items-center justify-between">
           <div className="hidden md:block"></div>
           <div
@@ -205,13 +183,13 @@ const Navbar = () => {
         </div>
 
         <ul
-          className={`z-[9] px-4 md:px-0 flex flex-col md:gap-8 gap-4 md:mt-5 pt-20 fixed transition-all w-full h-screen top-0 left-0 bg-white group-hover:text-black/50 ${
+          className={`z-[9] px-4 flex flex-col  gap-4  pt-20 fixed transition-all w-full h-screen top-0 left-0 bg-white group-hover:text-black/50 ${
             route === "/"
               ? y > 80 || open
                 ? "text-black/60"
                 : "text-white/70"
               : "text-black/60"
-          }  md:items-center md:justify-center md:bg-transparent md:p-0 md:static md:flex-row md:w-auto md:h-auto ${
+          } md:static md:px-0 md:gap-8 md:mt-5 md:items-center md:justify-center md:bg-transparent md:p-0 md:flex-row md:w-auto md:h-auto ${
             open ? "ulOpen" : "ulClose"
           }`}
         >
@@ -260,6 +238,24 @@ const Navbar = () => {
             }}
           >
             <Link
+              href="/commission"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/commission" ? "text-black after:w-full" : null
+              }`}
+            >
+              Commission
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={{ x: -20, opacity: 0 }}
+            whileInView={{
+              x: 0,
+              opacity: 1,
+              transition: { ease: "linear", duration: 0.15, delay: 0.6 },
+            }}
+          >
+            <Link
               href="/contact"
               className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route === "/contact" ? "text-black after:w-full" : null
@@ -274,7 +270,7 @@ const Navbar = () => {
             whileInView={{
               x: 0,
               opacity: 1,
-              transition: { ease: "linear", duration: 0.15, delay: 0.6 },
+              transition: { ease: "linear", duration: 0.15, delay: 0.8 },
             }}
           >
             <Link

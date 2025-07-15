@@ -9,24 +9,29 @@ const Product = dynamic(() => import("../components/Product"))
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
-  const [prods, featured, newArrivals, headerMedia] = await Promise.all([
-    sanity.fetch(`
+  const [prods, featured, newArrivals, headerMedia, spotOffer] =
+    await Promise.all([
+      sanity.fetch(`
   *[_type == "product"]{
       "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
-    sanity.fetch(`
+      sanity.fetch(`
   *[_type == "featured"][0]{
       "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
-    sanity.fetch(`
+      sanity.fetch(`
   *[_type == "newArrival"][0]{
       "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
-    sanity.fetch(`
+      sanity.fetch(`
   *[_type == "headerMedia"][0]{
       "url":file.asset->url
   }`),
-  ])
+      sanity.fetch(`
+  *[_type == "spotOffer"][0]{
+    "offer":*[_type=="offer" && id==^._ref][0]{title,desc}
+  }`),
+    ])
 
   return {
     props: {
@@ -34,20 +39,22 @@ export const getStaticProps = async () => {
       featured,
       newArrivals,
       headerMedia,
+      spotOffer,
     },
     revalidate: 6,
   }
 }
 
-const Home = ({ prods, featured, newArrivals, headerMedia }) => {
-  const { setProducts } = useContext(Context)
+const Home = ({ prods, featured, newArrivals, headerMedia, spotOffer }) => {
+  const { setProducts, setSpotOffer } = useContext(Context)
+  setSpotOffer(spotOffer)
   setProducts(prods)
 
   return (
     <section>
       <div className="h-[calc(94vh-72px)] md:h-[calc(94vh-132px)]"></div>
       <header className="h-[94vh] w-full absolute top-0 left-0">
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent to-black/60"></div>
+        <div className="absolute inset-0 z-[1] bg-black/45"></div>
         <video
           preload="metadata"
           playsInline
@@ -59,7 +66,7 @@ const Home = ({ prods, featured, newArrivals, headerMedia }) => {
         ></video>
         <Link
           href={"/products"}
-          className="absolute z-[2] cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  text-sm py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
+          className="absolute z-[2] text-center cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  text-xs py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
         >
           Shop Latest
         </Link>

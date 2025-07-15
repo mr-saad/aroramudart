@@ -1,7 +1,6 @@
 import { google } from "googleapis"
 
 export default async (req, res) => {
-  console.log(req)
   const { client_email, private_key } = JSON.parse(
     Buffer.from(process.env.credentials, "base64").toString()
   )
@@ -9,8 +8,8 @@ export default async (req, res) => {
     scopes: "https://www.googleapis.com/auth/spreadsheets",
     credentials: {
       client_email,
-      private_key
-    }
+      private_key,
+    },
   })
 
   const client = await auth.getClient()
@@ -23,8 +22,8 @@ export default async (req, res) => {
       range: "Sheet1!A3:F3",
       valueInputOption: "USER_ENTERED",
       resource: {
-        values: [req.body]
-      }
+        values: [req.body],
+      },
     })
     res.json(data)
   } catch (err) {
