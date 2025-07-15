@@ -33,10 +33,10 @@ body {
 }
 
 .heading {
-  @apply text-xl  text-black uppercase;
+  @apply text-xl md:text-2xl text-black uppercase;
 }
 .btn {
-  @apply cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-5 py-2 uppercase;
+  @apply cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-5 py-2 uppercase text-sm;
 }
 .neutral-btn {
   @apply opacity-70 hover:opacity-100 focus-within:opacity-100 transition ease-out border text-black  px-3 py-2;

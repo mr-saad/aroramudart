@@ -39,10 +39,11 @@ const Home = ({ prods, featured, newArrivals }) => {
   setProducts(prods)
   return (
     <section>
-      <div className="h-[94vh]"></div>
+      <div className="h-[75vh]"></div>
       <header className="h-[94vh] w-full absolute top-0 left-0">
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent to-black/60"></div>
         <video
+          playsInline
           autoPlay
           muted
           loop
@@ -51,14 +52,14 @@ const Home = ({ prods, featured, newArrivals }) => {
         ></video>
         <Link
           href={"/products"}
-          className="absolute z-[2] cursor-pointer tracking-widest bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white md:text-xl text-base py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
+          className="absolute z-[2] cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  text-sm py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
         >
           Shop Latest
         </Link>
       </header>
 
       <div className="mx-auto uppercase">
-        <h1 className="heading text-center mb-5">New Arrivals</h1>
+        <h1 className="heading text-center mb-15">New Arrivals</h1>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-4">
           {newArrivals &&
@@ -68,7 +69,7 @@ const Home = ({ prods, featured, newArrivals }) => {
         </div>
       </div>
       <div className="mx-auto grid justify-items-center uppercase mt-15">
-        <h1 className="heading text-center mb-5">Featured Collection</h1>
+        <h1 className="heading text-center mb-15">Featured Collection</h1>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-4">
           {featured &&

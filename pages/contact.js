@@ -109,15 +109,15 @@ const Contact = ({ products }) => {
         with exceptional mud artworks that bring nature's beauty into your
         surroundings.
       </p>
-      <div className="flex flex-col gap-10 md:flex-row mt-20">
-        <Image
+      <div className="flex flex-col gap-10 md:flex-row mt-20 justify-center">
+        {/* <Image
           width={500}
           height={500}
           src="/contactSvg.svg"
           className="md:w-1/2 lg:w-1/3 flex-1"
           alt="Contact at Arora Mud Art"
-        />
-        <div className="flex-1 mt-5 md:mt-0 md:w-1/2">
+        /> */}
+        <div className="mt-5 md:mt-0 max-w-xl w-full">
           <div className="text-red-700 my-5 capitalize">
             <ValidationError
               field="email"
@@ -130,7 +130,10 @@ const Contact = ({ products }) => {
               errors={state.errors}
             />
           </div>
-          <form onSubmit={Submit}>
+          <b className="text-xl text-black uppercase text-center mb-5 block">
+            Just a Form Away
+          </b>
+          <form onSubmit={Submit} className="">
             <label htmlFor="username">Username</label>
             <input
               name="username"

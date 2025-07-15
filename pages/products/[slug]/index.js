@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import PortableText from "react-portable-text"
 import { BarLoader } from "react-spinners"
 import Head from "next/head"
@@ -28,8 +28,9 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const { default: sanity } = await import("../../../components/sanityClient")
 
-  const product = await sanity.fetch(
-    `*[slug.current==$slug][0]{
+  const [product, prods] = await Promise.all([
+    sanity.fetch(
+      `*[slug.current==$slug][0]{
       title,
       "slug":slug.current,
       price,
@@ -40,8 +41,13 @@ export const getStaticProps = async ({ params: { slug } }) => {
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
       "images":images[].asset->{url,"lqip":metadata.lqip}
     }`,
-    { slug },
-  )
+      { slug },
+    ),
+    sanity.fetch(`
+  *[_type == "product"]{
+      "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
+  }`),
+  ])
 
   const mayLikes = await sanity.fetch(
     `*[category==$category&&slug.current!=$slug][0..2]{
@@ -56,6 +62,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
     props: {
       product,
       mayLikes,
+      prods,
     },
     revalidate: 6,
   }
@@ -72,9 +79,11 @@ export default function DynamicProduct({
     body,
   },
   mayLikes,
+  prods,
 }) {
   const [showForm, setShowForm] = useState(false)
-
+  const { setProducts } = useContext(Context)
+  setProducts(prods)
   const discountedPrice = price - discount
 
   const title1 = `${title} | Arora Mud Art`
@@ -84,7 +93,7 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex  relative gap-5 flex-col md:flex-row capitalize justify-center">
+      <div className="flex  relative gap-5 md:gap-10 flex-col md:flex-row capitalize justify-center">
         <Swiper
           modules={[Pagination, Keyboard]}
           keyboard
@@ -182,7 +191,7 @@ export default function DynamicProduct({
 
       {mayLikes.length !== 0 && (
         <div className="mt-24">
-          <h1 className="heading text-center mb-4">Related Products</h1>
+          <h1 className="heading text-center mb-15">Related Products</h1>
           <Swiper
             slidesPerView={1}
             spaceBetween={16}
@@ -305,6 +314,7 @@ const HangOn = () => (
 )
 
 import SuccessJson from "./success.json"
+import { Context } from "../../_app"
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
