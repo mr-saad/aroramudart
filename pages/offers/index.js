@@ -1,12 +1,13 @@
 import { useContext } from "react"
-import { Context } from "./_app"
+import { Context } from "../_app"
+import Link from "next/link"
 
 export const getStaticProps = async () => {
-  const { default: sanity } = await import("../components/sanityClient")
+  const { default: sanity } = await import("../../components/sanityClient")
 
   const [prods, offers] = await Promise.all([
     sanity.fetch(`*[_type=="product"]`),
-    sanity.fetch(`*[_type=="offer"]{title,desc}`),
+    sanity.fetch(`*[_type=="offer"]{title,desc,"slug":slug.current}`),
   ])
   return {
     props: {
@@ -26,12 +27,16 @@ export default function Offers({ prods, offers }) {
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {offers ? (
           offers.map((offer) => (
-            <div className="bg-[#f4f4f4] p-5">
+            <Link
+              key={offer.slug}
+              href={`/offers/${offer.slug}`}
+              className="bg-[#f4f4f4] p-5"
+            >
               <strong className="block text-black uppercase mb-2">
                 {offer.title}
               </strong>
               <p>{offer.desc}</p>
-            </div>
+            </Link>
           ))
         ) : (
           <p className="text-center  text-black text-xl">No Offers Available</p>

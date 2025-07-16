@@ -3,6 +3,10 @@ import { useRouter } from "next/router"
 import { AnimatePresence, motion } from "framer-motion"
 import { useContext, useEffect, useState } from "react"
 import { Context } from "../pages/_app"
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/navigation"
+import { Navigation } from "swiper/modules"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -10,7 +14,7 @@ const Navbar = () => {
   const [y, setY] = useState(0)
   const { route, events } = useRouter()
 
-  const { spotOffer } = useContext(Context)
+  const { offers } = useContext(Context)
 
   const [showSearch, setShowSearch] = useState(false)
 
@@ -33,16 +37,22 @@ const Navbar = () => {
 
   return (
     <>
-      {route === "/" && spotOffer && (
-        <Link
-          href="/offers"
-          className={` bg-black text-white z-5 relative text-xs py-3 px-4 uppercase text-center ${
-            open ? "hidden" : "block"
-          }`}
-        >
-          {spotOffer.offer.title}
-        </Link>
-      )}
+      {/* {route === "/" && offers.length && (
+        <Swiper navigation modules={[Navigation]}>
+          {offers.map((offr) => (
+            <SwiperSlide>
+              <Link
+                href={`/offers/${offr.slug}`}
+                className={`bg-black text-white z-5 relative text-xs py-3 px-4 uppercase text-center ${
+                  open ? "hidden" : "block"
+                }`}
+              >
+                {offr.title}
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )} */}
       <nav
         className={`group sticky top-0 hover:bg-white hover:border-b border-gray-200 px-4 tracking-[.25rem] transition-colors uppercase z-[3] md:px-20 py-4 md:pb-0 grid ${
           route === "/"

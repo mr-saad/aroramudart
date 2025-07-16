@@ -2,34 +2,36 @@
   "name": "mudstudio",
   "private": true,
   "version": "1.0.0",
-  "description": "",
   "main": "package.json",
-  "author": "Saad Khatri <khatrisaad233@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "sanity start",
     "dev": "sanity dev",
-    "build": "sanity build"
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/base": "^2.36.2",
-    "@sanity/default-layout": "^2.36.2",
-    "@sanity/default-login": "^2.36.2",
-    "@sanity/desk-tool": "^2.36.2",
-    "@sanity/eslint-config-studio": "^5.0.2",
-    "@sanity/vision": "^3.97.1",
-    "caniuse-lite": "^1.0.30001727",
-    "eslint": "^9.30.1",
-    "prop-types": "^15.8",
+    "@sanity/vision": "^4.0.0",
     "react": "^19.1",
     "react-dom": "^19.1",
-    "sanity": "^3.97.1",
-    "styled-components": "^6.1.19"
+    "sanity": "^4.0.0",
+    "styled-components": "^6.1.18"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.0"
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@types/react": "^19.1",
+    "eslint": "^9.28",
+    "prettier": "^3.5",
+    "typescript": "^5.8"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
   }
 }
