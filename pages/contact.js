@@ -1,7 +1,6 @@
 import { ValidationError, useForm } from "@formspree/react"
 import { useRouter } from "next/router"
-import Image from "next/image"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Context } from "./_app"
 
 export const getStaticProps = async () => {
@@ -25,7 +24,9 @@ export const getStaticProps = async () => {
 
 const Contact = ({ products }) => {
   const { setProducts } = useContext(Context)
-  setProducts(products)
+  useEffect(() => {
+    setProducts(products)
+  }, [])
   const [state, Submit] = useForm("meqnlkpn")
 
   const { push } = useRouter()

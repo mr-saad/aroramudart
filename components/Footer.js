@@ -48,6 +48,7 @@ const Footer = () => {
             <a
               className="flex items-center gap-2  hover:text-black transition"
               href="https://facebook.com"
+              target="_blank"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +66,7 @@ const Footer = () => {
               Arora Mud Art
             </a>
             <a
+              target="_blank"
               className="flex items-center gap-2  hover:text-black transition"
               href="https://instagram.com/arora_mud_art"
             >
@@ -96,6 +98,7 @@ const Footer = () => {
           </summary>
           <div className="flex flex-col gap-4 mt-5">
             <a
+              target="_blank"
               className="flex gap-2 items-center mt-3 hover:text-black transition"
               href="tel:919979672226"
             >
@@ -115,6 +118,7 @@ const Footer = () => {
               +91 9979672226
             </a>
             <a
+              target="_blank"
               className="flex items-center gap-2  hover:text-black transition"
               href="https://wa.me/919979672226"
             >

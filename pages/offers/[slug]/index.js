@@ -22,14 +22,11 @@ export const getStaticProps = async ({ params: { slug } }) => {
       `*[_type=="offer" && slug.current==$slug][0]{
       title,
       "slug":slug.current,
-      discount,
       "products": *[_type=="product" && offer._ref == ^._id ]{
         title,
         "slug":slug.current,
         "image":mainImage.asset->{url,"lqip":metadata.lqip}
       },
-      "image":mainImage.asset->{url,"lqip":metadata.lqip},
-      "images":images[].asset->{url,"lqip":metadata.lqip}
     }`,
       { slug },
     ),
@@ -50,18 +47,18 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
 export default function Offer({ offer }) {
   return (
-    <div>
-      <h1 className="text-center text-black text-xl uppercase">
+    <div className="min-h-[50vh]">
+      <h1 className="text-center text-black text-xl uppercase mb-10 mt-6">
         {offer.title}
       </h1>
       {offer.products.length ? (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-10">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {offer.products.map((prod) => (
             <Product {...prod} key={prod._id} />
           ))}
         </div>
       ) : (
-        <p className="text-center mt-10">No Products yet in this Offer</p>
+        <p className="text-center">No Products yet in this Offer</p>
       )}
     </div>
   )

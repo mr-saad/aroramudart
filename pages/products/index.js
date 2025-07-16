@@ -26,7 +26,9 @@ export const getStaticProps = async () => {
 
 const Products = ({ products }) => {
   const { setProducts } = useContext(Context)
-  setProducts(products)
+  useEffect(() => {
+    setProducts(products)
+  }, [])
 
   const [finalProducts, setFinalProducts] = useState(products)
 

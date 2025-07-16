@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import PortableText from "react-portable-text"
 import { BarLoader } from "react-spinners"
 import Head from "next/head"
@@ -83,7 +83,9 @@ export default function DynamicProduct({
 }) {
   const [showForm, setShowForm] = useState(false)
   const { setProducts } = useContext(Context)
-  setProducts(prods)
+  useEffect(() => {
+    setProducts(prods)
+  }, [])
   const discountedPrice = price - discount
 
   const title1 = `${title} | Arora Mud Art`
@@ -93,7 +95,7 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex  relative gap-5 md:gap-10 flex-col md:flex-row capitalize justify-center">
+      <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row capitalize justify-center">
         <Swiper
           modules={[Pagination, Keyboard]}
           keyboard
@@ -140,7 +142,7 @@ export default function DynamicProduct({
             ))}
         </Swiper>
 
-        <div className="md:self-start sticky top-[9.4rem] ">
+        <div className="md:self-start sticky top-[5.5rem] ">
           <h1 className="text-xl text-black uppercase">{title}</h1>
           {/* <div className="mt-4">
             <span className="bg-green-600 text-xs mr-4 inline-block text-white px-3 py-1">

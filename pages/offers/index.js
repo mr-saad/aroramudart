@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Context } from "../_app"
 import Link from "next/link"
 
@@ -20,7 +20,9 @@ export const getStaticProps = async () => {
 
 export default function Offers({ prods, offers }) {
   const { setProducts } = useContext(Context)
-  setProducts(prods)
+  useEffect(() => {
+    setProducts(prods)
+  }, [])
   return (
     <div>
       <h1 className="heading text-center mb-5">Offers</h1>

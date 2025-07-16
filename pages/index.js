@@ -2,7 +2,7 @@ import Link from "next/link"
 import "swiper/css"
 import "swiper/css/pagination"
 import dynamic from "next/dynamic"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Context } from "./_app"
 const Product = dynamic(() => import("../components/Product"))
 
@@ -48,12 +48,14 @@ export const getStaticProps = async () => {
 
 const Home = ({ prods, featured, newArrivals, headerMedia, offers }) => {
   const { setProducts, setOffers } = useContext(Context)
-  setOffers(offers)
-  setProducts(prods)
+  useEffect(() => {
+    setOffers(offers)
+    setProducts(prods)
+  }, [])
 
   return (
     <section>
-      <div className="h-[calc(94vh-72px)] md:h-[calc(94vh-132px)]"></div>
+      <div className="h-[calc(94vh-72px)] md:h-[calc(94vh-126px)]"></div>
       <header className="h-[94vh] w-full absolute top-0 left-0">
         <div className="absolute inset-0 z-[1] bg-black/45"></div>
         <video

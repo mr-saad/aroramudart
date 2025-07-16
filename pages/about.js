@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Context } from "./_app"
 
 export const getStaticProps = async () => {
@@ -56,7 +56,9 @@ const steps = [
 
 const About = ({ products }) => {
   const { setProducts } = useContext(Context)
-  setProducts(products)
+  useEffect(() => {
+    setProducts(products)
+  }, [])
   return (
     <div className="leading-relaxed mt-5">
       <h2 className="heading">Welcome to Arora Mud Art!</h2>
