@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react"
 import Product from "../../../components/Product"
+import { Context } from "../../_app"
 
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
