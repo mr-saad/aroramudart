@@ -28,9 +28,9 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const { default: sanity } = await import("../../../components/sanityClient")
 
-  const [product, prods] = await Promise.all([
+  const [product, prods, { categories }] = await Promise.all([
     sanity.fetch(
-      `*[slug.current==$slug][0]{
+      `*[_type=="product" && slug.current==$slug][0]{
       title,
       "slug":slug.current,
       price,
@@ -47,22 +47,23 @@ export const getStaticProps = async ({ params: { slug } }) => {
   *[_type == "product"]{
       "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
+    sanity.fetch(`*[_type == "category"][0]{categories}`),
   ])
 
   const mayLikes = await sanity.fetch(
-    `*[category==$category&&slug.current!=$slug][0..2]{
-      title,
-      "slug":slug.current,
-      "image":mainImage.asset->{url,"lqip":metadata.lqip},
-    }`,
+    `*[category==$category && slug.current!=$slug][0..2]{
+     title,
+     "slug":slug.current,
+     "image":mainImage.asset->{url,"lqip":metadata.lqip},
+   }`,
     { category: product.category, slug },
   )
-
   return {
     props: {
       product,
       mayLikes,
       prods,
+      categories,
     },
     revalidate: 6,
   }
@@ -80,11 +81,13 @@ export default function DynamicProduct({
   },
   mayLikes,
   prods,
+  categories,
 }) {
   const [showForm, setShowForm] = useState(false)
-  const { setProducts } = useContext(Context)
+  const { setProducts, setCategories } = useContext(Context)
   useEffect(() => {
     setProducts(prods)
+    setCategories(categories)
   }, [])
   const discountedPrice = price - discount
 

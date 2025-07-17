@@ -305,11 +305,11 @@ export const Filter = ({ setShowSearch }) => {
   const [input, setInput] = useState("")
   const [dropdown, setDropdown] = useState(false)
   const [filtered, setFiltered] = useState([])
-  const { products } = useContext(Context)
+  const { products, categories } = useContext(Context)
   const { events } = useRouter()
   const selectedCat = useRouter().query.category
 
-  const categories = [...new Set(products.map((prod) => prod.category))]
+  // const categories = [...new Set(products.map((prod) => prod.category))]
 
   useEffect(() => {
     const filter = products.filter((product) => {
@@ -432,9 +432,7 @@ export const Filter = ({ setShowSearch }) => {
             tabIndex={0}
             className="flex justify-between items-center px-4 py-2 cursor-pointer"
           >
-            <h3 className="w-full text-black ">
-              {selectedCat || "All Designs"}
-            </h3>
+            <h3 className="w-full text-black ">{selectedCat || "All"}</h3>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -471,7 +469,7 @@ export const Filter = ({ setShowSearch }) => {
                   }}
                   className={"py-1 text-black cursor-pointer"}
                 >
-                  All Designs
+                  All
                 </Link>
                 {categories.map((cat) => {
                   return (

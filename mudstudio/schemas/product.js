@@ -26,39 +26,40 @@ export default {
     {
       name: 'category',
       title: 'Category',
-      type: 'string',
-      options: {
-        list: [
-          {
-            title: 'Traditional Designs',
-            value: 'Traditional Designs',
-          },
-          {
-            title: 'Classic Designs',
-            value: 'Classic Designs',
-          },
-          {
-            title: 'Mirror Designs',
-            value: 'Mirror Designs',
-          },
-          {
-            title: 'Islamic Designs',
-            value: 'Islamic Designs',
-          },
-          {
-            title: 'Kutchi Work Designs',
-            value: 'Kutchi Work Designs',
-          },
-          {
-            title: 'Printed Clocks',
-            value: 'Printed Clocks',
-          },
-          {
-            title: 'Mudwork Clocks',
-            value: 'Mudwork Clocks',
-          },
-        ],
-      },
+      type: 'reference',
+      to: [{type: 'category'}],
+      // options: {
+      //   list: [
+      //     {
+      //       title: 'Traditional Designs',
+      //       value: 'Traditional Designs',
+      //     },
+      //     {
+      //       title: 'Classic Designs',
+      //       value: 'Classic Designs',
+      //     },
+      //     {
+      //       title: 'Mirror Designs',
+      //       value: 'Mirror Designs',
+      //     },
+      //     {
+      //       title: 'Islamic Designs',
+      //       value: 'Islamic Designs',
+      //     },
+      //     {
+      //       title: 'Kutchi Work Designs',
+      //       value: 'Kutchi Work Designs',
+      //     },
+      //     {
+      //       title: 'Printed Clocks',
+      //       value: 'Printed Clocks',
+      //     },
+      //     {
+      //       title: 'Mudwork Clocks',
+      //       value: 'Mudwork Clocks',
+      //     },
+      //   ],
+      // },
     },
     {
       name: 'price',

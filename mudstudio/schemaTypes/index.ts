@@ -2,7 +2,8 @@ import products from '../schemas/product'
 import featured from '../schemas/featured'
 import newArrivals from '../schemas/newArrivals'
 import offers from '../schemas/offers'
-import spotOffer from '../schemas/spotOffer'
+import category from '../schemas/category'
+// import spotOffer from '../schemas/spotOffer'
 import headerMedia from '../schemas/headerMedia'
 import blockContent from '../schemas/blockContent'
 
@@ -11,7 +12,8 @@ export const schemaTypes = [
   featured,
   newArrivals,
   offers,
-  spotOffer,
+  category,
+  // spotOffer,
   headerMedia,
   blockContent,
 ]

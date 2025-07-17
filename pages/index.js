@@ -9,8 +9,8 @@ const Product = dynamic(() => import("../components/Product"))
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
-  const [prods, featured, newArrivals, headerMedia, offers] = await Promise.all(
-    [
+  const [prods, featured, newArrivals, headerMedia, offers, { categories }] =
+    await Promise.all([
       sanity.fetch(`
   *[_type == "product"]{
       "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
@@ -31,8 +31,11 @@ export const getStaticProps = async () => {
   *[_type == "offer"]{
     _id,title,desc,"slug":slug.current
   }`),
-    ],
-  )
+      sanity.fetch(`
+  *[_type == "category"][0]{
+    categories
+  }`),
+    ])
 
   return {
     props: {
@@ -41,16 +44,25 @@ export const getStaticProps = async () => {
       newArrivals,
       headerMedia,
       offers,
+      categories,
     },
     revalidate: 6,
   }
 }
 
-const Home = ({ prods, featured, newArrivals, headerMedia, offers }) => {
-  const { setProducts, setOffers } = useContext(Context)
+const Home = ({
+  prods,
+  featured,
+  newArrivals,
+  headerMedia,
+  offers,
+  categories,
+}) => {
+  const { setProducts, setOffers, setCategories } = useContext(Context)
   useEffect(() => {
     setOffers(offers)
     setProducts(prods)
+    setCategories(categories)
   }, [])
 
   return (

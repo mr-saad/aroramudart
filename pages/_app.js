@@ -11,6 +11,7 @@ const Footer = dynamic(() => import("../components/Footer"))
 const App = ({ Component, pageProps }) => {
   const [products, setProducts] = useState([])
   const [offers, setOffers] = useState([])
+  const [categories, setCategories] = useState([])
 
   return (
     <>
@@ -78,7 +79,16 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
-      <Context.Provider value={{ products, setProducts, offers, setOffers }}>
+      <Context.Provider
+        value={{
+          products,
+          setProducts,
+          offers,
+          setOffers,
+          categories,
+          setCategories,
+        }}
+      >
         <Navbar />
         <div className="md:px-20 px-4 py-4 mx-auto">
           <Component {...pageProps} />
