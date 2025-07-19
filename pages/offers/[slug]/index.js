@@ -19,7 +19,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const { default: sanity } = await import("../../../components/sanityClient")
 
-  const [offer, product, { categories }] = await Promise.all([
+  const [offer, prods, { categories }] = await Promise.all([
     sanity.fetch(
       `*[_type=="offer" && slug.current==$slug][0]{
       title,
@@ -27,6 +27,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
       "products": *[_type=="product" && offer._ref == ^._id ]{
         title,
         "slug":slug.current,
+        size,
+        price,
         "image":mainImage.asset->{url,"lqip":metadata.lqip}
       },
     }`,
@@ -41,7 +43,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: {
-      product,
+      prods,
       offer,
       categories,
     },
@@ -49,7 +51,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   }
 }
 
-export default function Offer({ offer, categories }) {
+export default function Offer({ offer, categories, prods }) {
   const { setProducts, setCategories } = useContext(Context)
   useEffect(() => {
     setProducts(prods)
@@ -63,7 +65,7 @@ export default function Offer({ offer, categories }) {
       {offer.products.length ? (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {offer.products.map((prod) => (
-            <Product {...prod} key={prod._id} />
+            <Product {...prod} key={prod.slug} />
           ))}
         </div>
       ) : (
