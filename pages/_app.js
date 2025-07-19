@@ -3,6 +3,7 @@ import { createContext, useState } from "react"
 import Navbar from "../components/Navbar"
 import "../globals.css"
 import dynamic from "next/dynamic"
+import { ReactLenis } from "lenis/react"
 
 export const Context = createContext()
 
@@ -79,6 +80,13 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
+      <ReactLenis
+        root
+        options={{
+          lerp: 0.07,
+          smoothWheel: true,
+        }}
+      />
       <Context.Provider
         value={{
           products,

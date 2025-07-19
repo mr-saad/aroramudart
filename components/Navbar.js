@@ -57,7 +57,7 @@ const Navbar = () => {
         </Swiper>
       )}
       <nav
-        className={`group peer sticky md:relative md:border-b-0 border-gray-200 top-0 hover:bg-white transition-colors px-4 z-[4] md:px-20 py-4 ${
+        className={`group peer sticky md:relative md:border-b-0 border-gray-200 top-0 transition-colors px-4 z-2 md:px-20 py-4 ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -110,7 +110,7 @@ const Navbar = () => {
               width="115"
               height="40"
               viewBox="0 0 683 239"
-              className={`transition-colors group-hover:fill-black ${
+              className={`transition-colors ${
                 route === "/"
                   ? y > 80 && !open
                     ? "fill-black"
@@ -143,7 +143,7 @@ const Navbar = () => {
             </svg>
           </Link>
           <div
-            className={`flex gap-4 group-hover:text-black ${
+            className={`flex gap-4 ${
               route === "/"
                 ? y > 80 && !open
                   ? "text-black"
@@ -196,13 +196,13 @@ const Navbar = () => {
         </div>
       </nav>
       <ul
-        className={`group/ul z-[3] px-4 flex flex-col gap-4 pt-20 fixed transition-all tracking-[.25rem] uppercase w-full h-screen top-0 left-0 group-hover:text-black/50 ${
+        className={`group/ul z-[3] px-4 flex flex-col gap-4 pt-20 fixed transition-all tracking-[.25rem] uppercase w-full h-screen top-0 left-0 ${
           route === "/"
             ? y > 80 || open
               ? "text-black/60 bg-white border-b"
               : "text-white/70"
             : "text-black/60 border-b bg-white"
-        } md:peer-hover:bg-white md:peer-hover:text-black/60 md:hover:bg-white md:hover:text-black/60 md:hover:border-b md:border-gray-200 md:sticky md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${
+        } md:hover:bg-white md:hover:text-black/60 md:hover:border-b md:border-gray-200 md:sticky md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${
           open ? "ulOpen" : "ulClose"
         }`}
       >

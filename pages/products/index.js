@@ -13,6 +13,8 @@ export const getStaticProps = async () => {
     "slug":slug.current,
     title,
     category,
+    size,
+    price,
     "image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`)
 

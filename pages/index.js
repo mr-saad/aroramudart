@@ -13,15 +13,15 @@ export const getStaticProps = async () => {
     await Promise.all([
       sanity.fetch(`
   *[_type == "product"]{
-      "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
+      "slug":slug.current,title,category,size,price,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
       sanity.fetch(`
   *[_type == "featured"][0]{
-      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
+      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
       sanity.fetch(`
   *[_type == "newArrival"][0]{
-      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
+      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
       sanity.fetch(`
   *[_type == "headerMedia"][0]{
