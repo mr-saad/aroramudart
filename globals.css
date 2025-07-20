@@ -18,13 +18,17 @@
 }
 :root {
   --swiper-navigation-color: #fff;
-  --swiper-navigation-size: 24;
+  --swiper-navigation-size: 16;
   --swiper-navigation-top-offset: 30%;
-  --swiper-navigation-sides-offset: 1rem;
+  --swiper-navigation-sides-offset: 0;
 }
 .swiper-pagination {
   position: unset !important;
   @apply block md:hidden;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  padding-inline: 1.5rem;
 }
 
 body {
@@ -36,7 +40,7 @@ body {
 }
 
 .heading {
-  @apply text-xl md:text-2xl text-black uppercase;
+  @apply text-[1.35rem] md:text-2xl text-black uppercase;
 }
 .btn {
   @apply cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-5 py-2 uppercase text-xs;

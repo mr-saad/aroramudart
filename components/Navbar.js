@@ -18,7 +18,7 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false)
 
   useEffect(() => {
-    ;[...document.querySelectorAll("nav ul li")].forEach((link) => {
+    ;[...document.querySelectorAll("ul li")].forEach((link) => {
       link.onclick = () => {
         setOpen(false)
       }
@@ -46,7 +46,7 @@ const Navbar = () => {
             <SwiperSlide>
               <Link
                 href={`/offers/${offr.slug}`}
-                className={`text-white z-5 relative text-xs py-3 px-4 uppercase text-center ${
+                className={`text-white z-5 relative text-xs py-3 uppercase text-center ${
                   open ? "hidden" : "block"
                 }`}
               >
@@ -57,7 +57,7 @@ const Navbar = () => {
         </Swiper>
       )}
       <nav
-        className={`group peer sticky md:relative md:border-b-0 border-gray-200 top-0 transition-colors px-4 z-2 md:px-20 py-4 ${
+        className={`group peer sticky md:relative md:border-b-0 border-gray-200 top-0 transition-colors px-4 z-4 md:px-20 py-4 ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -68,7 +68,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="hidden md:block"></div>
           <div
-            className="md:hidden z-10 cursor-pointer w-8 flex flex-col justify-between justify-self-end gap-2"
+            className="md:hiddenx cursor-pointer w-8 flex flex-col justify-between justify-self-end gap-2"
             onClick={() => {
               setOpen((prev) => !prev)
             }}
@@ -474,14 +474,14 @@ export const Filter = ({ setShowSearch }) => {
                 {categories.map((cat) => {
                   return (
                     <Link
-                      href={`/products?category=${cat}`}
-                      key={cat}
+                      href={`/products?category=${cat.category}`}
+                      key={cat.category}
                       onClick={() => {
                         setShowSearch(false)
                       }}
                       className={"py-1 text-black cursor-pointer"}
                     >
-                      {cat}
+                      {cat.category}
                     </Link>
                   )
                 })}

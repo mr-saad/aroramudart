@@ -9,19 +9,19 @@ const Product = dynamic(() => import("../components/Product"))
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
-  const [prods, featured, newArrivals, headerMedia, offers, { categories }] =
+  const [prods, featured, newArrivals, headerMedia, offers, categories] =
     await Promise.all([
       sanity.fetch(`
   *[_type == "product"]{
-      "slug":slug.current,title,category,size,price,"image":mainImage.asset->{url,"lqip":metadata.lqip}
+      "slug":slug.current,title,category,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
       sanity.fetch(`
   *[_type == "featured"][0]{
-      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
+      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
       sanity.fetch(`
   *[_type == "newArrival"][0]{
-      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
+      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
   }`),
       sanity.fetch(`
   *[_type == "headerMedia"][0]{
@@ -32,8 +32,8 @@ export const getStaticProps = async () => {
     _id,title,desc,"slug":slug.current
   }`),
       sanity.fetch(`
-  *[_type == "category"][0]{
-    categories
+  *[_type == "category"]{
+    category
   }`),
     ])
 

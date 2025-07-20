@@ -5,10 +5,10 @@ import Link from "next/link"
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../../components/sanityClient")
 
-  const [prods, offers, { categories }] = await Promise.all([
+  const [prods, offers, categories] = await Promise.all([
     sanity.fetch(`*[_type=="product"]`),
     sanity.fetch(`*[_type=="offer"]{title,desc,"slug":slug.current}`),
-    sanity.fetch(`*[_type=="category"][0]{categories}`),
+    sanity.fetch(`*[_type=="category"]{category}`),
   ])
   return {
     props: {

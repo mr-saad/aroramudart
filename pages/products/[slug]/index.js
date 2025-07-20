@@ -28,12 +28,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const { default: sanity } = await import("../../../components/sanityClient")
 
-  const [product, prods, { categories }] = await Promise.all([
+  const [product, prods, categories] = await Promise.all([
     sanity.fetch(
       `*[_type=="product" && slug.current==$slug][0]{
       title,
       "slug":slug.current,
       price,
+      size,
       discount,
       instock,
       body,
@@ -41,13 +42,13 @@ export const getStaticProps = async ({ params: { slug } }) => {
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
       "images":images[].asset->{url,"lqip":metadata.lqip}
     }`,
-      { slug },
+      { slug }
     ),
     sanity.fetch(`
   *[_type == "product"]{
       "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
-    sanity.fetch(`*[_type == "category"][0]{categories}`),
+    sanity.fetch(`*[_type == "category"]{category}`),
   ])
 
   const mayLikes = await sanity.fetch(
@@ -56,7 +57,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
      "slug":slug.current,
      "image":mainImage.asset->{url,"lqip":metadata.lqip},
    }`,
-    { category: product.category, slug },
+    { category: product.category, slug }
   )
   return {
     props: {
@@ -74,6 +75,7 @@ export default function DynamicProduct({
     title,
     price,
     discount,
+    size,
     instock,
     image: { url, lqip },
     images,
@@ -98,7 +100,7 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
-      <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row capitalize justify-center">
+      <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row justify-center">
         <Swiper
           modules={[Pagination, Keyboard]}
           keyboard
@@ -146,23 +148,24 @@ export default function DynamicProduct({
         </Swiper>
 
         <div className="md:self-start sticky top-[5.5rem] ">
-          <h1 className="text-xl text-black uppercase">{title}</h1>
+          <h1 className="text-black text-2xl">{title}</h1>
+          <p className="text-xl mb-3 mt-2">{size}</p>
           {/* <div className="mt-4">
             <span className="bg-green-600 text-xs mr-4 inline-block text-white px-3 py-1">
               SAVE ₹{discount}
             </span>
           </div> */}
-          <div className="my-4">
+          <div className="mb-4">
             <s className="text-sm mr-1">₹{price}</s>
-            <span className="text-lg text-black">₹{discountedPrice}</span>
+            <span className="text-xl text-black">₹{discountedPrice}</span>
           </div>
-          <p
+          {/* <p
             className={`border-b inline border-current ${
               instock ? "text-green-600" : "text-red-600"
             }`}
           >
             {instock ? "In Stock" : "Out of Stock"}
-          </p>
+          </p> */}
           {!showForm && instock && (
             <button
               type="button"
@@ -176,11 +179,12 @@ export default function DynamicProduct({
           {!showForm ? (
             body && (
               <>
+                <p className="text-base text-black">Product Details: </p>
                 <PortableText
                   content={body}
                   dataset="production"
                   projectId="5onybuvh"
-                  className="mt-4"
+                  className="mt-2"
                 />
               </>
             )

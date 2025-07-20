@@ -1,7 +1,15 @@
 import Image from "next/image"
 import Link from "next/link"
 
-const Product = ({ slug, image: { url, lqip }, title, size, price }) => {
+const Product = ({
+  slug,
+  image: { url, lqip },
+  title,
+  size,
+  price,
+  discount,
+}) => {
+  const discountedPrice = price - discount
   return (
     <Link className="uppercase group relative" href={`/products/${slug}`}>
       <div className="overflow-hidden flex justify-center items-center aspect-square bg-[#f4f4f4]">
@@ -20,7 +28,7 @@ const Product = ({ slug, image: { url, lqip }, title, size, price }) => {
       <div className="p-3 text-center">
         <h2 className="text-black">{title}</h2>
         <p className="my-3 text-sm">{size}</p>
-        <p className="text-sm">₹{price}</p>
+        <p className="text-sm">₹{discountedPrice}</p>
       </div>
     </Link>
   )

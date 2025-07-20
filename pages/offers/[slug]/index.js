@@ -19,7 +19,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const { default: sanity } = await import("../../../components/sanityClient")
 
-  const [offer, prods, { categories }] = await Promise.all([
+  const [offer, prods, categories] = await Promise.all([
     sanity.fetch(
       `*[_type=="offer" && slug.current==$slug][0]{
       title,
@@ -32,13 +32,13 @@ export const getStaticProps = async ({ params: { slug } }) => {
         "image":mainImage.asset->{url,"lqip":metadata.lqip}
       },
     }`,
-      { slug },
+      { slug }
     ),
     sanity.fetch(`
   *[_type == "product"]{
       "slug":slug.current,title,category,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
-    sanity.fetch(`*[_type == "category"][0]{categories}`),
+    sanity.fetch(`*[_type == "category"]{category}`),
   ])
 
   return {
