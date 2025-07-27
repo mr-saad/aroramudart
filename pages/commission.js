@@ -30,6 +30,7 @@ export default function Commission({ products }) {
     <div>
       <div className="grid md:grid-cols-2 md:gap-15 gap-5 max-w-4xl mx-auto md:mt-10">
         <Image
+          alt="Customized Colors, Designs & Patterns"
           src="/commission.jpg"
           width={500}
           height={500}

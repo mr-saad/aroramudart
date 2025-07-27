@@ -11,26 +11,38 @@ import { Autoplay, Navigation } from "swiper/modules"
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const [y, setY] = useState(0)
-  const { route, events } = useRouter()
+  const [deviceWidth, setDeviceWidth] = useState(541)
+  const { route } = useRouter()
 
   const { offers } = useContext(Context)
 
   const [showSearch, setShowSearch] = useState(false)
 
   useEffect(() => {
-    ;[...document.querySelectorAll("ul li")].forEach((link) => {
-      link.onclick = () => {
-        setOpen(false)
-      }
-    })
-    const listener = window.addEventListener("scroll", () => {
-      setY(window.scrollY)
-    })
+    setDeviceWidth(innerWidth)
 
+    const ul = document.querySelector("nav ul")
+    const linkEvent = (e) => {
+      if (e.target.tagName === "A") setOpen(false)
+    }
+    ul.addEventListener("click", linkEvent)
+
+    const scrollEvent = () => {
+      setY(window.scrollY)
+    }
+    window.addEventListener("scroll", scrollEvent)
+
+    const sizeListener = () => {
+      setDeviceWidth(innerWidth)
+    }
+    window.addEventListener("resize", sizeListener)
     ;() => {
-      window.removeEventListener("scroll", listener)
+      window.removeEventListener("scroll", scrollEvent)
+      window.removeEventListener("resize", sizeListener)
+      ul.removeEventListener("click", linkEvent)
     }
   }, [])
+  console.log(deviceWidth)
 
   return (
     <>
@@ -57,7 +69,7 @@ const Navbar = () => {
         </Swiper>
       )}
       <nav
-        className={`group peer sticky md:relative md:border-b-0 border-gray-200 top-0 transition-colors px-4 z-4 md:px-20 py-4 ${
+        className={`group sticky md:relative md:hover:bg-white md:hover:border-b border-gray-200 top-0 transition-colors px-4 z-4 md:px-20 pt-4 pb-4 md:pb-0 ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -68,7 +80,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="hidden md:block"></div>
           <div
-            className="md:hiddenx cursor-pointer w-8 flex flex-col justify-between justify-self-end gap-2"
+            className="md:hidden z-4 cursor-pointer w-8 flex flex-col justify-between justify-self-end gap-2"
             onClick={() => {
               setOpen((prev) => !prev)
             }}
@@ -114,7 +126,7 @@ const Navbar = () => {
                 route === "/"
                   ? y > 80 && !open
                     ? "fill-black"
-                    : "fill-white"
+                    : "fill-white group-hover:fill-black"
                   : "fill-black"
               }`}
               xmlns="http://www.w3.org/2000/svg"
@@ -194,108 +206,143 @@ const Navbar = () => {
             )}
           </div>
         </div>
+        <ul
+          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all tracking-[.25rem] uppercase w-full h-screen top-0 left-0 ${
+            route === "/"
+              ? y > 80 || open
+                ? "text-black/60 bg-white"
+                : "text-white/70"
+              : "text-black/60 bg-white"
+          } md:group-hover:text-black/60 md:static md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${
+            open ? "ulOpen" : "ulClose"
+          }`}
+        >
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear" },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/" &&
+                (y > 80 || open
+                  ? "text-black"
+                  : "text-white group-hover:text-black")
+              }`}
+            >
+              Home
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.2 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/products"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route.includes("/products") ? "text-black after:w-full" : null
+              }`}
+            >
+              Products
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.4 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/commission"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/commission" ? "text-black after:w-full" : null
+              }`}
+            >
+              Commission
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.6 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/contact"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/contact" ? "text-black after:w-full" : null
+              }`}
+            >
+              Contact
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.8 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/about"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/about" ? "text-black after:w-full" : null
+              }`}
+            >
+              About
+            </Link>
+          </motion.li>
+        </ul>
       </nav>
-      <ul
-        className={`group/ul z-[3] px-4 flex flex-col gap-4 pt-20 fixed transition-all tracking-[.25rem] uppercase w-full h-screen top-0 left-0 ${
-          route === "/"
-            ? y > 80 || open
-              ? "text-black/60 bg-white border-b"
-              : "text-white/70"
-            : "text-black/60 border-b bg-white"
-        } md:hover:bg-white md:hover:text-black/60 md:hover:border-b md:border-gray-200 md:sticky md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${
-          open ? "ulOpen" : "ulClose"
-        }`}
-      >
-        <motion.li
-          className="will-change-transform"
-          initial={{ x: -20, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1, transition: { ease: "linear" } }}
-        >
-          <Link
-            href="/"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-              route === "/" &&
-              (y > 80 || open
-                ? "text-black"
-                : "text-white group-hover/ul:text-black")
-            }`}
-          >
-            Home
-          </Link>
-        </motion.li>
-        <motion.li
-          className="will-change-transform"
-          initial={{ x: -20, opacity: 0 }}
-          whileInView={{
-            x: 0,
-            opacity: 1,
-            transition: { ease: "linear", duration: 0.15, delay: 0.2 },
-          }}
-        >
-          <Link
-            href="/products"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-              route.includes("/products") ? "text-black after:w-full" : null
-            }`}
-          >
-            Products
-          </Link>
-        </motion.li>
-        <motion.li
-          className="will-change-transform"
-          initial={{ x: -20, opacity: 0 }}
-          whileInView={{
-            x: 0,
-            opacity: 1,
-            transition: { ease: "linear", duration: 0.15, delay: 0.4 },
-          }}
-        >
-          <Link
-            href="/commission"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-              route === "/commission" ? "text-black after:w-full" : null
-            }`}
-          >
-            Commission
-          </Link>
-        </motion.li>
-        <motion.li
-          className="will-change-transform"
-          initial={{ x: -20, opacity: 0 }}
-          whileInView={{
-            x: 0,
-            opacity: 1,
-            transition: { ease: "linear", duration: 0.15, delay: 0.6 },
-          }}
-        >
-          <Link
-            href="/contact"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-              route === "/contact" ? "text-black after:w-full" : null
-            }`}
-          >
-            Contact
-          </Link>
-        </motion.li>
-        <motion.li
-          className="will-change-transform"
-          initial={{ x: -20, opacity: 0 }}
-          whileInView={{
-            x: 0,
-            opacity: 1,
-            transition: { ease: "linear", duration: 0.15, delay: 0.8 },
-          }}
-        >
-          <Link
-            href="/about"
-            className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-              route === "/about" ? "text-black after:w-full" : null
-            }`}
-          >
-            About
-          </Link>
-        </motion.li>
-      </ul>
+
       {showSearch && <Filter setShowSearch={setShowSearch} />}
     </>
   )

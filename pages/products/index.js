@@ -16,6 +16,7 @@ export const getStaticProps = async () => {
     category,
     size,
     price,
+    discount,
     "image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
     sanity.fetch(`*[_type=="category"]{category}`),

@@ -29,10 +29,11 @@ export const getStaticProps = async ({ params: { slug } }) => {
         "slug":slug.current,
         size,
         price,
+        discount,
         "image":mainImage.asset->{url,"lqip":metadata.lqip}
       },
     }`,
-      { slug }
+      { slug },
     ),
     sanity.fetch(`
   *[_type == "product"]{
