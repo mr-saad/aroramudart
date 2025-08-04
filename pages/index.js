@@ -4,44 +4,39 @@ import "swiper/css/pagination"
 import dynamic from "next/dynamic"
 import { useContext, useEffect } from "react"
 import { Context } from "./_app"
+import Section from "../components/ProductsSections"
 const Product = dynamic(() => import("../components/Product"))
 
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
 
-  const [prods, featured, newArrivals, headerMedia, offers, categories] =
-    await Promise.all([
-      sanity.fetch(`
+  const [sections, prods, headerMedia, offers, categories] = await Promise.all([
+    sanity.fetch(`
+  *[_type == "section"]{
+      title,'prods':*[_type=='product' && _id in ^.prods[]._ref]{"slug":slug.current,title,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
+  }`),
+    sanity.fetch(`
   *[_type == "product"]{
       "slug":slug.current,title,category,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}
   }`),
-      sanity.fetch(`
-  *[_type == "featured"][0]{
-      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
-  }`),
-      sanity.fetch(`
-  *[_type == "newArrival"][0]{
-      "products": *[_type=="product" && _id in ^.products[]._ref]{"slug":slug.current,title,size,price,discount,"image":mainImage.asset->{url,"lqip":metadata.lqip}}
-  }`),
-      sanity.fetch(`
+    sanity.fetch(`
   *[_type == "headerMedia"][0]{
       "url":file.asset->url
   }`),
-      sanity.fetch(`
+    sanity.fetch(`
   *[_type == "offer"]{
     _id,title,desc,"slug":slug.current
   }`),
-      sanity.fetch(`
+    sanity.fetch(`
   *[_type == "category"]{
     category
   }`),
-    ])
+  ])
 
   return {
     props: {
+      sections,
       prods,
-      featured,
-      newArrivals,
       headerMedia,
       offers,
       categories,
@@ -50,14 +45,7 @@ export const getStaticProps = async () => {
   }
 }
 
-const Home = ({
-  prods,
-  featured,
-  newArrivals,
-  headerMedia,
-  offers,
-  categories,
-}) => {
+const Home = ({ sections, prods, headerMedia, offers, categories }) => {
   const { setProducts, setOffers, setCategories } = useContext(Context)
   useEffect(() => {
     setOffers(offers)
@@ -81,34 +69,15 @@ const Home = ({
         ></video>
         <Link
           href={"/products"}
-          className="absolute z-[2] text-center cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  text-xs py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
+          className="absolute z-[2] text-center cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
         >
           Shop Latest
         </Link>
       </header>
 
-      <div className="mx-auto uppercase">
-        <h1 className="heading text-center mb-15">New Arrivals</h1>
-
-        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-4">
-          {newArrivals &&
-            newArrivals.products.map((all) => (
-              <Product key={all.slug} {...all} />
-            ))}
-        </div>
-      </div>
-      <div className="mx-auto grid justify-items-center uppercase mt-15">
-        <h1 className="heading text-center mb-15">Featured Collection</h1>
-
-        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-4">
-          {featured &&
-            featured.products.map((all) => <Product key={all.slug} {...all} />)}
-        </div>
-
-        <Link className="btn inline-block  mt-5" href={"/products"}>
-          View More
-        </Link>
-      </div>
+      {sections.map((section) => (
+        <Section key={section.title} {...section} />
+      ))}
     </section>
   )
 }

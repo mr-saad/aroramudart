@@ -1,7 +1,7 @@
 export default {
   type: 'document',
   name: 'category',
-  title: 'Category',
+  title: 'Product Category',
   liveEdit: true,
   fields: [
     {

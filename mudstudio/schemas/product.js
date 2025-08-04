@@ -28,38 +28,6 @@ export default {
       title: 'Category',
       type: 'reference',
       to: [{type: 'category'}],
-      // options: {
-      //   list: [
-      //     {
-      //       title: 'Traditional Designs',
-      //       value: 'Traditional Designs',
-      //     },
-      //     {
-      //       title: 'Classic Designs',
-      //       value: 'Classic Designs',
-      //     },
-      //     {
-      //       title: 'Mirror Designs',
-      //       value: 'Mirror Designs',
-      //     },
-      //     {
-      //       title: 'Islamic Designs',
-      //       value: 'Islamic Designs',
-      //     },
-      //     {
-      //       title: 'Kutchi Work Designs',
-      //       value: 'Kutchi Work Designs',
-      //     },
-      //     {
-      //       title: 'Printed Clocks',
-      //       value: 'Printed Clocks',
-      //     },
-      //     {
-      //       title: 'Mudwork Clocks',
-      //       value: 'Mudwork Clocks',
-      //     },
-      //   ],
-      // },
     },
     {
       name: 'size',
@@ -72,7 +40,7 @@ export default {
       type: 'number',
     },
     {
-      name: 'stock',
+      name: 'instock',
       title: 'InStock',
       type: 'number',
     },

@@ -27,14 +27,20 @@ const Navbar = () => {
     }
     ul.addEventListener("click", linkEvent)
 
+    let lastScroll = 0
     const scrollEvent = () => {
       setY(window.scrollY)
+      if (window.scrollY < lastScroll)
+        document.querySelector("nav").style.top = 0
+      else document.querySelector("nav").style.top = "auto"
+      lastScroll = window.scrollY
     }
     window.addEventListener("scroll", scrollEvent)
 
     const sizeListener = () => {
       setDeviceWidth(innerWidth)
     }
+
     window.addEventListener("resize", sizeListener)
     ;() => {
       window.removeEventListener("scroll", scrollEvent)
@@ -42,7 +48,6 @@ const Navbar = () => {
       ul.removeEventListener("click", linkEvent)
     }
   }, [])
-  console.log(deviceWidth)
 
   return (
     <>
@@ -69,7 +74,7 @@ const Navbar = () => {
         </Swiper>
       )}
       <nav
-        className={`group sticky md:relative md:hover:bg-white md:hover:border-b border-gray-200 top-0 transition-colors px-4 z-4 md:px-20 pt-4 pb-4 md:pb-0 ${
+        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top] px-4 z-4 md:px-20 pt-4 pb-4 md:pb-0 ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -210,7 +215,7 @@ const Navbar = () => {
           className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all tracking-[.25rem] uppercase w-full h-screen top-0 left-0 ${
             route === "/"
               ? y > 80 || open
-                ? "text-black/60 bg-white"
+                ? "text-black/60 bg-white md:bg-transparent"
                 : "text-white/70"
               : "text-black/60 bg-white"
           } md:group-hover:text-black/60 md:static md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${
@@ -371,7 +376,7 @@ export const Filter = ({ setShowSearch }) => {
     })
   }, [])
   return (
-    <div className="z-[5] tracking-widest flex flex-col md:items-start fixed border-t border-black/10  bg-white h-full left-0 right-0 bottom-0 top-[8.2rem] md:flex-row gap-5 mb-5 p-5">
+    <div className="z-[5] tracking-widest flex flex-col md:items-start fixed border-t border-black/10  bg-white h-full left-0 right-0 bottom-0 top-[4.5rem] md:flex-row gap-5 mb-5 p-5">
       <div className="relative md:w-96 max-w-md">
         <p className="mb-2  text-black">Search</p>
         <div className="relative">

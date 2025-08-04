@@ -13,7 +13,7 @@ export const getStaticProps = async () => {
   *[_type == "product"] | order(_createdAt desc){
     "slug":slug.current,
     title,
-    category,
+    "category":*[_type=='category' && _id == ^.category._ref][0].category,
     size,
     price,
     discount,
