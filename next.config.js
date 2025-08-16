@@ -13,5 +13,6 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
+  transpilePackages: ["three"],
   devIndicators: false,
 }

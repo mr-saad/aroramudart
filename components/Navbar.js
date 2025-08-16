@@ -32,7 +32,7 @@ const Navbar = () => {
       setY(window.scrollY)
       if (window.scrollY < lastScroll)
         document.querySelector("nav").style.top = 0
-      else document.querySelector("nav").style.top = "auto"
+      else document.querySelector("nav").style.top = "-100%"
       lastScroll = window.scrollY
     }
     window.addEventListener("scroll", scrollEvent)
@@ -74,7 +74,7 @@ const Navbar = () => {
         </Swiper>
       )}
       <nav
-        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top] px-4 z-4 md:px-20 pt-4 pb-4 md:pb-0 ${
+        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-4 md:px-20 pt-4 pb-4 md:pb-0 ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -174,7 +174,7 @@ const Navbar = () => {
                   setShowSearch(false)
                 }}
                 size={22}
-                className="ml-auto z-[2] cursor-pointer transition-colors"
+                className="ml-auto z-[2] cursor-pointer transition-colors group-hover:stroke-black"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -203,7 +203,7 @@ const Navbar = () => {
                 onClick={() => {
                   setShowSearch(true)
                 }}
-                className="ml-auto z-[2] cursor-pointer transition-colors"
+                className="ml-auto z-[2] cursor-pointer transition-colors group-hover:stroke-black"
               >
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />

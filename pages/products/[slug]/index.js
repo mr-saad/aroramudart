@@ -4,6 +4,7 @@ import { BarLoader } from "react-spinners"
 import Head from "next/head"
 import Image from "next/image"
 import Product from "../../../components/Product"
+import Model from "../../../components/Model"
 import { useRouter } from "next/router"
 import { Pagination, Keyboard } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -40,6 +41,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
       body,
       category,
       "image":mainImage.asset->{url,"lqip":metadata.lqip},
+      "model":model.asset->{url},
       "images":images[].asset->{url,"lqip":metadata.lqip}
     }`,
       { slug },
@@ -78,6 +80,7 @@ export default function DynamicProduct({
     size,
     instock,
     image: { url, lqip },
+    model,
     images,
     body,
   },
@@ -94,60 +97,61 @@ export default function DynamicProduct({
   const discountedPrice = price - discount
 
   const title1 = `${title} | Arora Mud Art`
-
   return (
     <div className="mx-auto min-h-[80vh]">
       <Head>
         <title>{title1}</title>
       </Head>
       <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row">
-        <Swiper
-          modules={[Pagination, Keyboard]}
-          keyboard
-          pagination
-          style={{ zIndex: "auto" }}
-          className="max-w-lg w-full  !mx-0"
-          spaceBetween={16}
-          breakpoints={{
-            768: {
-              enabled: false,
-            },
-          }}
-          wrapperClass="md:!grid md:gap-5 !z-auto"
-        >
-          <SwiperSlide>
-            <Image
-              priority
-              loading="eager"
-              className="object-contain w-full"
-              sizes="(max-width: 640px) 90vw, 40vw"
-              width={400}
-              height={400}
-              src={url}
-              alt={title}
-              placeholder="blur"
-              blurDataURL={lqip}
-            />
-          </SwiperSlide>
+        <div className="max-w-lg w-full">
+          {model && <Model url={model.url} />}
+          <Swiper
+            modules={[Pagination, Keyboard]}
+            keyboard
+            pagination
+            style={{ zIndex: "auto" }}
+            className="!mx-0"
+            spaceBetween={16}
+            breakpoints={{
+              768: {
+                enabled: false,
+              },
+            }}
+            wrapperClass="md:!grid md:gap-5 !z-auto"
+          >
+            <SwiperSlide>
+              <Image
+                priority
+                loading="eager"
+                className="object-contain w-full"
+                sizes="(max-width: 640px) 90vw, 40vw"
+                width={400}
+                height={400}
+                src={url}
+                alt={title}
+                placeholder="blur"
+                blurDataURL={lqip}
+              />
+            </SwiperSlide>
+            {images?.length &&
+              images?.map(({ url, lqip }) => (
+                <SwiperSlide key={url}>
+                  <Image
+                    className="object-contain w-full h-auto"
+                    sizes="(max-width: 640px) 80vw, 40vw"
+                    width={400}
+                    height={400}
+                    src={url}
+                    alt={title}
+                    placeholder="blur"
+                    blurDataURL={lqip}
+                  />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </div>
 
-          {images?.length &&
-            images?.map(({ url, lqip }) => (
-              <SwiperSlide key={url}>
-                <Image
-                  className="object-contain w-full h-auto"
-                  sizes="(max-width: 640px) 80vw, 40vw"
-                  width={400}
-                  height={400}
-                  src={url}
-                  alt={title}
-                  placeholder="blur"
-                  blurDataURL={lqip}
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-
-        <div className="md:self-start sticky top-[5.5rem]">
+        <div className="md:self-start sticky top-[8rem]">
           <h1 className="text-black text-2xl">{title}</h1>
           <p className="text-xl mb-3 mt-2">{size}</p>
           {/* <div className="mt-4">
@@ -180,7 +184,7 @@ export default function DynamicProduct({
                 <div className="flex flex-wrap *:grow gap-4 my-4">
                   <a
                     target="_blank"
-                    className="flex items-center gap-2 btn !border-none !bg-[#25d366]"
+                    className="flex items-center gap-2 px-4 py-2 text-white !bg-[#25d366]"
                     href="https://wa.me/919979672226"
                   >
                     <svg
@@ -197,7 +201,7 @@ export default function DynamicProduct({
                     +91 9979672226
                   </a>
                   <a
-                    className="flex items-center gap-2  btn !border-none !bg-[#0866ff]"
+                    className="flex items-center gap-2  px-4 py-2 text-white !bg-[#0866ff]"
                     href="https://facebook.com"
                     target="_blank"
                   >
@@ -217,7 +221,7 @@ export default function DynamicProduct({
                   </a>
                   <a
                     target="_blank"
-                    className="flex items-center gap-2  btn !border-none !bg-orange-600"
+                    className="flex items-center gap-2  px-4 py-2 text-white !bg-orange-600"
                     href="https://www.instagram.com/direct/t/17842822046736295/"
                   >
                     <svg

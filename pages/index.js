@@ -55,8 +55,8 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
 
   return (
     <section>
-      <div className="h-[calc(94vh-72px)] md:h-[calc(94vh-126px)]"></div>
-      <header className="h-[94vh] w-full absolute top-0 left-0">
+      <div className="h-[calc(94vh-130px)] md:h-[calc(94vh-126px)]"></div>
+      <header className="h-[90vh] w-full absolute top-0 left-0">
         <div className="absolute inset-0 z-[1] bg-black/45"></div>
         <video
           preload="metadata"
@@ -65,7 +65,7 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
           muted
           loop
           src={headerMedia.url}
-          className="absolute inset-0 w-full h-[94vh] object-cover"
+          className="absolute inset-0 w-full h-[90vh] object-cover"
         ></video>
         <Link
           href={"/products"}

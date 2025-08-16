@@ -58,6 +58,14 @@ export default {
       },
     },
     {
+      name: 'model',
+      title: '3D Model',
+      type: 'file',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
       name: 'images',
       title: 'Images',
       type: 'array',
