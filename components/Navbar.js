@@ -74,7 +74,7 @@ const Navbar = () => {
         </Swiper>
       )}
       <nav
-        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-4 md:px-20 pt-4 pb-4 md:pb-0 ${
+        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-3 md:px-20 pt-4 pb-4 md:pb-0 ${
           route === "/"
             ? y > 80
               ? "bg-white border-b"
@@ -174,7 +174,7 @@ const Navbar = () => {
                   setShowSearch(false)
                 }}
                 size={22}
-                className="ml-auto z-[2] cursor-pointer transition-colors group-hover:stroke-black"
+                className={`ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black`}
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -203,7 +203,7 @@ const Navbar = () => {
                 onClick={() => {
                   setShowSearch(true)
                 }}
-                className="ml-auto z-[2] cursor-pointer transition-colors group-hover:stroke-black"
+                className="ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black"
               >
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />
@@ -376,7 +376,7 @@ export const Filter = ({ setShowSearch }) => {
     })
   }, [])
   return (
-    <div className="z-[5] tracking-widest flex flex-col md:items-start fixed border-t border-black/10  bg-white h-full left-0 right-0 bottom-0 top-[4.5rem] md:flex-row gap-5 mb-5 p-5">
+    <div className="z-3 tracking-widest flex flex-col md:items-start fixed rounded-md shadow-md border border-black/10  bg-white  inset-5 top-30 md:top-40 md:flex-row gap-5 mb-5 p-5">
       <div className="relative md:w-96 max-w-md">
         <p className="mb-2  text-black">Search</p>
         <div className="relative">
@@ -512,7 +512,7 @@ export const Filter = ({ setShowSearch }) => {
                 animate={{ height: "auto" }}
                 exit={{ height: 0 }}
                 transition={{ ease: "linear", duration: 0.15, duration: 0.1 }}
-                className="absolute mt-2 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden  bg-[#f4f4f4]"
+                className="absolute max-h-58 overflow-y-auto mt-2 max-w-md w-full top-full z-[2] left-0 rounded-md gap-1 p-4 flex flex-col overflow-hidden  bg-[#f4f4f4]"
               >
                 <Link
                   href={`/products`}

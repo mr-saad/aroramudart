@@ -117,7 +117,7 @@ export default function DynamicProduct({
                 enabled: false,
               },
             }}
-            wrapperClass="md:!grid md:gap-5 !z-auto"
+            wrapperClass="md:!grid md:gap-5 !z-auto items-center md:items-stretch"
           >
             <SwiperSlide>
               <Image
