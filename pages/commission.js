@@ -51,9 +51,9 @@ export default function Commission({ products }) {
             love, precision, and a deep respect for tradition.
           </p>
           <p>Reach out to us using any of the following.</p>
-          <div className="flex flex-wrap gap-4 mt-4">
+          <div className="grid grid-cols gap-4 mt-4">
             <a
-              className="flex items-center gap-2 hover:text-black transition"
+              className="flex items-center gap-2 border p-2hover:text-black transition"
               href="https://facebook.com"
               target="_blank"
             >
@@ -73,7 +73,7 @@ export default function Commission({ products }) {
             </a>
             <a
               target="_blank"
-              className="flex items-center gap-2  hover:text-black transition"
+              className="flex items-center gap-2 border p-2 hover:text-black transition"
               href="https://instagram.com/arora_mud_art"
             >
               <svg
@@ -94,7 +94,7 @@ export default function Commission({ products }) {
             </a>
             <a
               target="_blank"
-              className="flex gap-2 items-center hover:text-black transition"
+              className="flex gap-2 items-center border p-2 hover:text-black transition"
               href="tel:919979672226"
             >
               <svg
@@ -110,10 +110,11 @@ export default function Commission({ products }) {
               >
                 <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
               </svg>
+              <span>9979672226</span>
             </a>
             <a
               target="_blank"
-              className="flex items-center gap-2  hover:text-black transition"
+              className="flex items-center gap-2 border p-2 hover:text-black transition"
               href="https://wa.me/919979672226"
             >
               <svg

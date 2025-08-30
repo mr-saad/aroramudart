@@ -168,13 +168,28 @@ const Navbar = () => {
                 : "text-black"
             }`}
           >
-            {showSearch === true ? (
+            {!showSearch ? (
+              // <svg
+              //   onClick={() => {
+              //     setShowSearch(false)
+              //   }}
+              //   size={22}
+              //   className={`ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black`}
+              //   xmlns="http://www.w3.org/2000/svg"
+              //   width="24"
+              //   height="24"
+              //   viewBox="0 0 24 24"
+              //   fill="none"
+              //   stroke="currentColor"
+              //   strokeWidth="2"
+              //   strokeLinecap="round"
+              //   strokeLinejoin="round"
+              // >
+              //   <path d="M18 6 6 18" />
+              //   <path d="m6 6 12 12" />
+              // </svg>
+              // ) :
               <svg
-                onClick={() => {
-                  setShowSearch(false)
-                }}
-                size={22}
-                className={`ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black`}
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -184,23 +199,9 @@ const Navbar = () => {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
                 size={22}
                 onClick={() => {
+                  // document.body.style.overflow = "hidden"
                   setShowSearch(true)
                 }}
                 className="ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black"
@@ -208,6 +209,8 @@ const Navbar = () => {
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />
               </svg>
+            ) : (
+              <div className="w-[24] h-[24]"></div>
             )}
           </div>
         </div>
@@ -270,7 +273,55 @@ const Navbar = () => {
                 route.includes("/products") ? "text-black after:w-full" : null
               }`}
             >
-              Products
+              CATEGORIES
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.2 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/products"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route.includes("/products") ? "text-black after:w-full" : null
+              }`}
+            >
+              All Products
+            </Link>
+          </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.4 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/commission"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/commission" ? "text-black after:w-full" : null
+              }`}
+            >
+              Courses
             </Link>
           </motion.li>
           <motion.li
@@ -307,30 +358,6 @@ const Navbar = () => {
                 ? {
                     x: 0,
                     opacity: 1,
-                    transition: { ease: "linear", duration: 0.15, delay: 0.6 },
-                  }
-                : undefined
-            }
-          >
-            <Link
-              href="/contact"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-                route === "/contact" ? "text-black after:w-full" : null
-              }`}
-            >
-              Contact
-            </Link>
-          </motion.li>
-          <motion.li
-            className="will-change-transform"
-            initial={
-              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
-            }
-            whileInView={
-              deviceWidth < 540
-                ? {
-                    x: 0,
-                    opacity: 1,
                     transition: { ease: "linear", duration: 0.15, delay: 0.8 },
                   }
                 : undefined
@@ -345,10 +372,33 @@ const Navbar = () => {
               About
             </Link>
           </motion.li>
+          <motion.li
+            className="will-change-transform"
+            initial={
+              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
+            }
+            whileInView={
+              deviceWidth < 540
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear", duration: 0.15, delay: 0.6 },
+                  }
+                : undefined
+            }
+          >
+            <Link
+              href="/contact"
+              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+                route === "/contact" ? "text-black after:w-full" : null
+              }`}
+            >
+              Contact
+            </Link>
+          </motion.li>
         </ul>
+        {showSearch && <Filter setShowSearch={setShowSearch} />}
       </nav>
-
-      {showSearch && <Filter setShowSearch={setShowSearch} />}
     </>
   )
 }
@@ -376,9 +426,9 @@ export const Filter = ({ setShowSearch }) => {
     })
   }, [])
   return (
-    <div className="z-3 tracking-widest flex flex-col md:items-start fixed rounded-md shadow-md border border-black/10  bg-white  inset-5 top-30 md:top-40 md:flex-row gap-5 mb-5 p-5">
-      <div className="relative md:w-96 max-w-md">
-        <p className="mb-2  text-black">Search</p>
+    <div className="z-3 tracking-widest flex flex-col absolute w-full h-screen border-t border-black/10  left-0 top-full">
+      <div className="relative">
+        {/* <p className="mb-2  text-black">Search</p> */}
         <div className="relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -402,39 +452,39 @@ export const Filter = ({ setShowSearch }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             type="text"
-            placeholder="What are you searching for?"
-            className="px-10 w-full py-2 bg-transparent rounded-md  text-black outline-none border   placeholder:text-black/50 border-black/50 focus:border-black"
+            placeholder="Search"
+            className="px-10 bg-white pl-13 w-full py-3 uppercase text-black outline-none placeholder:text-black/50 border-black/50 focus:border-black"
           />
-          {(filtered.length !== 0 || input) && (
-            <svg
-              onClick={() => setInput("")}
-              size={25}
-              color={"#0c0908"}
-              className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M18 6 6 18" />
-              <path d="m6 6 12 12" />
-            </svg>
-          )}
+          {/* {(filtered.length !== 0 || input) && ( */}
+          <svg
+            onClick={() => setShowSearch(false)}
+            size={25}
+            color={"#0c0908"}
+            className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+          {/* )} */}
         </div>
         <AnimatePresence>
           {filtered.length !== 0 ? (
             <motion.div
               key="key2"
-              initial={{ opacity: 0, borderRadius: 6 }}
+              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute top-full mt-2 w-full  bg-[#f4f4f4] capitalize z-[3] max-h-40 overflow-y-auto text-black rounded-md p-4 "
+              className="bg-white capitalize max-h-40 overflow-y-auto text-black p-4"
             >
               <AnimatePresence mode="popLayout">
                 {filtered.map((all, i) => (
@@ -465,7 +515,7 @@ export const Filter = ({ setShowSearch }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute z-[2] w-full p-4 mt-2  text-black rounded-md  bg-[#f4f4f4] break-all"
+                className="p-4 text-black bg-white break-all"
               >
                 No Results for "{input}"
               </motion.div>
@@ -473,7 +523,8 @@ export const Filter = ({ setShowSearch }) => {
           )}
         </AnimatePresence>
       </div>
-
+      <div className="bg-black/50 h-full"></div>
+      {/*
       <div>
         <p className="mb-2  text-black">Sort By Category</p>
         <div className="rounded-md md:w-96 max-w-md relative border  border-black/50 select-none">
@@ -541,7 +592,7 @@ export const Filter = ({ setShowSearch }) => {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

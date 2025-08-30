@@ -103,21 +103,44 @@ export default function DynamicProduct({
         <title>{title1}</title>
       </Head>
       <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row">
-        <div className="max-w-lg w-full">
-          {model && <Model url={model.url} />}
+        <div className="max-w-lg w-full relative">
+          <div className="border flex justify-between z-2 items-center absolute w-full bottom-6">
+            <button className="border p-2 backdrop-blur-[2px]">View 3D</button>
+            <div className="backdrop-blur-[2px]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-share2-icon lucide-share-2"
+              >
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
+              </svg>
+            </div>
+          </div>
+          {/* {model && <Model url={model.url} />} */}
           <Swiper
             modules={[Pagination, Keyboard]}
             keyboard
             pagination
             style={{ zIndex: "auto" }}
             className="!mx-0"
-            spaceBetween={16}
-            breakpoints={{
-              768: {
-                enabled: false,
-              },
-            }}
-            wrapperClass="md:!grid md:gap-5 !z-auto items-center md:items-stretch"
+            // spaceBetween={16}
+            // breakpoints={{
+            //   768: {
+            //     enabled: false,
+            //   },
+            // }}
+            // wrapperClass="md:!grid md:gap-5 !z-auto items-center md:items-stretch"
           >
             <SwiperSlide>
               <Image
@@ -184,7 +207,7 @@ export default function DynamicProduct({
                 <div className="flex flex-wrap *:grow gap-4 my-4">
                   <a
                     target="_blank"
-                    className="flex items-center gap-2 px-4 py-2 text-white !bg-[#25d366]"
+                    className="flex items-center gap-2 px-4 py-2 font-bold border"
                     href="https://wa.me/919979672226"
                   >
                     <svg
@@ -201,7 +224,7 @@ export default function DynamicProduct({
                     +91 9979672226
                   </a>
                   <a
-                    className="flex items-center gap-2  px-4 py-2 text-white !bg-[#0866ff]"
+                    className="flex items-center gap-2  px-4 py-2 font-bold border"
                     href="https://facebook.com"
                     target="_blank"
                   >
@@ -221,7 +244,7 @@ export default function DynamicProduct({
                   </a>
                   <a
                     target="_blank"
-                    className="flex items-center gap-2  px-4 py-2 text-white !bg-orange-600"
+                    className="flex items-center gap-2  px-4 py-2 font-bold border"
                     href="https://www.instagram.com/direct/t/17842822046736295/"
                   >
                     <svg
