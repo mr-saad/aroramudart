@@ -17,6 +17,7 @@
   @apply bg-black text-white;
 }
 :root {
+  --swiper-pagination-color: #000;
   --swiper-navigation-color: #fff;
   --swiper-navigation-size: 16;
   --swiper-navigation-top-offset: 30%;
@@ -24,7 +25,6 @@
 }
 .swiper-pagination {
   position: unset !important;
-  @apply block md:hidden;
 }
 .swiper-button-prev,
 .swiper-button-next {

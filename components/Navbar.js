@@ -80,7 +80,7 @@ const Navbar = () => {
               ? "bg-white border-b"
               : "bg-transparent"
             : "bg-white border-b"
-        }`}
+        } `}
       >
         <div className="flex items-center justify-between">
           <div className="hidden md:block"></div>
@@ -102,7 +102,7 @@ const Navbar = () => {
               }`}
             ></span>
             <span
-              className={`${
+              className={` ${
                 route === "/"
                   ? y > 80 || open
                     ? "bg-black"
@@ -127,7 +127,7 @@ const Navbar = () => {
               width="115"
               height="40"
               viewBox="0 0 683 239"
-              className={`transition-colors ${
+              className={`transition-colors ${showSearch && "fill-black"} ${
                 route === "/"
                   ? y > 80 && !open
                     ? "fill-black"
@@ -201,7 +201,6 @@ const Navbar = () => {
                 strokeLinejoin="round"
                 size={22}
                 onClick={() => {
-                  // document.body.style.overflow = "hidden"
                   setShowSearch(true)
                 }}
                 className="ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black"
@@ -405,11 +404,11 @@ const Navbar = () => {
 
 export const Filter = ({ setShowSearch }) => {
   const [input, setInput] = useState("")
-  const [dropdown, setDropdown] = useState(false)
+  // const [dropdown, setDropdown] = useState(false)
   const [filtered, setFiltered] = useState([])
   const { products, categories } = useContext(Context)
   const { events } = useRouter()
-  const selectedCat = useRouter().query.category
+  // const selectedCat = useRouter().query.category
 
   // const categories = [...new Set(products.map((prod) => prod.category))]
 
@@ -476,54 +475,53 @@ export const Filter = ({ setShowSearch }) => {
           </svg>
           {/* )} */}
         </div>
-        <AnimatePresence>
-          {filtered.length !== 0 ? (
-            <motion.div
-              key="key2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1 }}
-              className="bg-white capitalize max-h-40 overflow-y-auto text-black p-4"
-            >
-              <AnimatePresence mode="popLayout">
-                {filtered.map((all, i) => (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    key={all.slug}
-                    className="block pb-2"
-                  >
-                    <Link
-                      onClick={() => {
-                        setShowSearch(false)
-                      }}
-                      className="block"
-                      href={`/products/${all.slug}`}
-                    >
-                      {all.title}
-                    </Link>
-                  </motion.span>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          ) : (
-            input && (
-              <motion.div
-                key="key1"
+        {filtered.length !== 0 ? (
+          <motion.div
+            key="key2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }}
+            className="bg-white capitalize max-h-40 overflow-y-auto text-black p-4"
+          >
+            {filtered.map((all, i) => (
+              <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="p-4 text-black bg-white break-all"
+                key={all.slug}
+                className="block pb-2"
               >
-                No Results for "{input}"
-              </motion.div>
-            )
-          )}
-        </AnimatePresence>
+                <Link
+                  onClick={() => {
+                    setShowSearch(false)
+                  }}
+                  className="block"
+                  href={`/products/${all.slug}`}
+                >
+                  {all.title}
+                </Link>
+              </motion.span>
+            ))}
+          </motion.div>
+        ) : (
+          input && (
+            <motion.div
+              key="key1"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-4 text-black bg-white break-all"
+            >
+              No Results for "{input}"
+            </motion.div>
+          )
+        )}
       </div>
-      <div className="bg-black/50 h-full"></div>
+      <div
+        onClick={() => setShowSearch(false)}
+        className="bg-black/50 h-full"
+      ></div>
       {/*
       <div>
         <p className="mb-2  text-black">Sort By Category</p>

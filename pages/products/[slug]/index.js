@@ -89,6 +89,7 @@ export default function DynamicProduct({
   categories,
 }) {
   const [showForm, setShowForm] = useState(false)
+  const [show3d, setShow3d] = useState(false)
   const { setProducts, setCategories } = useContext(Context)
   useEffect(() => {
     setProducts(prods)
@@ -104,9 +105,16 @@ export default function DynamicProduct({
       </Head>
       <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row">
         <div className="max-w-lg w-full relative">
-          <div className="border flex justify-between z-2 items-center absolute w-full bottom-6">
-            <button className="border p-2 backdrop-blur-[2px]">View 3D</button>
-            <div className="backdrop-blur-[2px]">
+          <div className="flex justify-between z-2 absolute w-full bottom-10 mx-4">
+            {model && (
+              <button
+                onClick={() => setShow3d(true)}
+                className="border p-2 backdrop-blur-[3px] border-white/20 cursor-pointer"
+              >
+                View 3D
+              </button>
+            )}
+            <div className="backdrop-blur-[2px] p-2 border border-white/20 flex items-center cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -127,7 +135,6 @@ export default function DynamicProduct({
               </svg>
             </div>
           </div>
-          {/* {model && <Model url={model.url} />} */}
           <Swiper
             modules={[Pagination, Keyboard]}
             keyboard
@@ -140,13 +147,13 @@ export default function DynamicProduct({
             //     enabled: false,
             //   },
             // }}
-            // wrapperClass="md:!grid md:gap-5 !z-auto items-center md:items-stretch"
+            wrapperClass="items-center"
           >
             <SwiperSlide>
               <Image
                 priority
                 loading="eager"
-                className="object-contain w-full"
+                className="object-contain w-full cursor-grab active:cursor-grabbing"
                 sizes="(max-width: 640px) 90vw, 40vw"
                 width={400}
                 height={400}
@@ -160,7 +167,7 @@ export default function DynamicProduct({
               images?.map(({ url, lqip }) => (
                 <SwiperSlide key={url}>
                   <Image
-                    className="object-contain w-full h-auto"
+                    className="object-contain w-full cursor-grab active:cursor-grabbing h-auto"
                     sizes="(max-width: 640px) 80vw, 40vw"
                     width={400}
                     height={400}
@@ -204,10 +211,10 @@ export default function DynamicProduct({
               // </button>
               <div>
                 <p>Order now on any followings</p>
-                <div className="flex flex-wrap *:grow gap-4 my-4">
+                <div className="grid gap-4 my-4">
                   <a
                     target="_blank"
-                    className="flex items-center gap-2 px-4 py-2 font-bold border"
+                    className="flex items-center gap-2 px-4 py-2 font-bold border-l"
                     href="https://wa.me/919979672226"
                   >
                     <svg
@@ -224,7 +231,7 @@ export default function DynamicProduct({
                     +91 9979672226
                   </a>
                   <a
-                    className="flex items-center gap-2  px-4 py-2 font-bold border"
+                    className="flex items-center gap-2  px-4 py-2 font-bold border-l"
                     href="https://facebook.com"
                     target="_blank"
                   >
@@ -244,7 +251,7 @@ export default function DynamicProduct({
                   </a>
                   <a
                     target="_blank"
-                    className="flex items-center gap-2  px-4 py-2 font-bold border"
+                    className="flex items-center gap-2  px-4 py-2 font-bold border-l"
                     href="https://www.instagram.com/direct/t/17842822046736295/"
                   >
                     <svg
