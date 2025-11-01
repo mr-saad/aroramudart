@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { useContext, useEffect, useState } from "react"
 import { Context } from "../pages/_app"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -14,7 +14,7 @@ const Navbar = () => {
   const [deviceWidth, setDeviceWidth] = useState(541)
   const { route } = useRouter()
 
-  const { offers } = useContext(Context)
+  const { offers, categories } = useContext(Context)
 
   const [showSearch, setShowSearch] = useState(false)
 
@@ -214,7 +214,7 @@ const Navbar = () => {
           </div>
         </div>
         <ul
-          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all tracking-[.25rem] uppercase w-full h-screen top-0 left-0 ${
+          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all  uppercase w-full h-screen top-0 left-0 ${
             route === "/"
               ? y > 80 || open
                 ? "text-black/60 bg-white md:bg-transparent"
@@ -252,7 +252,8 @@ const Navbar = () => {
             </Link>
           </motion.li>
           <motion.li
-            className="will-change-transform"
+            tabIndex={0}
+            className="will-change-transform group/drop"
             initial={
               deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
             }
@@ -266,14 +267,38 @@ const Navbar = () => {
                 : undefined
             }
           >
-            <Link
-              href="/products"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-                route.includes("/products") ? "text-black after:w-full" : null
-              }`}
+            <span
+              className={`md:relative  transition-colors pb-4 flex items-center  border-b border-black/10 md:border-none hover:text-black `}
             >
-              CATEGORIES
-            </Link>
+              CATEGORIES{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition group-focus-within/drop:rotate-180"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+            <ul className="hidden group-focus-within/drop:block transition-all static md:absolute mt-2 right-0 *:py-1 md:border border-black/10 bg-white md:py-5 px-5 max-w-90 rounded text-black/60 *:hover:text-black">
+              {categories
+                ? categories.map(({ category }) => (
+                    <Link
+                      key={category}
+                      className="block"
+                      href={`/products?category=${category}`}
+                    >
+                      {category}
+                    </Link>
+                  ))
+                : null}
+            </ul>
           </motion.li>
           <motion.li
             className="will-change-transform"
@@ -285,7 +310,7 @@ const Navbar = () => {
                 ? {
                     x: 0,
                     opacity: 1,
-                    transition: { ease: "linear", duration: 0.15, delay: 0.2 },
+                    transition: { ease: "linear", duration: 0.15, delay: 0.4 },
                   }
                 : undefined
             }
@@ -309,15 +334,15 @@ const Navbar = () => {
                 ? {
                     x: 0,
                     opacity: 1,
-                    transition: { ease: "linear", duration: 0.15, delay: 0.4 },
+                    transition: { ease: "linear", duration: 0.15, delay: 0.6 },
                   }
                 : undefined
             }
           >
             <Link
-              href="/commission"
+              href="/courses"
               className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-                route === "/commission" ? "text-black after:w-full" : null
+                route === "/courses" ? "text-black after:w-full" : null
               }`}
             >
               Courses
@@ -333,7 +358,7 @@ const Navbar = () => {
                 ? {
                     x: 0,
                     opacity: 1,
-                    transition: { ease: "linear", duration: 0.15, delay: 0.4 },
+                    transition: { ease: "linear", duration: 0.15, delay: 0.8 },
                   }
                 : undefined
             }
@@ -357,7 +382,7 @@ const Navbar = () => {
                 ? {
                     x: 0,
                     opacity: 1,
-                    transition: { ease: "linear", duration: 0.15, delay: 0.8 },
+                    transition: { ease: "linear", duration: 0.15, delay: 1 },
                   }
                 : undefined
             }
@@ -381,7 +406,7 @@ const Navbar = () => {
                 ? {
                     x: 0,
                     opacity: 1,
-                    transition: { ease: "linear", duration: 0.15, delay: 0.6 },
+                    transition: { ease: "linear", duration: 0.15, delay: 1.2 },
                   }
                 : undefined
             }
@@ -425,7 +450,7 @@ export const Filter = ({ setShowSearch }) => {
     })
   }, [])
   return (
-    <div className="z-3 tracking-widest flex flex-col absolute w-full h-screen border-t border-black/10  left-0 top-full">
+    <div className="z-3 flex flex-col absolute w-full h-screen border-t border-black/10  left-0 top-full">
       <div className="relative">
         {/* <p className="mb-2  text-black">Search</p> */}
         <div className="relative">

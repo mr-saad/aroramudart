@@ -3,6 +3,7 @@ import PortableText from "react-portable-text"
 import { BarLoader } from "react-spinners"
 import Head from "next/head"
 import Image from "next/image"
+import { Toaster, toast } from "sonner"
 import Product from "../../../components/Product"
 import Model from "../../../components/Model"
 import { useRouter } from "next/router"
@@ -103,18 +104,25 @@ export default function DynamicProduct({
       <Head>
         <title>{title1}</title>
       </Head>
+      <Toaster />
+      {show3d && <Model url={model.url} setShow3d={setShow3d} />}
       <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row">
         <div className="max-w-lg w-full relative">
-          <div className="flex justify-between z-2 absolute w-full bottom-10 mx-4">
-            {model && (
-              <button
-                onClick={() => setShow3d(true)}
-                className="border p-2 backdrop-blur-[3px] border-white/20 cursor-pointer"
-              >
+          <div className="flex justify-between z-2 absolute w-full bottom-0">
+            {model ? (
+              <button onClick={() => setShow3d(true)} className="btn">
                 View 3D
               </button>
+            ) : (
+              <button></button>
             )}
-            <div className="backdrop-blur-[2px] p-2 border border-white/20 flex items-center cursor-pointer">
+            <button
+              onClick={async () => {
+                await navigator.clipboard.writeText(location.href)
+                toast.info("Product link copied to clipboard.")
+              }}
+              className="btn"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -122,10 +130,9 @@ export default function DynamicProduct({
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-share2-icon lucide-share-2"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <circle cx="18" cy="5" r="3" />
                 <circle cx="6" cy="12" r="3" />
@@ -133,7 +140,7 @@ export default function DynamicProduct({
                 <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
                 <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
               </svg>
-            </div>
+            </button>
           </div>
           <Swiper
             modules={[Pagination, Keyboard]}

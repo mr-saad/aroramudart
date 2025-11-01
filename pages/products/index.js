@@ -54,6 +54,9 @@ const Products = ({ products, categories }) => {
         <title>Products | Arora Mud Art</title>
       </Head>
       <div className="mt-2 min-h-screen capitalize">
+        {selectedCat ? (
+          <h2 className="text-3xl text-black mb-5">Category - {selectedCat}</h2>
+        ) : null}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {finalProducts.length !== 0 ? (
             finalProducts.map((all) => {
