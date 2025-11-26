@@ -32,7 +32,7 @@
 }
 
 body {
-  @apply transition-colors text-black/60 leading-[1.7];
+  @apply transition-colors text-black/60 leading-[1.7] tracking-widest;
 }
 
 .highlight {

@@ -188,7 +188,7 @@ export default function DynamicProduct({
           </Swiper>
         </div>
 
-        <div className="md:self-start sticky top-[8rem]">
+        <div className="md:self-start">
           <h1 className="text-black text-2xl">{title}</h1>
           <p className="text-xl mb-3 mt-2">{size}</p>
           {/* <div className="mt-4">

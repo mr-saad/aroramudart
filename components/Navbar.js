@@ -10,6 +10,7 @@ import { Autoplay, Navigation } from "swiper/modules"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
+  const [showCategories, setShowCategories] = useState(false)
   const [y, setY] = useState(0)
   const [deviceWidth, setDeviceWidth] = useState(541)
   const { route } = useRouter()
@@ -80,7 +81,7 @@ const Navbar = () => {
               ? "bg-white border-b"
               : "bg-transparent"
             : "bg-white border-b"
-        } `}
+        }`}
       >
         <div className="flex items-center justify-between">
           <div className="hidden md:block"></div>
@@ -252,6 +253,7 @@ const Navbar = () => {
             </Link>
           </motion.li>
           <motion.li
+            onClick={() => setShowCategories((prev) => !prev)}
             tabIndex={0}
             className="will-change-transform group/drop"
             initial={
@@ -268,7 +270,7 @@ const Navbar = () => {
             }
           >
             <span
-              className={`md:relative  transition-colors pb-4 flex items-center  border-b border-black/10 md:border-none hover:text-black `}
+              className={`md:relative transition-colors pb-4 flex items-center justify-between border-b border-black/10 md:border-none hover:text-black `}
             >
               CATEGORIES{" "}
               <svg
@@ -278,27 +280,36 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition group-focus-within/drop:rotate-180"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-plus-icon lucide-plus"
               >
-                <path d="m6 9 6 6 6-6" />
+                <path d="M5 12h14" />
+                {!showCategories && (
+                  <motion.path
+                    initial={{ rotate: "90deg" }}
+                    animate={{ rotate: 0 }}
+                    d="M12 5v14"
+                  />
+                )}
               </svg>
             </span>
-            <ul className="hidden group-focus-within/drop:block transition-all static md:absolute mt-2 right-0 *:py-1 md:border border-black/10 bg-white md:py-5 px-5 max-w-90 rounded text-black/60 *:hover:text-black">
-              {categories
-                ? categories.map(({ category }) => (
-                    <Link
-                      key={category}
-                      className="block"
-                      href={`/products?category=${category}`}
-                    >
-                      {category}
-                    </Link>
-                  ))
-                : null}
-            </ul>
+            {showCategories && (
+              <ul className="hidden group-focus-within/drop:block transition-all static md:absolute mt-2 right-0 *:py-1 md:border border-black/10 bg-white md:py-5 px-5 max-w-90 rounded text-black/60 *:hover:text-black">
+                {categories
+                  ? categories.map(({ category }) => (
+                      <Link
+                        key={category}
+                        className="block"
+                        href={`/products?category=${category}`}
+                      >
+                        {category}
+                      </Link>
+                    ))
+                  : null}
+              </ul>
+            )}
           </motion.li>
           <motion.li
             className="will-change-transform"
@@ -476,7 +487,7 @@ export const Filter = ({ setShowSearch }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             type="text"
-            placeholder="Search"
+            placeholder="Search For..."
             className="px-10 bg-white pl-13 w-full py-3 uppercase text-black outline-none placeholder:text-black/50 border-black/50 focus:border-black"
           />
           {/* {(filtered.length !== 0 || input) && ( */}
