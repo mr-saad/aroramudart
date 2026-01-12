@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import PortableText from "react-portable-text"
 import { BarLoader } from "react-spinners"
 import Head from "next/head"
@@ -12,6 +12,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/pagination"
 import dynamic from "next/dynamic"
+import SuccessJson from "./success.json"
+import { useMudContext } from "../../../lib/Context"
 
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
@@ -91,7 +93,7 @@ export default function DynamicProduct({
 }) {
   const [showForm, setShowForm] = useState(false)
   const [show3d, setShow3d] = useState(false)
-  const { setProducts, setCategories } = useContext(Context)
+  const { setProducts, setCategories } = useMudContext()
   useEffect(() => {
     setProducts(prods)
     setCategories(categories)
@@ -108,7 +110,7 @@ export default function DynamicProduct({
       {show3d && <Model url={model.url} setShow3d={setShow3d} />}
       <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row">
         <div className="max-w-lg w-full relative">
-          <div className="flex justify-between z-2 absolute w-full bottom-0">
+          <div className="flex justify-between items-end z-2 absolute w-full bottom-0">
             {model ? (
               <button onClick={() => setShow3d(true)} className="btn">
                 View 3D
@@ -147,7 +149,7 @@ export default function DynamicProduct({
             keyboard
             pagination
             style={{ zIndex: "auto" }}
-            className="!mx-0"
+            className="mx-0!"
             // spaceBetween={16}
             // breakpoints={{
             //   768: {
@@ -429,8 +431,6 @@ const HangOn = () => (
   </div>
 )
 
-import SuccessJson from "./success.json"
-import { Context } from "../../_app"
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
@@ -438,11 +438,11 @@ const Lottie = dynamic(() => import("lottie-react"), {
 const Success = ({ setShowSuccess, push }) => {
   return (
     <div className="bg-black/70 fixed select-none left-0 top-0 z-50 w-full h-full">
-      <div className=" bg-white border border-white/10 fixed w-[calc(100%-2rem)] max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-[5]">
+      <div className=" bg-white border border-white/10 fixed w-[calc(100%-2rem)] max-w-md left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-5 flex flex-col justify-center items-center z-5">
         <Lottie animationData={SuccessJson} loop={true} />
         <p className=" text-black  text-lg my-5">Order Placed!</p>
         <button
-          className="btn !self-center"
+          className="btn self-center!"
           onClick={() => {
             push("/products")
             setShowSuccess(false)

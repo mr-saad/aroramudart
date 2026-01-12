@@ -1,11 +1,9 @@
 import Link from "next/link"
 import "swiper/css"
 import "swiper/css/pagination"
-import dynamic from "next/dynamic"
-import { useContext, useEffect } from "react"
-import { Context } from "./_app"
+import { useEffect } from "react"
 import Section from "../components/ProductsSections"
-const Product = dynamic(() => import("../components/Product"))
+import { useMudContext } from "../lib/Context"
 
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
@@ -46,7 +44,7 @@ export const getStaticProps = async () => {
 }
 
 const Home = ({ sections, prods, headerMedia, offers, categories }) => {
-  const { setProducts, setOffers, setCategories } = useContext(Context)
+  const { setProducts, setOffers, setCategories } = useMudContext()
   useEffect(() => {
     setOffers(offers)
     setProducts(prods)
@@ -57,7 +55,7 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
     <section>
       <div className="h-[calc(94vh-130px)] md:h-[calc(94vh-126px)]"></div>
       <header className="h-[90vh] w-full absolute top-0 left-0">
-        <div className="absolute inset-0 z-[1] bg-black/45"></div>
+        <div className="absolute inset-0 z-1 bg-black/45"></div>
         <video
           preload="metadata"
           playsInline
@@ -69,7 +67,7 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
         ></video>
         <Link
           href={"/products"}
-          className="absolute z-[2] text-center cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
+          className="absolute z-2 text-center cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
         >
           Shop Latest
         </Link>

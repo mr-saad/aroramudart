@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import Head from "next/head"
 import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
-import { Context } from "../_app"
+import { useMudContext } from "../../lib/Context"
 const Product = dynamic(() => import("../../components/Product"))
 
 export const getStaticProps = async () => {
@@ -32,7 +32,7 @@ export const getStaticProps = async () => {
 }
 
 const Products = ({ products, categories }) => {
-  const { setProducts, setCategories } = useContext(Context)
+  const { setProducts, setCategories } = useMudContext()
   useEffect(() => {
     setProducts(products)
     setCategories(categories)

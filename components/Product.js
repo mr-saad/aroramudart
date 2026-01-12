@@ -25,11 +25,11 @@ const Product = ({
         />
       </div>
 
-      <div className="p-3 text-center">
+      {/* <div className="p-3 text-center">
         <h2 className="text-black">{title}</h2>
         <p className="my-3 text-sm">{size}</p>
         <p className="text-sm">₹{discountedPrice}</p>
-      </div>
+      </div> */}
     </Link>
   )
 }

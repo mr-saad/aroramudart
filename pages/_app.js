@@ -1,11 +1,10 @@
 import Head from "next/head"
-import { createContext, useState } from "react"
+import { useState } from "react"
 import Navbar from "../components/Navbar"
 import "../globals.css"
 import dynamic from "next/dynamic"
 import { ReactLenis } from "lenis/react"
-
-export const Context = createContext()
+import { Context } from "../lib/Context"
 
 const Footer = dynamic(() => import("../components/Footer"))
 
@@ -84,7 +83,8 @@ const App = ({ Component, pageProps }) => {
         root
         options={{
           lerp: 0.07,
-          smoothWheel: true,
+          syncTouch: true,
+          // syncTouchLerp: 1,
         }}
       />
       <Context.Provider

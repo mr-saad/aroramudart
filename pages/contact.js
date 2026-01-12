@@ -1,7 +1,7 @@
 import { ValidationError, useForm } from "@formspree/react"
 import { useRouter } from "next/router"
-import { useContext, useEffect } from "react"
-import { Context } from "./_app"
+import { useEffect } from "react"
+import { useMudContext } from "../lib/Context"
 
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
@@ -23,7 +23,7 @@ export const getStaticProps = async () => {
 }
 
 const Contact = ({ products }) => {
-  const { setProducts } = useContext(Context)
+  const { setProducts } = useMudContext()
   useEffect(() => {
     setProducts(products)
   }, [])
@@ -34,17 +34,17 @@ const Contact = ({ products }) => {
   return (
     <div className="leading-relaxed mt-5">
       {state.submitting && (
-        <div className="p-5 z-[5] fixed  bg-[#ddd] text-4xl   text-black inset-0 flex justify-center items-center">
+        <div className="p-5 z-5 fixed  bg-[#ddd] text-4xl   text-black inset-0 flex justify-center items-center">
           Please Wait
         </div>
       )}
       {state.succeeded && (
-        <div className="fixed inset-0 text-black  bg-[#ddd] z-[5] flex flex-col justify-center items-center text-center gap-4 px-5">
+        <div className="fixed inset-0 text-black  bg-[#ddd] z-5 flex flex-col justify-center items-center text-center gap-4 px-5">
           <p className=" text-4xl">Your Message is Sent!</p>
           <p>We'll Try Respond As Soon As Possible</p>
           <button
             onClick={() => push("/")}
-            className="btn !self-center !border-white"
+            className="btn self-center! border-white!"
           >
             Got It
           </button>
@@ -52,11 +52,11 @@ const Contact = ({ products }) => {
       )}
       <p className="mb-">
         We would love to hear from you! Feel free to reach out to us using any
-        of the following methods:
+        of the following methods
       </p>
       <ul className="mb-5">
         <li>
-          Email :{" "}
+          Email -{" "}
           <a
             className="border-b  text-black"
             href="mailto:aroramudartbhuj@gmail.com"
@@ -65,7 +65,7 @@ const Contact = ({ products }) => {
           </a>
         </li>
         <li>
-          Instagram:{" "}
+          Instagram -{" "}
           <a
             className="border-b  text-black"
             href="https://instagram.com/arora_mud_art"
@@ -74,19 +74,19 @@ const Contact = ({ products }) => {
           </a>
         </li>
         <li>
-          Facebook :{" "}
+          Facebook -{" "}
           <a href="https://facebook.com" className="border-b  text-black">
             aroramudart
           </a>
         </li>
         <li>
-          Whatsapp :{" "}
+          Whatsapp -{" "}
           <a className="border-b  text-black" href="https://wa.me/919979692226">
             +91 99796 62226
           </a>
         </li>
         <li>
-          Phone :{" "}
+          Phone -{" "}
           <a className="border-b  text-black" href="tel:919979662226">
             +91 99796 62226
           </a>

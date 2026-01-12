@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react"
+import { useEffect } from "react"
 import Product from "../../../components/Product"
-import { Context } from "../../_app"
+import { useMudContext } from "../../../lib/Context"
 
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
@@ -53,7 +53,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 }
 
 export default function Offer({ offer, categories, prods }) {
-  const { setProducts, setCategories } = useContext(Context)
+  const { setProducts, setCategories } = useMudContext()
   useEffect(() => {
     setProducts(prods)
     setCategories(categories)

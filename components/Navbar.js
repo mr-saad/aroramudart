@@ -1,21 +1,41 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { motion } from "framer-motion"
-import { useContext, useEffect, useState } from "react"
-import { Context } from "../pages/_app"
+import { useEffect, useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
 import { Autoplay, Navigation } from "swiper/modules"
+import { useMudContext } from "../lib/Context"
+
+const links = [
+  { text: "Categories" },
+  { text: "All Products", route: "/products" },
+  { text: "Courses", route: "/courses" },
+  { text: "Commission", route: "/commission" },
+  { text: "About", route: "/about" },
+  { text: "Contact", route: "/contact" },
+]
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
   const [showCategories, setShowCategories] = useState(false)
   const [y, setY] = useState(0)
-  const [deviceWidth, setDeviceWidth] = useState(541)
+  const [deviceWidth, setDeviceWidth] = useState(0)
   const { route } = useRouter()
 
-  const { offers, categories } = useContext(Context)
+  const { offers, categories, products } = useMudContext()
+
+  links.forEach((link) => {
+    if (link.text === "Categories") {
+      link["sublinks"] = categories.map((cat) => {
+        const param = new URLSearchParams()
+        param.set("category", cat.category)
+        return { text: cat.category, route: `/products?${param.toString()}` }
+      })
+      return
+    }
+  })
 
   const [showSearch, setShowSearch] = useState(false)
 
@@ -24,6 +44,7 @@ const Navbar = () => {
 
     const ul = document.querySelector("nav ul")
     const linkEvent = (e) => {
+      if (e.target?.innerText?.toLowerCase() === "categories") return
       if (e.target.tagName === "A") setOpen(false)
     }
     ul.addEventListener("click", linkEvent)
@@ -55,7 +76,7 @@ const Navbar = () => {
       {route === "/" && offers.length && (
         <Swiper
           navigation
-          className="!z-2 bg-black"
+          className="z-2! bg-black"
           modules={[Navigation, Autoplay]}
           autoplay
           loop
@@ -98,8 +119,8 @@ const Navbar = () => {
                     ? "bg-black"
                     : "bg-white group-hover:bg-black"
                   : "bg-black"
-              } rounded-md h-[2px] w-8 transition-all origin-left ${
-                open && "!w-[28px] rotate-45"
+              } rounded-md h-0.5 w-8 transition-all origin-left ${
+                open && "w-7! rotate-45"
               }`}
             ></span>
             <span
@@ -109,7 +130,7 @@ const Navbar = () => {
                     ? "bg-black"
                     : "bg-white group-hover:bg-black"
                   : "bg-black"
-              } rounded-md h-[2px] w-8 transition-all ${open && "opacity-0"}`}
+              } rounded-md h-0.5 w-8 transition-all ${open && "opacity-0"}`}
             ></span>
             <span
               className={`${
@@ -118,12 +139,12 @@ const Navbar = () => {
                     ? "bg-black"
                     : "bg-white group-hover:bg-black"
                   : "bg-black"
-              } rounded-md h-[2px] w-8 transition-all origin-left ${
-                open && "!w-[28px] -rotate-45"
+              } rounded-md h-0.5 w-8 transition-all origin-left ${
+                open && "w-7! -rotate-45"
               }`}
             ></span>
           </div>
-          <Link title="Arora Mud Art | Home" href="/">
+          <Link title="Arora Mud Art" href="/">
             <svg
               width="115"
               height="40"
@@ -170,26 +191,6 @@ const Navbar = () => {
             }`}
           >
             {!showSearch ? (
-              // <svg
-              //   onClick={() => {
-              //     setShowSearch(false)
-              //   }}
-              //   size={22}
-              //   className={`ml-auto z-4 cursor-pointer transition-colors group-hover:stroke-black`}
-              //   xmlns="http://www.w3.org/2000/svg"
-              //   width="24"
-              //   height="24"
-              //   viewBox="0 0 24 24"
-              //   fill="none"
-              //   stroke="currentColor"
-              //   strokeWidth="2"
-              //   strokeLinecap="round"
-              //   strokeLinejoin="round"
-              // >
-              //   <path d="M18 6 6 18" />
-              //   <path d="m6 6 12 12" />
-              // </svg>
-              // ) :
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -228,21 +229,22 @@ const Navbar = () => {
           <motion.li
             className="will-change-transform"
             initial={
-              deviceWidth < 540 ? { x: -20, opacity: 0 } : { x: 0, opacity: 1 }
-            }
-            whileInView={
-              deviceWidth < 540
+              deviceWidth < 768
                 ? {
-                    x: 0,
-                    opacity: 1,
-                    transition: { ease: "linear" },
+                    x: -20,
+                    opacity: 0,
                   }
-                : undefined
+                : null
             }
+            whileInView={{
+              x: 0,
+              opacity: 1,
+              transition: { ease: "linear" },
+            }}
           >
             <Link
               href="/"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route === "/" &&
                 (y > 80 || open
                   ? "text-black"
@@ -252,7 +254,108 @@ const Navbar = () => {
               Home
             </Link>
           </motion.li>
-          <motion.li
+
+          {links.map((link, index) => {
+            ++index
+            return (
+              <motion.li
+                key={link.text}
+                onClick={() =>
+                  link.text === "Categories"
+                    ? setShowCategories((prev) => !prev)
+                    : null
+                }
+                tabIndex={0}
+                className="will-change-transform group/drop"
+                initial={
+                  deviceWidth < 768
+                    ? {
+                        x: -20,
+                        opacity: 0,
+                      }
+                    : null
+                }
+                whileInView={{
+                  x: 0,
+                  opacity: 1,
+                  transition: {
+                    duration: 0.2,
+                    delay: index * 0.2,
+                    ease: "linear",
+                  },
+                }}
+              >
+                {/* <span
+              className={`md:relative transition-colors pb-4 flex items-center justify-between border-b border-black/10 md:border-none hover:text-black `}
+            > */}
+                {/* </span> */}
+
+                <Link
+                  className="flex gap-1 items-center border-b md:border-none border-black/10 pb-4 md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300"
+                  href={link.route || "#"}
+                >
+                  {link.text}
+                  {link.text === "Categories" && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14" />
+
+                      <motion.path
+                        animate={
+                          showCategories
+                            ? {
+                                rotate: "90deg",
+                                transition: {
+                                  ease: "easeInOut",
+                                  duration: 0.3,
+                                },
+                              }
+                            : {
+                                rotate: 0,
+                                transition: {
+                                  ease: "easeInOut",
+                                  duration: 0.3,
+                                },
+                              }
+                        }
+                        d="M12 5v14"
+                      />
+                    </svg>
+                  )}
+                </Link>
+                {link.sublinks && (
+                  <motion.ul
+                    animate={{
+                      height: showCategories ? "auto" : 0,
+                      transition: { ease: "linear" },
+                    }}
+                    className="overflow-clip md:shadow-md group-focus-within/drop:block transition-all static md:absolute mt-2 left-0 bg-white max-w-90 rounded text-black/60 *:hover:text-black"
+                  >
+                    {link.sublinks.map((link) => (
+                      <Link
+                        key={link.text}
+                        className="block px-5 py-1 md:first:pt-2 md:last:pb-2 text-nowrap"
+                        href={link.route}
+                      >
+                        {link.text}
+                      </Link>
+                    ))}
+                  </motion.ul>
+                )}
+              </motion.li>
+            )
+          })}
+
+          {/* <motion.li
             onClick={() => setShowCategories((prev) => !prev)}
             tabIndex={0}
             className="will-change-transform group/drop"
@@ -280,10 +383,9 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-plus-icon lucide-plus"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <path d="M5 12h14" />
                 {!showCategories && (
@@ -328,7 +430,7 @@ const Navbar = () => {
           >
             <Link
               href="/products"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route.includes("/products") ? "text-black after:w-full" : null
               }`}
             >
@@ -352,7 +454,7 @@ const Navbar = () => {
           >
             <Link
               href="/courses"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route === "/courses" ? "text-black after:w-full" : null
               }`}
             >
@@ -376,7 +478,7 @@ const Navbar = () => {
           >
             <Link
               href="/commission"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route === "/commission" ? "text-black after:w-full" : null
               }`}
             >
@@ -400,7 +502,7 @@ const Navbar = () => {
           >
             <Link
               href="/about"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route === "/about" ? "text-black after:w-full" : null
               }`}
             >
@@ -424,15 +526,21 @@ const Navbar = () => {
           >
             <Link
               href="/contact"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
                 route === "/contact" ? "text-black after:w-full" : null
               }`}
             >
               Contact
             </Link>
-          </motion.li>
+          </motion.li> */}
         </ul>
-        {showSearch && <Filter setShowSearch={setShowSearch} />}
+        {showSearch && (
+          <Filter
+            setShowSearch={setShowSearch}
+            products={products}
+            categories={categories}
+          />
+        )}
       </nav>
     </>
   )
@@ -442,7 +550,6 @@ export const Filter = ({ setShowSearch }) => {
   const [input, setInput] = useState("")
   // const [dropdown, setDropdown] = useState(false)
   const [filtered, setFiltered] = useState([])
-  const { products, categories } = useContext(Context)
   const { events } = useRouter()
   // const selectedCat = useRouter().query.category
 

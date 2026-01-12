@@ -1,6 +1,6 @@
 import Image from "next/image"
-import { useContext, useEffect } from "react"
-import { Context } from "./_app"
+import { useEffect } from "react"
+import { useMudContext } from "../lib/Context"
 
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../components/sanityClient")
@@ -55,7 +55,7 @@ const steps = [
 ]
 
 const About = ({ products }) => {
-  const { setProducts } = useContext(Context)
+  const { setProducts } = useMudContext()
   useEffect(() => {
     setProducts(products)
   }, [])

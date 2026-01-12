@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react"
-import { Context } from "../_app"
+import { useEffect } from "react"
 import Link from "next/link"
+import { useMudContext } from "../../lib/Context"
 
 export const getStaticProps = async () => {
   const { default: sanity } = await import("../../components/sanityClient")
@@ -21,7 +21,7 @@ export const getStaticProps = async () => {
 }
 
 export default function Offers({ prods, offers, categories }) {
-  const { setProducts, setCategories } = useContext(Context)
+  const { setProducts, setCategories } = useMudContext()
   useEffect(() => {
     setProducts(prods)
     setCategories(categories)
