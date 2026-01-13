@@ -1,12 +1,10 @@
 import Head from "next/head"
 import { useState } from "react"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 import "../globals.css"
-import dynamic from "next/dynamic"
 import { ReactLenis } from "lenis/react"
 import { Context } from "../lib/Context"
-
-const Footer = dynamic(() => import("../components/Footer"))
 
 const App = ({ Component, pageProps }) => {
   const [products, setProducts] = useState([])
@@ -83,8 +81,6 @@ const App = ({ Component, pageProps }) => {
         root
         options={{
           lerp: 0.07,
-          syncTouch: true,
-          // syncTouchLerp: 1,
         }}
       />
       <Context.Provider

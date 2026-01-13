@@ -333,12 +333,10 @@ const Navbar = () => {
                   )}
                 </Link>
                 {link.sublinks && (
-                  <motion.ul
-                    animate={{
-                      height: showCategories ? "auto" : 0,
-                      transition: { ease: "linear" },
-                    }}
-                    className="overflow-clip md:shadow-md group-focus-within/drop:block transition-all static md:absolute mt-2 left-0 bg-white max-w-90 rounded text-black/60 *:hover:text-black"
+                  <ul
+                    className={`${
+                      showCategories ? "block" : "hidden"
+                    } md:shadow-md static md:absolute mt-2 left-0 bg-white max-w-90 rounded text-black/60 *:hover:text-black`}
                   >
                     {link.sublinks.map((link) => (
                       <Link
@@ -349,7 +347,7 @@ const Navbar = () => {
                         {link.text}
                       </Link>
                     ))}
-                  </motion.ul>
+                  </ul>
                 )}
               </motion.li>
             )
@@ -546,14 +544,10 @@ const Navbar = () => {
   )
 }
 
-export const Filter = ({ setShowSearch }) => {
+export const Filter = ({ setShowSearch, products }) => {
   const [input, setInput] = useState("")
-  // const [dropdown, setDropdown] = useState(false)
   const [filtered, setFiltered] = useState([])
   const { events } = useRouter()
-  // const selectedCat = useRouter().query.category
-
-  // const categories = [...new Set(products.map((prod) => prod.category))]
 
   useEffect(() => {
     const filter = products.filter((product) => {
@@ -570,7 +564,6 @@ export const Filter = ({ setShowSearch }) => {
   return (
     <div className="z-3 flex flex-col absolute w-full h-screen border-t border-black/10  left-0 top-full">
       <div className="relative">
-        {/* <p className="mb-2  text-black">Search</p> */}
         <div className="relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -597,7 +590,6 @@ export const Filter = ({ setShowSearch }) => {
             placeholder="Search For..."
             className="px-10 bg-white pl-13 w-full py-3 uppercase text-black outline-none placeholder:text-black/50 border-black/50 focus:border-black"
           />
-          {/* {(filtered.length !== 0 || input) && ( */}
           <svg
             onClick={() => setShowSearch(false)}
             size={25}

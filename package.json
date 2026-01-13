@@ -5,7 +5,7 @@
   "main": "pages/_app.js",
   "scripts": {
     "start": "next start",
-    "dev": "next dev --webpack",
+    "dev": "next dev",
     "build": "next build"
   },
   "keywords": [],
