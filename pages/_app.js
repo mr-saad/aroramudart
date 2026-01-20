@@ -80,7 +80,7 @@ const App = ({ Component, pageProps }) => {
       <ReactLenis
         root
         options={{
-          lerp: 0.07,
+          lerp: 0.08,
         }}
       />
       <Context.Provider

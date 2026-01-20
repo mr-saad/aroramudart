@@ -8,9 +8,21 @@
 }
 
 * {
-  font-family: InstrumentSans, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:
+    InstrumentSans,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
   font-weight: normal;
 }
 *::selection {
@@ -18,6 +30,7 @@
 }
 :root {
   --swiper-pagination-color: #000;
+  --swiper-pagination-bottom: -1rem;
   --swiper-navigation-color: #fff;
   --swiper-navigation-size: 16;
   --swiper-navigation-top-offset: 30%;
@@ -26,13 +39,9 @@
 .swiper-pagination {
   position: unset !important;
 }
-.swiper-button-prev,
-.swiper-button-next {
-  padding-inline: 1.5rem;
-}
 
 body {
-  @apply transition-colors text-black/60 leading-[1.7] tracking-widest;
+  @apply transition-colors text-black/60;
 }
 
 .highlight {
@@ -43,7 +52,7 @@ body {
   @apply text-[1.35rem] md:text-2xl text-black uppercase;
 }
 .btn {
-  @apply cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-5 py-2 uppercase;
+  @apply flex items-center justify-center gap-2 cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-5 py-2;
 }
 .neutral-btn {
   @apply opacity-70 hover:opacity-100 focus-within:opacity-100 transition ease-out border text-black  px-3 py-2;
@@ -54,11 +63,6 @@ body {
 
 .over-hide {
   overflow: hidden;
-}
-
-.swiper-pagination-progressbar {
-  top: unset !important;
-  bottom: 0;
 }
 
 form label {

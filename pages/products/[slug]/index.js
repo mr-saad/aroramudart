@@ -14,6 +14,7 @@ import "swiper/css/pagination"
 import dynamic from "next/dynamic"
 import SuccessJson from "./success.json"
 import { useMudContext } from "../../../lib/Context"
+import { Instagram, Share2 } from "lucide-react"
 
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
@@ -77,6 +78,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
 export default function DynamicProduct({
   product: {
+    productCode,
+    availability,
     title,
     price,
     discount,
@@ -108,61 +111,42 @@ export default function DynamicProduct({
       </Head>
       <Toaster />
       {show3d && <Model url={model.url} setShow3d={setShow3d} />}
-      <div className="flex relative gap-5 md:gap-10 flex-col md:flex-row">
-        <div className="max-w-lg w-full relative">
-          <div className="flex justify-between items-end z-2 absolute w-full bottom-0">
-            {model ? (
-              <button onClick={() => setShow3d(true)} className="btn">
-                View 3D
-              </button>
-            ) : (
-              <button></button>
-            )}
-            <button
-              onClick={async () => {
-                await navigator.clipboard.writeText(location.href)
-                toast.info("Product link copied to clipboard.")
-              }}
-              className="btn"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="18" cy="5" r="3" />
-                <circle cx="6" cy="12" r="3" />
-                <circle cx="18" cy="19" r="3" />
-                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
-                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
-              </svg>
-            </button>
-          </div>
+      <div className="flex md:gap-10 flex-col md:flex-row">
+        <div className="max-w-lg w-full">
           <Swiper
             modules={[Pagination, Keyboard]}
             keyboard
             pagination
             style={{ zIndex: "auto" }}
             className="mx-0!"
-            // spaceBetween={16}
-            // breakpoints={{
-            //   768: {
-            //     enabled: false,
-            //   },
-            // }}
             wrapperClass="items-center"
           >
+            <div className="flex justify-between items-end z-2 absolute w-full bottom-6">
+              {model ? (
+                <button
+                  onClick={() => setShow3d(true)}
+                  className="btn py-1! px-2!"
+                >
+                  View 3D
+                </button>
+              ) : (
+                <button></button>
+              )}
+              <button
+                onClick={async () => {
+                  await navigator.clipboard.writeText(location.href)
+                  toast.info("Product link copied to clipboard.")
+                }}
+                className="btn py-1! px-2!"
+              >
+                <Share2 fill="white" strokeWidth={1} />
+              </button>
+            </div>
             <SwiperSlide>
               <Image
                 priority
                 loading="eager"
-                className="object-contain w-full cursor-grab active:cursor-grabbing"
+                className="object-contain w-full bg-[#f4f4f4] cursor-grab active:cursor-grabbing"
                 sizes="(max-width: 640px) 90vw, 40vw"
                 width={400}
                 height={400}
@@ -176,7 +160,7 @@ export default function DynamicProduct({
               images?.map(({ url, lqip }) => (
                 <SwiperSlide key={url}>
                   <Image
-                    className="object-contain w-full cursor-grab active:cursor-grabbing h-auto"
+                    className="object-contain w-full bg-[#f4f4f4] cursor-grab active:cursor-grabbing"
                     sizes="(max-width: 640px) 80vw, 40vw"
                     width={400}
                     height={400}
@@ -192,108 +176,16 @@ export default function DynamicProduct({
 
         <div className="md:self-start">
           <h1 className="text-black text-2xl">{title}</h1>
-          <p className="text-xl mb-3 mt-2">{size}</p>
-          {/* <div className="mt-4">
-            <span className="bg-green-600 text-xs mr-4 inline-block text-white px-3 py-1">
-              SAVE ₹{discount}
-            </span>
-          </div> */}
-          <div className="mb-4">
-            <s className="text-sm mr-1">₹{price}</s>
-            <span className="text-xl text-black">₹{discountedPrice}</span>
-          </div>
-          {/* <p
-            className={`border-b inline border-current ${
-              instock ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {instock ? "In Stock" : "Out of Stock"}
-          </p> */}
-          {
-            /* !showForm && */ instock && (
-              // <button
-              //   type="button"
-              //   className="btn mb-4"
-              //   onClick={() => setShowForm(true)}
-              // >
-              //   Book Now
-              // </button>
-              <div>
-                <p>Order now on any followings</p>
-                <div className="grid gap-4 my-4">
-                  <a
-                    target="_blank"
-                    className="flex items-center gap-2 px-4 py-2 font-bold border-l"
-                    href="https://wa.me/919979672226"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      height="24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"
-                      ></path>
-                    </svg>{" "}
-                    +91 9979672226
-                  </a>
-                  <a
-                    className="flex items-center gap-2  px-4 py-2 font-bold border-l"
-                    href="https://facebook.com"
-                    target="_blank"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                    </svg>{" "}
-                    Arora Mud Art
-                  </a>
-                  <a
-                    target="_blank"
-                    className="flex items-center gap-2  px-4 py-2 font-bold border-l"
-                    href="https://www.instagram.com/direct/t/17842822046736295/"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                    </svg>{" "}
-                    @aroramudart
-                  </a>
-                </div>
-              </div>
-            )
-          }
-
+          <p className="text-xl my-2">{size}</p>
+          <p className="mb-4">${discountedPrice}</p>
           {!showForm ? (
             body && (
               <>
-                <p className="text-base text-black">Product Details: </p>
                 <PortableText
                   content={body}
                   dataset="production"
                   projectId="5onybuvh"
-                  className="mt-2"
+                  className="mb-4"
                 />
               </>
             )
@@ -303,6 +195,39 @@ export default function DynamicProduct({
               title={title}
               discountedPrice={discountedPrice}
             />
+          )}
+          {instock && (
+            <>
+              <p className="text-xl mb-5">Order now on any followings</p>
+              <div className="flex flex-wrap gap-5 md:gap-8">
+                <a
+                  target="_blank"
+                  className="btn"
+                  href="https://wa.me/919979672226"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91c0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18l-3.12.82l.83-3.04l-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24c2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81c-.23-.08-.39-.12-.56.12c-.17.25-.64.81-.78.97c-.14.17-.29.19-.54.06c-.25-.12-1.05-.39-1.99-1.23c-.74-.66-1.23-1.47-1.38-1.72c-.14-.25-.02-.38.11-.51c.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31c-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74c.59.26 1.05.41 1.41.52c.59.19 1.13.16 1.56.1c.48-.07 1.47-.6 1.67-1.18c.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"
+                    ></path>
+                  </svg>
+                  WhatsApp
+                </a>
+                <a
+                  target="_blank"
+                  className="btn"
+                  href="https://www.instagram.com/direct/t/17842822046736295/"
+                >
+                  <Instagram />
+                  Instagram
+                </a>
+              </div>
+            </>
           )}
         </div>
       </div>

@@ -30,7 +30,7 @@ const Footer = () => {
             <input
               type="text"
               placeholder="Your E-Mail"
-              className="input_text !mb-0 !w-auto"
+              className="input_text mb-0! w-auto!"
             />
             <button type="button" className="btn">
               Submit
@@ -140,7 +140,7 @@ const Footer = () => {
       <hr className="my-10 border-gray-200" />
       <div className="flex md:flex-row flex-col-reverse  gap-2 justify-between text-pretty">
         <p>
-          &copy;Arora Mud Art {new Date().getFullYear()}, Mud Handicraft Store
+          &copy;Arora Mud Art {new Date().getFullYear()} Mud Handicraft Store
         </p>
         <p>
           <Link
