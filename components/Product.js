@@ -3,26 +3,32 @@ import Link from "next/link"
 
 const Product = ({
   slug,
-  image: { url, lqip },
+  image,
   title,
   size,
   price,
   discount,
 }) => {
+  const { url = "", lqip } = image || {}
   const discountedPrice = price - discount
+
   return (
     <Link className="uppercase group relative" href={`/products/${slug}`}>
       <div className="overflow-hidden flex justify-center items-center aspect-square bg-[#f4f4f4]">
-        <Image
-          sizes="(max-width: 768px) 40vw, 33vw"
-          className="w-[70%] drop-shadow-lg shadow-black/20 will-change-transform object-cover select-none group-hover:scale-105 transition-transform duration-1000 ease-out"
-          placeholder="blur"
-          blurDataURL={lqip}
-          width={400}
-          height={400}
-          src={url}
-          alt={slug}
-        />
+        {url ? (
+          <Image
+            sizes="(max-width: 768px) 40vw, 33vw"
+            className="w-[70%] drop-shadow-lg shadow-black/20 will-change-transform object-cover select-none group-hover:scale-105 transition-transform duration-1000 ease-out"
+            placeholder={lqip ? "blur" : "empty"}
+            blurDataURL={lqip}
+            width={400}
+            height={400}
+            src={url}
+            alt={title || slug}
+          />
+        ) : (
+          <span className="text-xs text-neutral-400">No Image</span>
+        )}
       </div>
 
       {/* <div className="p-3 text-center">

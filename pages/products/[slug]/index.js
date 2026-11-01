@@ -149,17 +149,17 @@ export default function DynamicProduct({
               />
             </SwiperSlide>
             {images?.length &&
-              images?.map(({ url, lqip }) => (
-                <SwiperSlide key={url}>
+              images?.map(({ url: slideUrldeUrl, lqip: slideLqip }) => (
+                <SwiperSlide key={slideUrldeUrl}>
                   <Image
                     className="object-contain w-full bg-[#f4f4f4] cursor-grab active:cursor-grabbing"
                     sizes="(max-width: 640px) 80vw, 40vw"
                     width={400}
                     height={400}
-                    src={url}
+                    src={slideUrldeUrl}
                     alt={title}
                     placeholder="blur"
-                    blurDataURL={lqip}
+                    blurDataURL={slideLqip}
                   />
                 </SwiperSlide>
               ))}
