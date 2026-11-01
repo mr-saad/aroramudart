@@ -32,7 +32,7 @@ const Contact = ({ products }) => {
   const { push } = useRouter()
 
   return (
-    <div className="leading-relaxed mt-5">
+    <div className="Container leading-relaxed mt-5">
       {state.submitting && (
         <div className="p-5 z-5 fixed  bg-[#ddd] text-4xl   text-black inset-0 flex justify-center items-center">
           Please Wait
@@ -50,7 +50,7 @@ const Contact = ({ products }) => {
           </button>
         </div>
       )}
-      <p className="mb-">
+      {/*  <p className="mb-">
         We would love to hear from you! Feel free to reach out to us using any
         of the following methods
       </p>
@@ -91,35 +91,30 @@ const Contact = ({ products }) => {
             +91 99796 62226
           </a>
         </li>
-      </ul>
-      <p className="mb-5">
-        For any inquiries, questions, or feedback regarding our mud art
-        creations, customization requests, or order information, please don't
-        hesitate to get in touch. Our dedicated team is here to assist you and
-        provide the information you need.
-      </p>
-      <p className="mb-5">
-        We value your input and look forward to hearing from you. Whether you're
-        an art enthusiast, a potential customer, or someone with a general
-        interest in our work, we appreciate your interest in Arora Mud Art. Your
-        support means a lot to us, and we're excited to assist you in any way we
-        can.
-      </p>
-      <p className="mb-5">
-        Thank you for choosing Arora Mud Art. We are dedicated to providing you
-        with exceptional mud artworks that bring nature's beauty into your
-        surroundings.
-      </p>
-      <div className="flex flex-col gap-10 md:flex-row mt-20 justify-center">
-        {/* <Image
-          width={500}
-          height={500}
-          src="/contactSvg.svg"
-          className="md:w-1/2 lg:w-1/3 flex-1"
-          alt="Contact at Arora Mud Art"
-        /> */}
-        <div className="mt-5 md:mt-0 max-w-xl w-full">
-          <div className="text-red-700 my-5 capitalize">
+      </ul>*/}
+      <div className="grid md:grid-cols-2 gap-5">
+        <div>
+          <p className="mb-5">
+            For any inquiries, questions, or feedback regarding our mud art
+            creations, customization requests, or order information, please don't
+            hesitate to get in touch. Our dedicated team is here to assist you and
+            provide the information you need.
+          </p>
+          <p className="mb-5">
+            We value your input and look forward to hearing from you. Whether you're
+            an art enthusiast, a potential customer, or someone with a general
+            interest in our work, we appreciate your interest in Arora Mud Art. Your
+            support means a lot to us, and we're excited to assist you in any way we
+            can.
+          </p>
+          <p className="mb-5">
+            Thank you for choosing Arora Mud Art. We are dedicated to providing you
+            with exceptional mud artworks that bring nature's beauty into your
+            surroundings.
+          </p>
+        </div>
+        <div>
+          {state.errors && <div className="text-red-700 mb-5 capitalize">
             <ValidationError
               field="email"
               prefix="Invalid E-Mail:"
@@ -130,7 +125,7 @@ const Contact = ({ products }) => {
               prefix="Mobile"
               errors={state.errors}
             />
-          </div>
+          </div>}
           <b className="text-xl text-black uppercase text-center mb-5 block">
             Just a Form Away
           </b>

@@ -60,7 +60,7 @@ const About = ({ products }) => {
     setProducts(products)
   }, [])
   return (
-    <div className="leading-relaxed mt-5">
+    <div className="Container leading-relaxed mt-5">
       <h2 className="heading">Welcome to Arora Mud Art!</h2>
       <p>
         At Arora Mud Art, we are passionate about creating unique and exquisite
@@ -86,7 +86,7 @@ const About = ({ products }) => {
             to strengthen mud houses for prevention against natural calamities.
           </p>
         </div>
-        <Image
+     {/*   <Image
           sizes="(max-width: 540px) 40vw,
             (max-width: 768px) 60vw,
             (max-width: 1200px) 80vw"
@@ -95,7 +95,7 @@ const About = ({ products }) => {
           alt="ovesaorora"
           width={300}
           height={300}
-        />
+        />*/}
       </div>
       <p className="my-10">
         If you have any questions, custom order inquiries, or simply want to
@@ -124,8 +124,7 @@ const About = ({ products }) => {
         pieces bring a touch of natural elegance into your surroundings.
       </p>
 
-      <h1 className="heading mb-4">Steps to Mud Work</h1>
-
+     {/* <h1 className="heading mb-4">Steps to Mud Work</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {steps.map((all) => {
           return (
@@ -149,7 +148,7 @@ const About = ({ products }) => {
             </div>
           )
         })}
-      </div>
+      </div>*/}
     </div>
   )
 }

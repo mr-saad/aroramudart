@@ -105,12 +105,12 @@ export default function DynamicProduct({
 
   const title1 = `${title} | Arora Mud Art`
   return (
-    <div className="mx-auto min-h-[80vh]">
+    <div className="Container min-h-[80vh]">
       <Head>
         <title>{title1}</title>
       </Head>
       <Toaster />
-      {show3d && <Model url={model.url} setShow3d={setShow3d} />}
+      {/*{show3d && <Model url={model.url} setShow3d={setShow3d} />}*/}
       <div className="flex md:gap-10 flex-col md:flex-row">
         <div className="max-w-lg w-full">
           <Swiper
@@ -122,7 +122,7 @@ export default function DynamicProduct({
             wrapperClass="items-center"
           >
             <div className="flex justify-between items-end z-2 absolute w-full bottom-6">
-              {model ? (
+              {/*  {model ? (
                 <button
                   onClick={() => setShow3d(true)}
                   className="btn py-1! px-2!"
@@ -131,16 +131,8 @@ export default function DynamicProduct({
                 </button>
               ) : (
                 <button></button>
-              )}
-              <button
-                onClick={async () => {
-                  await navigator.clipboard.writeText(location.href)
-                  toast.info("Product link copied to clipboard.")
-                }}
-                className="btn py-1! px-2!"
-              >
-                <Share2 fill="white" strokeWidth={1} />
-              </button>
+              )}*/}
+
             </div>
             <SwiperSlide>
               <Image
@@ -177,7 +169,16 @@ export default function DynamicProduct({
         <div className="md:self-start">
           <h1 className="text-black text-2xl">{title}</h1>
           <p className="text-xl my-2">{size}</p>
-          <p className="mb-4">${discountedPrice}</p>
+          <p className="mb-2">${discountedPrice}</p>
+          <button
+            onClick={async () => {
+              await navigator.clipboard.writeText(location.href)
+              toast.info("Product link copied to clipboard.")
+            }}
+            className="btn py-1! px-2! mb-4"
+          >
+            <Share2 fill="white" strokeWidth={1} />
+          </button>
           {!showForm ? (
             body && (
               <>

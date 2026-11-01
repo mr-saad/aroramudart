@@ -77,6 +77,7 @@ const App = ({ Component, pageProps }) => {
           content="lBrFwP_GaamILlVDGRzoEvN5aWFGrX0sKu5zttr_T7c"
         />
       </Head>
+
       <ReactLenis
         root
         options={{
@@ -94,11 +95,17 @@ const App = ({ Component, pageProps }) => {
         }}
       >
         <Navbar />
-        <div className="md:px-20 px-4 py-4 mx-auto">
-          <Component {...pageProps} />
-        </div>
+        {/*<div className="max-w-7xl p-4 mx-auto">*/}
+        <Component {...pageProps} />
+        {/*</div>*/}
         <Footer />
       </Context.Provider>
+
+
+      {/*<div className="h-dvh flex flex-col justify-center items-center">
+        <h1 className="text-4xl text-center text-black">Arora Mud Art</h1>
+        <p>Site Under Maintenance...</p>
+      </div>*/}
     </>
   )
 }

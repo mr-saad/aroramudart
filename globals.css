@@ -40,8 +40,17 @@
   position: unset !important;
 }
 
+html{
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
 body {
   @apply transition-colors text-black/60;
+}
+
+.Container{
+  @apply max-w-7xl p-4 mx-auto;
 }
 
 .highlight {

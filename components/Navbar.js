@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
@@ -64,45 +64,43 @@ const Navbar = () => {
     }
 
     window.addEventListener("resize", sizeListener)
-    ;() => {
-      window.removeEventListener("scroll", scrollEvent)
-      window.removeEventListener("resize", sizeListener)
-      ul.removeEventListener("click", linkEvent)
-    }
+      ; () => {
+        window.removeEventListener("scroll", scrollEvent)
+        window.removeEventListener("resize", sizeListener)
+        ul.removeEventListener("click", linkEvent)
+      }
   }, [])
 
   return (
     <>
-      {route === "/" && offers.length && (
-        <Swiper
-          navigation
-          className="z-2! bg-black"
-          modules={[Navigation, Autoplay]}
-          autoplay
-          loop
-        >
-          {offers.map((offr) => (
-            <SwiperSlide>
-              <Link
-                href={`/offers/${offr.slug}`}
-                className={`text-white z-5 relative text-xs py-3 uppercase text-center ${
-                  open ? "hidden" : "block"
-                }`}
+      {/*{route === "/" && offers.length && (
+              <Swiper
+                navigation
+                className="z-2! bg-black"
+                modules={[Navigation, Autoplay]}
+                autoplay
+                loop
               >
-                {offr.title}
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
+                {offers.map((offr) => (
+                  <SwiperSlide>
+                    <Link
+                      href={`/offers/${offr.slug}`}
+                      className={`text-white z-5 relative text-xs py-3 uppercase text-center ${open ? "hidden" : "block"
+                        }`}
+                    >
+                      {offr.title}
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}*/}
       <nav
-        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-3 md:px-20 pt-4 pb-4 md:pb-0 ${
-          route === "/"
-            ? y > 80
-              ? "bg-white border-b"
-              : "bg-transparent"
-            : "bg-white border-b"
-        }`}
+        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-3 md:px-20 pt-4 pb-4 md:pb-0 ${route === "/"
+          ? y > 80
+            ? "bg-white border-b"
+            : "bg-transparent"
+          : "bg-white border-b"
+          }`}
       >
         <div className="flex items-center justify-between">
           <div className="hidden md:block"></div>
@@ -113,35 +111,30 @@ const Navbar = () => {
             }}
           >
             <span
-              className={`${
-                route === "/"
-                  ? y > 80 || open
-                    ? "bg-black"
-                    : "bg-white group-hover:bg-black"
-                  : "bg-black"
-              } rounded-md h-0.5 w-8 transition-all origin-left ${
-                open && "w-7! rotate-45"
-              }`}
+              className={`${route === "/"
+                ? y > 80 || open
+                  ? "bg-black"
+                  : "bg-white group-hover:bg-black"
+                : "bg-black"
+                } rounded-md h-0.5 w-8 transition-all origin-left ${open && "w-7! rotate-45"
+                }`}
             ></span>
             <span
-              className={` ${
-                route === "/"
-                  ? y > 80 || open
-                    ? "bg-black"
-                    : "bg-white group-hover:bg-black"
-                  : "bg-black"
-              } rounded-md h-0.5 w-8 transition-all ${open && "opacity-0"}`}
+              className={` ${route === "/"
+                ? y > 80 || open
+                  ? "bg-black"
+                  : "bg-white group-hover:bg-black"
+                : "bg-black"
+                } rounded-md h-0.5 w-8 transition-all ${open && "opacity-0"}`}
             ></span>
             <span
-              className={`${
-                route === "/"
-                  ? y > 80 || open
-                    ? "bg-black"
-                    : "bg-white group-hover:bg-black"
-                  : "bg-black"
-              } rounded-md h-0.5 w-8 transition-all origin-left ${
-                open && "w-7! -rotate-45"
-              }`}
+              className={`${route === "/"
+                ? y > 80 || open
+                  ? "bg-black"
+                  : "bg-white group-hover:bg-black"
+                : "bg-black"
+                } rounded-md h-0.5 w-8 transition-all origin-left ${open && "w-7! -rotate-45"
+                }`}
             ></span>
           </div>
           <Link title="Arora Mud Art" href="/">
@@ -149,13 +142,12 @@ const Navbar = () => {
               width="115"
               height="40"
               viewBox="0 0 683 239"
-              className={`transition-colors ${showSearch && "fill-black"} ${
-                route === "/"
-                  ? y > 80 && !open
-                    ? "fill-black"
-                    : "fill-white group-hover:fill-black"
-                  : "fill-black"
-              }`}
+              className={`transition-colors ${showSearch && "fill-black"} ${route === "/"
+                ? y > 80 && !open
+                  ? "fill-black"
+                  : "fill-white group-hover:fill-black"
+                : "fill-black"
+                }`}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M679.508 0.354004H679.962V0.808105C679.962 1.00993 679.811 1.66585 679.508 2.77588C680.467 4.94548 681.602 6.73665 682.914 8.14941V8.60352C680.492 16.071 677.086 24.5223 672.697 33.9575L658.09 65.5933C660.36 66.8547 661.496 67.6619 661.496 68.0151C660.739 68.6711 659.604 68.999 658.09 68.999V69.5288L658.544 70.5127C654.911 71.875 652.489 74.4735 651.278 78.3081C629.078 119.985 613.008 147.584 603.068 161.106H602.538V157.17C606.877 150.561 611.746 141.302 617.145 129.395L619.567 125.535V124.551C618.558 124.551 616.136 128.285 612.301 135.752C611.393 136.458 609.602 139.713 606.928 145.515C606.575 145.515 604.96 148.416 602.084 154.219C600.974 154.219 600.167 155.531 599.662 158.154C598.754 159.769 597.921 160.576 597.165 160.576L594.743 160.122V161.56C594.44 161.56 594.289 161.409 594.289 161.106L593.305 161.56C592.649 161.257 592.169 161.106 591.867 161.106C596.155 150.611 601.176 140.848 606.928 131.816L616.691 113.804C616.691 113.148 618.785 109.086 622.973 101.619C622.973 101.064 624.612 97.9858 627.892 92.3853C633.089 83.1014 635.688 77.0972 635.688 74.3726H635.158C618.608 74.3726 610.333 75.5078 610.333 77.7783C591.413 94.126 577.285 105.655 567.951 112.366H567.497V111.912C567.799 110.6 568.455 109.944 569.464 109.944V109.414C568.859 109.414 567.875 109.111 566.513 108.506C566.513 109.515 565.705 110.474 564.091 111.382H563.107V110.928C563.107 110.575 563.258 110.398 563.561 110.398L563.107 109.414V108.506L564.545 105.554L562.123 106.008H561.669L565.529 98.7427L571.356 93.8989L588.915 77.7783V76.3403C588.158 76.3403 587.502 76.1637 586.947 75.8105C586.645 75.8105 586.493 75.9871 586.493 76.3403L584.071 75.8105H576.73C574.964 75.8105 572.694 75.6592 569.918 75.3564C569.616 75.3564 569.464 75.5078 569.464 75.8105C569.212 75.8105 568.228 75.6592 566.513 75.3564C541.184 75.3564 528.52 74.3726 528.52 72.4048C531.547 69.8315 534.297 68.5449 536.769 68.5449V68.999C537.223 68.6963 538.358 68.5449 540.175 68.5449V68.0151H538.737V67.1069H539.267C541.789 67.1069 547.794 66.9303 557.279 66.5771L557.733 65.5933L555.312 65.1392H549.938V64.1553C550.089 64.1553 551.704 63.6759 554.782 62.7173L555.766 63.1714C555.967 63.1714 556.623 63.02 557.733 62.7173L558.717 63.1714L559.701 62.7173C560.357 62.7173 560.685 62.8687 560.685 63.1714L565.529 62.7173H576.276V64.1553H577.26C577.865 64.1553 578.168 63.6759 578.168 62.7173H578.698C578.698 63.6759 579.833 64.1553 582.104 64.1553H585.963C587.073 64.1553 587.906 64.0039 588.461 63.7012L591.337 64.1553H597.165L600.57 63.7012V63.1714H599.132V62.7173C599.233 62.0614 599.561 61.7334 600.116 61.7334H603.976C607.76 61.7334 610.863 60.4215 613.285 57.7979C613.285 58.151 613.437 58.3276 613.739 58.3276C613.739 57.4699 614.395 56.814 615.707 56.3599C615.707 55.3507 618.306 53.0802 623.502 49.5483C624.108 48.186 630.919 42.3332 643.937 31.9897C661.294 17.2567 673.151 6.71143 679.508 0.354004ZM651.732 41.7529C639.724 52.2982 633.72 57.8231 633.72 58.3276V59.7656C634.275 60.1188 634.931 60.2954 635.688 60.2954H637.125L640.531 59.7656V60.2954C644.265 60.2954 647.015 57.369 648.781 51.5161C651.404 47.1769 652.716 44.0739 652.716 42.207L651.732 41.7529ZM629.784 62.7173C631.096 62.7173 631.752 62.8687 631.752 63.1714C632.408 62.8687 632.912 62.7173 633.266 62.7173C633.821 62.7173 636.722 62.5407 641.969 62.1875V61.2036H640.985C633.518 61.2036 629.784 61.7082 629.784 62.7173ZM585.509 62.1875H590.353V63.1714H585.509V62.1875ZM602.084 62.7173V63.1714L604.506 63.7012V62.7173H602.084ZM558.717 65.5933V66.123H562.123V65.5933H558.717ZM554.328 70.5127V71.4966H556.295V70.9668L554.328 70.5127ZM557.279 70.9668V71.4966H562.577V70.9668H557.279ZM563.107 70.9668V71.9507H577.714V71.4966C573.072 71.4966 568.203 71.32 563.107 70.9668ZM624.486 71.9507H617.675C617.776 72.6066 618.078 72.9346 618.583 72.9346H619.567C620.727 72.9346 622.191 72.758 623.957 72.4048L624.94 72.9346C625.495 72.5814 626.303 72.4048 627.362 72.4048L626.908 71.4966L624.486 71.9507ZM630.314 71.9507V72.4048C631.878 72.1021 633.997 71.9507 636.671 71.9507V71.4966H631.752C631.146 71.7993 630.667 71.9507 630.314 71.9507ZM565.983 73.9185V74.3726C569.818 74.3726 572.921 74.5492 575.292 74.9023C576.553 74.5492 577.689 74.3726 578.698 74.3726V73.3887H570.902L565.983 73.9185ZM581.12 73.9185C581.221 74.5744 581.549 74.9023 582.104 74.9023H583.542C583.542 74.2464 583.214 73.9185 582.558 73.9185H581.12ZM561.669 106.008V106.538C561.669 107.194 561.341 107.522 560.685 107.522V106.992C560.786 106.336 561.114 106.008 561.669 106.008ZM561.669 115.317H562.577V115.771C562.577 116.427 562.274 116.755 561.669 116.755C561.013 116.755 560.685 116.427 560.685 115.771L561.669 115.317ZM596.71 155.732C596.71 156.086 596.534 156.565 596.181 157.17H598.148V156.716C598.148 156.06 597.82 155.732 597.165 155.732H596.71Z" />
@@ -182,13 +174,12 @@ const Navbar = () => {
             </svg>
           </Link>
           <div
-            className={`flex gap-4 ${
-              route === "/"
-                ? y > 80 && !open
-                  ? "text-black"
-                  : "text-white"
-                : "text-black"
-            }`}
+            className={`flex gap-4 ${route === "/"
+              ? y > 80 && !open
+                ? "text-black"
+                : "text-white"
+              : "text-black"
+              }`}
           >
             {!showSearch ? (
               <svg
@@ -216,40 +207,41 @@ const Navbar = () => {
           </div>
         </div>
         <ul
-          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all  uppercase w-full h-screen top-0 left-0 ${
-            route === "/"
-              ? y > 80 || open
-                ? "text-black/60 bg-white md:bg-transparent"
-                : "text-white/70"
-              : "text-black/60 bg-white"
-          } md:group-hover:text-black/60 md:static md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${
-            open ? "ulOpen" : "ulClose"
-          }`}
+          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all  uppercase w-full h-screen top-0 left-0 ${route === "/"
+            ? y > 80 || open
+              ? "text-black/60 bg-white md:bg-transparent"
+              : "text-white/70"
+            : "text-black/60 bg-white"
+            } md:group-hover:text-black/60 md:static md:gap-8 md:items-center md:justify-center md:pt-4 md:flex-row md:w-auto md:h-auto ${open ? "ulOpen" : "ulClose"
+            }`}
         >
           <motion.li
             className="will-change-transform"
             initial={
-              deviceWidth < 768
+              deviceWidth > 0 && deviceWidth < 768
                 ? {
                     x: -20,
                     opacity: 0,
                   }
-                : null
+                : false
             }
-            whileInView={{
-              x: 0,
-              opacity: 1,
-              transition: { ease: "linear" },
-            }}
+            whileInView={
+              deviceWidth > 0 && deviceWidth < 768
+                ? {
+                    x: 0,
+                    opacity: 1,
+                    transition: { ease: "linear" },
+                  }
+                : undefined
+            }
           >
             <Link
               href="/"
-              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${
-                route === "/" &&
+              className={`md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300 transition-colors pb-4 block md:inline-block border-b border-black/10 md:border-none hover:text-black ${route === "/" &&
                 (y > 80 || open
                   ? "text-black"
                   : "text-white group-hover:text-black")
-              }`}
+                }`}
             >
               Home
             </Link>
@@ -260,30 +252,39 @@ const Navbar = () => {
             return (
               <motion.li
                 key={link.text}
-                onClick={() =>
+                onMouseOver={() =>
                   link.text === "Categories"
-                    ? setShowCategories((prev) => !prev)
+                    ? setShowCategories(true)
+                    : null
+                }
+                onMouseLeave={() =>
+                  link.text === "Categories"
+                    ? setShowCategories(false)
                     : null
                 }
                 tabIndex={0}
-                className="will-change-transform group/drop"
+                className={`will-change-transform group/drop`}
                 initial={
-                  deviceWidth < 768
+                  deviceWidth > 0 && deviceWidth < 768
                     ? {
                         x: -20,
                         opacity: 0,
                       }
-                    : null
+                    : false
                 }
-                whileInView={{
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    duration: 0.2,
-                    delay: index * 0.2,
-                    ease: "linear",
-                  },
-                }}
+                whileInView={
+                  deviceWidth > 0 && deviceWidth < 768
+                    ? {
+                        x: 0,
+                        opacity: 1,
+                        transition: {
+                          duration: 0.2,
+                          delay: index * 0.2,
+                          ease: "linear",
+                        },
+                      }
+                    : undefined
+                }
               >
                 {/* <span
               className={`md:relative transition-colors pb-4 flex items-center justify-between border-b border-black/10 md:border-none hover:text-black `}
@@ -291,11 +292,11 @@ const Navbar = () => {
                 {/* </span> */}
 
                 <Link
-                  className="flex gap-1 items-center border-b md:border-none border-black/10 pb-4 md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300"
-                  href={link.route || "#"}
+                  className={`flex gap-1 items-center ${index !== links.length && "border-b"} md:border-none border-black/10 pb-4 md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300`}
+                  href={link.route || ""}
                 >
                   {link.text}
-                  {link.text === "Categories" && (
+                  {/*  {link.text === "Categories" && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -330,25 +331,30 @@ const Navbar = () => {
                         d="M12 5v14"
                       />
                     </svg>
-                  )}
+                  )} */}
                 </Link>
-                {link.sublinks && (
-                  <ul
-                    className={`${
-                      showCategories ? "block" : "hidden"
-                    } md:shadow-md static md:absolute mt-2 left-0 bg-white max-w-90 rounded text-black/60 *:hover:text-black`}
-                  >
-                    {link.sublinks.map((link) => (
-                      <Link
-                        key={link.text}
-                        className="block px-5 py-1 md:first:pt-2 md:last:pb-2 text-nowrap"
-                        href={link.route}
-                      >
-                        {link.text}
-                      </Link>
-                    ))}
-                  </ul>
-                )}
+                <AnimatePresence>
+                  {link.sublinks && showCategories && (
+                    <motion.ul
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      transition={{ bounce: 0 }}
+                      key={"categories-drop"}
+                      className={`md:shadow-md static md:absolute mt-2 left-0 border border-gray-200 bg-white max-w-90 rounded text-black/60 *:hover:text-black`}
+                    >
+                      {link.sublinks.map((link) => (
+                        <Link
+                          key={link.text}
+                          className="block px-5 py-1 md:first:pt-2 md:last:pb-2 text-nowrap"
+                          href={link.route}
+                        >
+                          {link.text}
+                        </Link>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
               </motion.li>
             )
           })}
@@ -562,7 +568,7 @@ export const Filter = ({ setShowSearch, products }) => {
     })
   }, [])
   return (
-    <div className="z-3 flex flex-col absolute w-full h-screen border-t border-black/10  left-0 top-full">
+    <div className="z-3 flex flex-col fixed w-full h-screen border-t border-black/10  left-0 top-18 md:top-28">
       <div className="relative">
         <div className="relative">
           <svg

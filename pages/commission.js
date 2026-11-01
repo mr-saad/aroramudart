@@ -29,7 +29,7 @@ export default function Commission({ products }) {
     setProducts(products)
   }, [])
   return (
-    <div>
+    <div className="Container p-0! md:px-4!">
       <div className="grid md:grid-cols-2 md:gap-15 gap-5 max-w-4xl mx-auto md:mt-10">
         <Image
           alt="Customized Colors, Designs & Patterns"
@@ -38,7 +38,7 @@ export default function Commission({ products }) {
           height={500}
           className="w-full object-cover object-bottom"
         />
-        <div>
+        <div className="px-4 md:px-0">
           <h2 className="text-black text-xl uppercase">
             Tell Us Your Needs & We're On It
           </h2>
