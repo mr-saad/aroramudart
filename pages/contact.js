@@ -82,17 +82,17 @@ const Contact = ({ products }) => {
         <li>
           Whatsapp -{" "}
           <a className="border-b  text-black" href="https://wa.me/919979692226">
-            +91 99796 62226
+            +91 99796 72226
           </a>
         </li>
         <li>
           Phone -{" "}
           <a className="border-b  text-black" href="tel:919979662226">
-            +91 99796 62226
+            +91 99796 72226
           </a>
         </li>
       </ul>*/}
-      <div className="grid md:grid-cols-2 gap-5">
+      <div className="grid gap-5">
         <div>
           <p className="mb-5">
             For any inquiries, questions, or feedback regarding our mud art
@@ -113,7 +113,7 @@ const Contact = ({ products }) => {
             surroundings.
           </p>
         </div>
-        <div>
+        <div className="justify-self-center max-w-xl w-full">
           {state.errors && <div className="text-red-700 mb-5 capitalize">
             <ValidationError
               field="email"

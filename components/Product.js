@@ -14,7 +14,7 @@ const Product = ({
 
   return (
     <Link className="uppercase group relative" href={`/products/${slug}`}>
-      <div className="overflow-hidden flex justify-center items-center aspect-square bg-[#f4f4f4]">
+      <div className="overflow-hidden flex justify-center items-center aspect-square">
         {url ? (
           <Image
             sizes="(max-width: 768px) 40vw, 33vw"

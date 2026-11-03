@@ -18,21 +18,21 @@ const Footer = () => {
       <div className="max-w-7xl px-4 mx-auto">
         <div className="grid gap-5">
           <details onClick={onClick} className="group">
-            <summary className="text-black flex justify-between items-center cursor-pointer">
+            <summary className="text-black flex justify-between items-center cursor-pointer tracking-widest ">
               NEWSLETTER
               <span className="relative inline-flex items-center justify-center w-5 h-5 transition-transform duration-400 ease-in-out group-open:rotate-[360deg] select-none">
-                <span className="absolute w-4 h-[2px] bg-current rounded-full" />
-                <span className="absolute w-[2px] h-4 bg-current rounded-full transition-transform duration-400 ease-in-out group-open:scale-y-0" />
+                <span className="absolute w-4 h-[1px] bg-current rounded-full" />
+                <span className="absolute w-[1px] h-4 bg-current rounded-full transition-transform duration-400 ease-in-out group-open:scale-y-0" />
               </span>
             </summary>
             <p className="mt-5">
               Mud handicraft insights from clever artists direct to your inbox
             </p>
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex items-center gap-2 mt-2">
               <input
                 type="text"
                 placeholder="Your E-Mail"
-                className="input_text mb-0! w-auto!"
+                className="input_text mb-0!"
               />
               <button type="button" className="btn">
                 Submit
@@ -49,14 +49,14 @@ const Footer = () => {
             <div className="flex flex-col gap-4 mt-5"></div>
           </details> */}
           <details onClick={onClick} className="group">
-            <summary className="text-black flex justify-between items-center cursor-pointer">
+            <summary className="text-black flex justify-between items-center cursor-pointer tracking-widest ">
               CONTACT US
               <span className="relative inline-flex items-center justify-center w-5 h-5 transition-transform duration-400 ease-in-out group-open:rotate-[360deg] select-none">
-                <span className="absolute w-4 h-[2px] bg-current rounded-full" />
-                <span className="absolute w-[2px] h-4 bg-current rounded-full transition-transform duration-400 ease-in-out group-open:scale-y-0" />
+                <span className="absolute w-4 h-[1px] bg-current rounded-full" />
+                <span className="absolute w-[1px] h-4 bg-current rounded-full transition-transform duration-400 ease-in-out group-open:scale-y-0" />
               </span>
             </summary>
-            <div className="flex flex-col gap-4 mt-5">
+            <div className="flex flex-col gap-4 mt-5 pl-3">
               <a
                 target="_blank"
                 className="flex gap-2 items-center mt-3 hover:text-black transition"
@@ -64,8 +64,8 @@ const Footer = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -85,8 +85,8 @@ const Footer = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
+                  width="22"
+                  height="22"
                 >
                   <path
                     fill="currentColor"
@@ -102,8 +102,8 @@ const Footer = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="22"
+                  height="22"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -122,8 +122,8 @@ const Footer = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"

@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -23,6 +24,7 @@ const Navbar = () => {
   const [y, setY] = useState(0)
   const [deviceWidth, setDeviceWidth] = useState(0)
   const { route } = useRouter()
+  const pathname = usePathname()
 
   const { offers, categories, products } = useMudContext()
 
@@ -52,10 +54,10 @@ const Navbar = () => {
     let lastScroll = 0
     const scrollEvent = () => {
       setY(window.scrollY)
-      if (window.scrollY < lastScroll)
-        document.querySelector("nav").style.top = 0
-      else document.querySelector("nav").style.top = "-100%"
-      lastScroll = window.scrollY
+      // if (window.scrollY < lastScroll)
+      //   document.querySelector("nav").style.top = 0
+      // else document.querySelector("nav").style.top = "-100%"
+      // lastScroll = window.scrollY
     }
     window.addEventListener("scroll", scrollEvent)
 
@@ -64,11 +66,11 @@ const Navbar = () => {
     }
 
     window.addEventListener("resize", sizeListener)
-      ; () => {
-        window.removeEventListener("scroll", scrollEvent)
-        window.removeEventListener("resize", sizeListener)
-        ul.removeEventListener("click", linkEvent)
-      }
+    return () => {
+      window.removeEventListener("scroll", scrollEvent)
+      window.removeEventListener("resize", sizeListener)
+      ul.removeEventListener("click", linkEvent)
+    }
   }, [])
 
   return (
@@ -95,7 +97,7 @@ const Navbar = () => {
               </Swiper>
             )}*/}
       <nav
-        className={`group sticky md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-3 md:px-20 pt-4 pb-4 md:pb-0 ${route === "/"
+        className={`group w-full ${pathname === "/" ? "fixed" : "sticky"} text-sm tracking-widest md:hover:bg-white md:hover:border-b border-gray-200  transition-[top,background-color] duration-[500ms,150ms] px-4 z-3 md:px-20 pt-4 pb-4 md:pb-0 ${route === "/"
           ? y > 80
             ? "bg-white border-b"
             : "bg-transparent"
@@ -220,18 +222,18 @@ const Navbar = () => {
             initial={
               deviceWidth > 0 && deviceWidth < 768
                 ? {
-                    x: -20,
-                    opacity: 0,
-                  }
+                  x: -20,
+                  opacity: 0,
+                }
                 : false
             }
             whileInView={
               deviceWidth > 0 && deviceWidth < 768
                 ? {
-                    x: 0,
-                    opacity: 1,
-                    transition: { ease: "linear" },
-                  }
+                  x: 0,
+                  opacity: 1,
+                  transition: { ease: "linear" },
+                }
                 : undefined
             }
           >
@@ -267,22 +269,22 @@ const Navbar = () => {
                 initial={
                   deviceWidth > 0 && deviceWidth < 768
                     ? {
-                        x: -20,
-                        opacity: 0,
-                      }
+                      x: -20,
+                      opacity: 0,
+                    }
                     : false
                 }
                 whileInView={
                   deviceWidth > 0 && deviceWidth < 768
                     ? {
-                        x: 0,
-                        opacity: 1,
-                        transition: {
-                          duration: 0.2,
-                          delay: index * 0.2,
-                          ease: "linear",
-                        },
-                      }
+                      x: 0,
+                      opacity: 1,
+                      transition: {
+                        duration: 0.2,
+                        delay: index * 0.2,
+                        ease: "linear",
+                      },
+                    }
                     : undefined
                 }
               >
@@ -568,20 +570,19 @@ export const Filter = ({ setShowSearch, products }) => {
     })
   }, [])
   return (
-    <div className="z-3 flex flex-col fixed w-full h-screen border-t border-black/10  left-0 top-18 md:top-28">
+    <div className="z-3 flex flex-col fixed w-full h-screen border-t border-black/10  left-0 top-18 md:top-27">
       <div className="relative">
         <div className="relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            size={16}
             className="absolute top-1/2 -translate-y-1/2 left-3
           "
           >
@@ -594,12 +595,12 @@ export const Filter = ({ setShowSearch, products }) => {
             onChange={(e) => setInput(e.target.value)}
             type="text"
             placeholder="Search For..."
-            className="px-10 bg-white pl-13 w-full py-3 uppercase text-black outline-none placeholder:text-black/50 border-black/50 focus:border-black"
+            className="px-10 text-xs tracking-widest bg-white pl-13 w-full py-4 md:py-3 text-black outline-none placeholder:text-black/50 border-black/50 focus:border-black"
           />
           <svg
             onClick={() => setShowSearch(false)}
             size={25}
-            color={"#0c0908"}
+            color={"currentColor"}
             className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2"
             xmlns="http://www.w3.org/2000/svg"
             width="24"

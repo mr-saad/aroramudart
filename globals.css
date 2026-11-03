@@ -25,9 +25,11 @@
     "Noto Color Emoji";
   font-weight: normal;
 }
+
 *::selection {
   @apply bg-black text-white;
 }
+
 :root {
   --swiper-pagination-color: #000;
   --swiper-pagination-bottom: -1rem;
@@ -36,20 +38,21 @@
   --swiper-navigation-top-offset: 30%;
   --swiper-navigation-sides-offset: 0;
 }
+
 .swiper-pagination {
   position: unset !important;
 }
 
-html{
+html {
   scrollbar-width: thin;
   scrollbar-gutter: stable;
 }
 
 body {
-  @apply transition-colors text-black/60;
+  @apply transition-colors text-zinc-600;
 }
 
-.Container{
+.Container {
   @apply max-w-7xl p-4 mx-auto;
 }
 
@@ -60,14 +63,17 @@ body {
 .heading {
   @apply text-[1.35rem] md:text-2xl text-black uppercase;
 }
+
 .btn {
-  @apply flex items-center justify-center gap-2 cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white  self-start px-5 py-2;
+  @apply uppercase flex text-xs tracking-[.2rem] items-center justify-center gap-2 cursor-pointer transition ease-out text-white bg-black border border-black hover:text-black focus-within:text-black focus-within:bg-white hover:bg-white self-start px-5 py-3;
 }
+
 .neutral-btn {
-  @apply opacity-70 hover:opacity-100 focus-within:opacity-100 transition ease-out border text-black  px-3 py-2;
+  @apply opacity-70 hover:opacity-100 focus-within:opacity-100 transition ease-out border text-black px-3 py-2;
 }
+
 .input_text {
-  @apply py-2 px-3 mb-4 w-full transition ease-out  text-black  bg-transparent border border-black/10 outline-none  focus:border-black;
+  @apply py-2 px-3 mb-4 w-full transition ease-out text-black bg-transparent border border-black/10 outline-none focus:border-black;
 }
 
 .over-hide {
@@ -82,6 +88,7 @@ form label {
   .ulClose {
     @apply -left-full;
   }
+
   .ulOpen {
     @apply left-0;
   }

@@ -166,19 +166,11 @@ export default function DynamicProduct({
           </Swiper>
         </div>
 
-        <div className="md:self-start">
+        <div className="md:self-start shrink-0">
           <h1 className="text-black text-2xl">{title}</h1>
           <p className="text-xl my-2">{size}</p>
           <p className="mb-2">${discountedPrice}</p>
-          <button
-            onClick={async () => {
-              await navigator.clipboard.writeText(location.href)
-              toast.info("Product link copied to clipboard.")
-            }}
-            className="btn py-1! px-2! mb-4"
-          >
-            <Share2 fill="white" strokeWidth={1} />
-          </button>
+
           {!showForm ? (
             body && (
               <>
@@ -201,6 +193,15 @@ export default function DynamicProduct({
             <>
               <p className="text-xl mb-5">Order now on any followings</p>
               <div className="flex flex-wrap gap-5 md:gap-8">
+              {/*<button
+            onClick={async () => {
+              await navigator.clipboard.writeText(location.href)
+              toast.info("Product link copied to clipboard.")
+            }}
+            className="btn py-1! px-2! mb-4"
+          >
+            <Share2 fill="white" strokeWidth={1} />
+          </button>*/}
                 <a
                   target="_blank"
                   className="btn"
@@ -219,6 +220,7 @@ export default function DynamicProduct({
                   </svg>
                   WhatsApp
                 </a>
+
                 <a
                   target="_blank"
                   className="btn"

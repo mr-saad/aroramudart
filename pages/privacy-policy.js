@@ -1,6 +1,6 @@
 export default function Privacy() {
   return (
-    <div>
+    <div className="Container">
       <h1 className="heading">Privacy Policy</h1>
       <p>
         At Arora Mud Art, we are committed to protecting your privacy and

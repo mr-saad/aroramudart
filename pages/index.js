@@ -56,7 +56,7 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
 
   return (
     <section>
-      <div className="h-[calc(95vh-100px)] md:h-[calc(95vh-126px)]"></div>
+      <div className="h-[92vh] md:h-[95vh]"></div>
       <header className="h-[95vh] w-full absolute top-0 left-0">
         <div className="absolute inset-0 z-1 bg-black/45"></div>
         <video
@@ -70,7 +70,7 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
         ></video>
         <button
           onClick={() => lenis.scrollTo("#creations", { offset: -40 })}
-          className="absolute z-2 text-center cursor-pointer tracking-[.15rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
+          className="absolute z-2 text-center cursor-pointer text-xs tracking-[.2rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
         >
           Shop Latest
         </button>

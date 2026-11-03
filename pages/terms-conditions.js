@@ -1,6 +1,6 @@
 export default function Terms() {
   return (
-    <div>
+    <div className="Container">
       <h1 className="heading">Terms & Conditions</h1>
       <p> Welcome to Arora Mud Art! </p>
       <p>

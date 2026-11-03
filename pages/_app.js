@@ -78,12 +78,12 @@ const App = ({ Component, pageProps }) => {
         />
       </Head>
 
-      <ReactLenis
+  {/*    <ReactLenis
         root
         options={{
           lerp: 0.08,
         }}
-      />
+      />*/}
       <Context.Provider
         value={{
           products,
