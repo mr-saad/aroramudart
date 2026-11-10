@@ -8,6 +8,7 @@ import "swiper/css"
 import "swiper/css/navigation"
 import { Autoplay, Navigation } from "swiper/modules"
 import { useMudContext } from "../lib/Context"
+import { ChevronRight } from "lucide-react"
 
 const links = [
   { text: "Categories" },
@@ -17,6 +18,17 @@ const links = [
   { text: "About", route: "/about" },
   { text: "Contact", route: "/contact" },
 ]
+
+const navItemVariants = {
+  initial: { x: -20, opacity: 0 },
+  desktop: { x: 0, opacity: 1 },
+  open: (delay = 0) => ({
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.2, delay, bounce: 0 },
+  }),
+  closed: { x: -20, opacity: 0 },
+}
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -51,7 +63,7 @@ const Navbar = () => {
     }
     ul.addEventListener("click", linkEvent)
 
-    let lastScroll = 0
+    // let lastScroll = 0
     const scrollEvent = () => {
       setY(window.scrollY)
       // if (window.scrollY < lastScroll)
@@ -209,7 +221,7 @@ const Navbar = () => {
           </div>
         </div>
         <ul
-          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all  uppercase w-full h-screen top-0 left-0 ${route === "/"
+          className={`z-3 px-4 flex flex-col gap-4 pt-20 fixed transition-all  uppercase w-full h-screen top-0 ${route === "/"
             ? y > 80 || open
               ? "text-black/60 bg-white md:bg-transparent"
               : "text-white/70"
@@ -218,24 +230,12 @@ const Navbar = () => {
             }`}
         >
           <motion.li
+            key={deviceWidth < 768 ? `mobile-home-${open}` : "desktop-home"}
             className="will-change-transform"
-            initial={
-              deviceWidth > 0 && deviceWidth < 768
-                ? {
-                  x: -20,
-                  opacity: 0,
-                }
-                : false
-            }
-            whileInView={
-              deviceWidth > 0 && deviceWidth < 768
-                ? {
-                  x: 0,
-                  opacity: 1,
-                  transition: { ease: "linear" },
-                }
-                : undefined
-            }
+            variants={navItemVariants}
+            initial={deviceWidth > 0 && deviceWidth < 768 ? "initial" : false}
+            animate={deviceWidth >= 768 ? "desktop" : open ? "open" : "closed"}
+            custom={0}
           >
             <Link
               href="/"
@@ -253,7 +253,7 @@ const Navbar = () => {
             ++index
             return (
               <motion.li
-                key={link.text}
+                key={deviceWidth < 768 ? `m-${link.text}-${open}` : `d-${link.text}`}
                 onMouseOver={() =>
                   link.text === "Categories"
                     ? setShowCategories(true)
@@ -266,93 +266,52 @@ const Navbar = () => {
                 }
                 tabIndex={0}
                 className={`will-change-transform group/drop`}
-                initial={
-                  deviceWidth > 0 && deviceWidth < 768
-                    ? {
-                      x: -20,
-                      opacity: 0,
-                    }
-                    : false
-                }
-                whileInView={
-                  deviceWidth > 0 && deviceWidth < 768
-                    ? {
-                      x: 0,
-                      opacity: 1,
-                      transition: {
-                        duration: 0.2,
-                        delay: index * 0.2,
-                        ease: "linear",
-                      },
-                    }
-                    : undefined
-                }
+                variants={navItemVariants}
+                initial={deviceWidth > 0 && deviceWidth < 768 ? "initial" : false}
+                animate={deviceWidth >= 768 ? "desktop" : open ? "open" : "closed"}
+                custom={index * 0.2}
               >
-                {/* <span
-              className={`md:relative transition-colors pb-4 flex items-center justify-between border-b border-black/10 md:border-none hover:text-black `}
-            > */}
-                {/* </span> */}
+                {link.text === "Categories" ?
+                  <button
+                    className={`flex uppercase gap-1 items-center ${index !== links.length && "border-b"} md:border-none border-black/10 pb-4 md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300`}
+                  >
+                    {link.text}
+                  </button>
+                  : <Link
+                    className={`flex gap-1 items-center ${index !== links.length && "border-b"} md:border-none border-black/10 pb-4 md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300`}
+                    href={link.route || ""}
+                  >
+                    {link.text}
+                  </Link>}
 
-                <Link
-                  className={`flex gap-1 items-center ${index !== links.length && "border-b"} md:border-none border-black/10 pb-4 md:relative md:after:absolute after:bottom-0 after:h-0.5 after:bg-black after:w-0 hover:after:w-full  after:left-0 after:transition-all after:duration-300`}
-                  href={link.route || ""}
-                >
-                  {link.text}
-                  {/*  {link.text === "Categories" && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h14" />
-
-                      <motion.path
-                        animate={
-                          showCategories
-                            ? {
-                                rotate: "90deg",
-                                transition: {
-                                  ease: "easeInOut",
-                                  duration: 0.3,
-                                },
-                              }
-                            : {
-                                rotate: 0,
-                                transition: {
-                                  ease: "easeInOut",
-                                  duration: 0.3,
-                                },
-                              }
-                        }
-                        d="M12 5v14"
-                      />
-                    </svg>
-                  )} */}
-                </Link>
                 <AnimatePresence>
                   {link.sublinks && showCategories && (
                     <motion.ul
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
                       transition={{ bounce: 0 }}
                       key={"categories-drop"}
-                      className={`md:shadow-md static md:absolute mt-2 left-0 border border-gray-200 bg-white max-w-90 rounded text-black/60 *:hover:text-black`}
+                      className={`md:shadow-md static md:absolute left-0 md:border border-gray-200 bg-white  text-black/60 *:hover:text-black`}
                     >
-                      {link.sublinks.map((link) => (
-                        <Link
+                      {link.sublinks.map((link, i) => (
+                        <motion.li
                           key={link.text}
-                          className="block px-5 py-1 md:first:pt-2 md:last:pb-2 text-nowrap"
-                          href={link.route}
+                          className="md:first-of-type:pt-3 md:last-of-type:pb-3"
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: 20, opacity: 0, transition: { duration: 0 } }}
+                          transition={{ bounce: 0, delay: 0.08 * i, duration: 0.15 }}
                         >
-                          {link.text}
-                        </Link>
+                          <Link
+                            key={link.text}
+                            className="flex gap-7 items-center justify-between px-5 py-2 text-nowrap"
+                            href={link.route}
+                          >
+                            {link.text}
+                            <ChevronRight size={16} className="shrink-0" />
+                          </Link>
+                        </motion.li>
                       ))}
                     </motion.ul>
                   )}

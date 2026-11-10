@@ -3,9 +3,7 @@ import Head from "next/head"
 import dynamic from "next/dynamic"
 import { useRouter } from "next/router"
 import { useMudContext } from "../../lib/Context"
-// import Grid2 from "../../lib/assets/grid2.svg"
-import Grid3 from "../../lib/assets/grid3.svg"
-import List from "../../lib/assets/list.svg"
+import Select from "../../components/Select";
 
 const Product = dynamic(() => import("../../components/Product"))
 
@@ -44,6 +42,7 @@ const Products = ({ products, categories }) => {
 
   const [finalProducts, setFinalProducts] = useState(products)
   const [layout, setLayout] = useState("3x3")
+  const [sorting, setSorting] = useState("desc")
 
   const selectedCat = useRouter().query.category
 
@@ -63,34 +62,6 @@ const Products = ({ products, categories }) => {
           <div className="Container py-0! flex gap-3 text-[0.815rem] tracking-widest">
             <div className="flex gap-4 items-center">
               <svg
-                title={"Two Columns"}
-                alt={"Two Columns"}
-                onClick={() => setLayout("2x2")}
-                className={`cursor-pointer transition-colors ${layout === "2x2"
-                  ? "opacity-100"
-                  : "opacity-50 hover:opacity-100 focus-visible:opacity-100"
-                  }`}
-                role="presentation" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path fill="#000" d="M0 0h8v8H0zM0 10h8v8H0zM10 0h8v8h-8zM10 10h8v8h-8z"></path>
-              </svg>
-
-
-              <svg
-                title={"Three Columns"}
-                alt={"Three Columns"}
-                onClick={() => setLayout("3x3")}
-                className={`hidden md:inline cursor-pointer transition-colors ${layout === "3x3"
-                  ? "opacity-100"
-                  : "opacity-50 hover:opacity-100 focus-visible:opacity-100"
-                  }`}
-                role="presentation" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path fill="#000" d="M0 0h4v4H0zM0 7h4v4H0zM0 14h4v4H0zM7 0h4v4H7zM7 7h4v4H7zM7 14h4v4H7zM14 0h4v4h-4zM14 7h4v4h-4zM14 14h4v4h-4z"></path>
-              </svg>
-
-
-
-
-              <svg
                 title={"List View"}
                 alt={"List View"}
                 onClick={() => setLayout("rows")}
@@ -102,13 +73,33 @@ const Products = ({ products, categories }) => {
                 <path fill="#000" d="M0 0h18v2H0zm0 4h18v2H0zm0 4h18v2H0zm0 4h18v2H0zm0 4h18v2H0z"></path>
               </svg>
 
+              <svg
+                title={"Two Columns"}
+                alt={"Two Columns"}
+                onClick={() => setLayout("2x2")}
+                className={`cursor-pointer transition-colors ${layout === "2x2"
+                  ? "opacity-100"
+                  : "opacity-50 hover:opacity-100 focus-visible:opacity-100"
+                  }`}
+                role="presentation" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path fill="#000" d="M0 0h8v8H0zM0 10h8v8H0zM10 0h8v8h-8zM10 10h8v8h-8z"></path>
+              </svg>
+
+              <svg
+                title={"Three Columns"}
+                alt={"Three Columns"}
+                onClick={() => setLayout("3x3")}
+                className={`hidden lg:inline cursor-pointer transition-colors ${layout === "3x3"
+                  ? "opacity-100"
+                  : "opacity-50 hover:opacity-100 focus-visible:opacity-100"
+                  }`}
+                role="presentation" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path fill="#000" d="M0 0h4v4H0zM0 7h4v4H0zM0 14h4v4H0zM7 0h4v4H7zM7 7h4v4H7zM7 14h4v4H7zM14 0h4v4h-4zM14 7h4v4h-4zM14 14h4v4h-4z"></path>
+              </svg>
             </div>
             <p className="grow uppercase p-5 text-center border-x border-gray-300">{finalProducts.length} Product{finalProducts.length > 1 && "s"}</p>
-            <select name="sort" id="sort" className="uppercase">
-              <option>Sort By</option>
-              <option>Newest First</option>
-              <option>Oldest First</option>
-            </select>
+
+            <Select className="shrink-0" value={sorting} onChange={(e) => setSorting(e)} placeholder={"Sort By"} options={[{ label: "Newest First", value: "desc" }, { label: "Oldest First", value: "asc" }]} />
           </div>
         </div>
         {/*  {selectedCat ? (

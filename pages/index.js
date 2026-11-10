@@ -1,4 +1,3 @@
-import Link from "next/link"
 import "swiper/css"
 import "swiper/css/pagination"
 import { useEffect } from "react"
@@ -54,6 +53,8 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
 
   const lenis = useLenis()
 
+  console.log(lenis)
+
   return (
     <section>
       <div className="h-[92vh] md:h-[95vh]"></div>
@@ -69,7 +70,7 @@ const Home = ({ sections, prods, headerMedia, offers, categories }) => {
           className="absolute inset-0 w-full h-[95vh] object-cover"
         ></video>
         <button
-          onClick={() => lenis.scrollTo("#creations", { offset: -40 })}
+          onClick={() => lenis.scrollTo("#creations", { offset: -120 })}
           className="absolute z-2 text-center cursor-pointer text-xs tracking-[.2rem] bottom-24 uppercase left-1/2 -translate-x-1/2 border border-white  py-2 text-white px-4 hover:bg-white hover:text-black transition-colors"
         >
           Shop Latest

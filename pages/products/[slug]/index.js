@@ -3,9 +3,8 @@ import PortableText from "react-portable-text"
 import { BarLoader } from "react-spinners"
 import Head from "next/head"
 import Image from "next/image"
-import { Toaster, toast } from "sonner"
+import { Toaster } from "sonner"
 import Product from "../../../components/Product"
-import Model from "../../../components/Model"
 import { useRouter } from "next/router"
 import { Pagination, Keyboard } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -15,6 +14,7 @@ import dynamic from "next/dynamic"
 import SuccessJson from "./success.json"
 import { useMudContext } from "../../../lib/Context"
 import { Instagram, Share2 } from "lucide-react"
+import useDeviceWidth from "../../../lib/utils/useDeviceWidth";
 
 export const getStaticPaths = async () => {
   const { default: sanity } = await import("../../../components/sanityClient")
@@ -58,7 +58,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   ])
 
   const mayLikes = await sanity.fetch(
-    `*[category==$category && slug.current!=$slug][0..2]{
+    `*[_type == "product" && category==$category && slug.current!=$slug][0..2]{
      title,
      "slug":slug.current,
      "image":mainImage.asset->{url,"lqip":metadata.lqip},
@@ -85,7 +85,7 @@ export default function DynamicProduct({
     discount,
     size,
     instock,
-    image: { url, lqip },
+    image,
     model,
     images,
     body,
@@ -95,8 +95,11 @@ export default function DynamicProduct({
   categories,
 }) {
   const [showForm, setShowForm] = useState(false)
-  const [show3d, setShow3d] = useState(false)
   const { setProducts, setCategories } = useMudContext()
+  const [previewImage, setPreviewImage] = useState(image)
+
+  const deviceWidth = useDeviceWidth()
+
   useEffect(() => {
     setProducts(prods)
     setCategories(categories)
@@ -104,62 +107,69 @@ export default function DynamicProduct({
   const discountedPrice = price - discount
 
   const title1 = `${title} | Arora Mud Art`
+
   return (
     <div className="Container min-h-[80vh]">
       <Head>
         <title>{title1}</title>
       </Head>
       <Toaster />
-      {/*{show3d && <Model url={model.url} setShow3d={setShow3d} />}*/}
-      <div className="flex md:gap-10 flex-col md:flex-row">
-        <div className="max-w-lg w-full">
+      <div className="flex gap-5 md:gap-10 flex-col md:flex-row">
+        <div className="max-w-lg mx-auto items-center md:mx-0 md:items-stretch w-full flex flex-col lg:flex-row">
+          <Image
+            priority
+            loading="eager"
+            className="object-contain md:flex-1 shrink-0 bg-white cursor-grab active:cursor-grabbing"
+            sizes="(max-width: 640px) 90vw, 40vw"
+            width={400}
+            height={400}
+            src={previewImage.url}
+            alt={title}
+            placeholder="blur"
+            blurDataURL={previewImage.lqip}
+          />
           <Swiper
+            key={deviceWidth > 1024 ? "vertical" : "horizontal"}
             modules={[Pagination, Keyboard]}
             keyboard
             pagination
+            direction={deviceWidth > 1024 ? "vertical" : "horizontal"}
+            className="w-full md:w-28 max-h-40 md:max-h-100 shrink-0"
             style={{ zIndex: "auto" }}
-            className="mx-0!"
-            wrapperClass="items-center"
+            slidesPerView={4}
           >
-            <div className="flex justify-between items-end z-2 absolute w-full bottom-6">
-              {/*  {model ? (
-                <button
-                  onClick={() => setShow3d(true)}
-                  className="btn py-1! px-2!"
-                >
-                  View 3D
-                </button>
-              ) : (
-                <button></button>
-              )}*/}
-
-            </div>
-            <SwiperSlide>
+            <SwiperSlide
+              className="h-auto!"
+              onClick={() => setPreviewImage(image)}
+            >
               <Image
-                priority
-                loading="eager"
-                className="object-contain w-full bg-[#f4f4f4] cursor-grab active:cursor-grabbing"
-                sizes="(max-width: 640px) 90vw, 40vw"
+                className="object-contain h-full bg-white cursor-pointer active:cursor-grabbing"
+                sizes="(max-width: 640px) 80vw, 40vw"
                 width={400}
                 height={400}
-                src={url}
+                src={image.url}
                 alt={title}
                 placeholder="blur"
-                blurDataURL={lqip}
+                blurDataURL={image.lqip}
               />
             </SwiperSlide>
+
             {images?.length &&
-              images?.map(({ url: slideUrldeUrl, lqip: slideLqip }) => (
-                <SwiperSlide key={slideUrldeUrl}>
+              images?.map((image) => (
+                <SwiperSlide
+                  key={image.url}
+                  className="h-auto!"
+                  onClick={() => setPreviewImage(image)}
+                >
                   <Image
-                    className="object-contain w-full bg-[#f4f4f4] cursor-grab active:cursor-grabbing"
+                    className="object-contain h-full bg-white cursor-pointer active:cursor-grabbing"
                     sizes="(max-width: 640px) 80vw, 40vw"
                     width={400}
                     height={400}
-                    src={slideUrldeUrl}
+                    src={image.url}
                     alt={title}
                     placeholder="blur"
-                    blurDataURL={slideLqip}
+                    blurDataURL={image.lqip}
                   />
                 </SwiperSlide>
               ))}
@@ -168,7 +178,7 @@ export default function DynamicProduct({
 
         <div className="md:self-start shrink-0">
           <h1 className="text-black text-2xl">{title}</h1>
-          <p className="text-xl my-2">{size}</p>
+          <p className="my-2">{size}</p>
           <p className="mb-2">${discountedPrice}</p>
 
           {!showForm ? (
@@ -191,9 +201,9 @@ export default function DynamicProduct({
           )}
           {instock && (
             <>
-              <p className="text-xl mb-5">Order now on any followings</p>
+              <p className="mb-5">Order now on any followings</p>
               <div className="flex flex-wrap gap-5 md:gap-8">
-              {/*<button
+                {/*<button
             onClick={async () => {
               await navigator.clipboard.writeText(location.href)
               toast.info("Product link copied to clipboard.")
@@ -235,31 +245,35 @@ export default function DynamicProduct({
         </div>
       </div>
 
-      {mayLikes.length !== 0 && (
-        <div className="mt-24">
-          <h1 className="heading text-center mb-15">Related Products</h1>
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={24}
-            breakpoints={{
-              540: {
-                slidesPerView: 3,
-              },
-            }}
-            pagination
-            modules={[Pagination]}
-            style={{ zIndex: "auto" }}
-            wrapperClass="!z-auto"
-          >
-            {mayLikes.map((props) => (
-              <SwiperSlide key={props.slug}>
-                <Product {...props} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
-    </div>
+      {
+        mayLikes.length !== 0 && (
+          <div className="mt-24">
+            <h1 className="heading text-center mb-15">Related Products</h1>
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={24}
+              breakpoints={{
+                540: {
+                  slidesPerView: 3,
+                },
+              }}
+              pagination
+              modules={[Pagination]}
+              style={{ zIndex: "auto" }}
+              wrapperClass="!z-auto"
+            >
+              {mayLikes.map((props) => (
+                <SwiperSlide key={props.slug}>
+                  {JSON.stringify(props)}
+
+                  <Product {...props} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        )
+      }
+    </div >
   )
 }
 
